@@ -1,0 +1,3200 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>유럽 여행 플래너 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+
+  :root {
+    --netherlands: #00AEEF;
+    --france: #F05A28;
+    --switzerland: #9B59B6;
+    --italy-north: #27AE60;
+    --italy-south: #8E77C3;
+    --conference: #F39C12;
+    --bg: #F7F8FA;
+    --card: #FFFFFF;
+    --text: #1A1A2E;
+    --text-light: #6B7280;
+    --border: #E5E7EB;
+    --shadow: 0 2px 12px rgba(0,0,0,0.07);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  /* ── HEADER ── */
+  .hero {
+    background: linear-gradient(135deg, #1A1A2E 0%, #16213E 50%, #0F3460 100%);
+    color: #fff;
+    padding: 40px 32px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '✈';
+    position: absolute;
+    right: 40px; top: 20px;
+    font-size: 120px;
+    opacity: 0.06;
+    transform: rotate(-20deg);
+  }
+  .hero h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
+  .hero p { font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 6px; }
+  .country-chips {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px;
+  }
+  .chip {
+    padding: 4px 14px; border-radius: 20px;
+    font-size: 12px; font-weight: 500; color: #fff;
+  }
+
+  /* ── TABS ── */
+  .tab-bar {
+    display: flex; gap: 0;
+    background: var(--card);
+    border-bottom: 2px solid var(--border);
+    padding: 0 24px;
+    overflow-x: auto;
+    position: sticky; top: 0; z-index: 10;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .tab {
+    padding: 14px 18px;
+    font-size: 13px; font-weight: 500;
+    color: var(--text-light);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    white-space: nowrap;
+    transition: all 0.15s;
+  }
+  .tab.active { color: #0F3460; border-bottom-color: #0F3460; }
+  .tab:hover { color: #0F3460; }
+
+  /* ── CONTENT ── */
+  .content { padding: 24px; max-width: 1200px; margin: 0 auto; }
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* ── TIMELINE ── */
+  .timeline { position: relative; padding-left: 0; }
+  .tl-item {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 0;
+    margin-bottom: 12px;
+  }
+  .tl-date {
+    padding: 16px 16px 16px 0;
+    font-size: 11px; font-weight: 700;
+    color: var(--text-light);
+    text-align: right;
+    border-right: 3px solid var(--border);
+    position: relative;
+  }
+  .tl-date::after {
+    content: '';
+    position: absolute;
+    right: -8px; top: 50%;
+    transform: translateY(-50%);
+    width: 13px; height: 13px;
+    border-radius: 50%;
+    background: var(--card);
+    border: 3px solid var(--border);
+  }
+  .tl-card {
+    padding: 14px 16px;
+    margin-left: 20px;
+    background: var(--card);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--border);
+  }
+  .tl-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .tl-card p { font-size: 12px; color: var(--text-light); }
+  .tl-meta {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px;
+  }
+  .badge {
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 11px; font-weight: 500;
+    background: #F3F4F6;
+    color: #374151;
+  }
+  .badge.urgent { background: #FEF2F2; color: #DC2626; }
+  .badge.ok { background: #F0FDF4; color: #16A34A; }
+  .badge.info { background: #EFF6FF; color: #2563EB; }
+
+  /* ── TABLE ── */
+  .table-wrap { overflow-x: auto; border-radius: 12px; box-shadow: var(--shadow); }
+  table { width: 100%; border-collapse: collapse; background: var(--card); }
+  thead tr { background: #1A1A2E; color: #fff; }
+  thead th {
+    padding: 12px 14px; text-align: left;
+    font-size: 12px; font-weight: 600;
+    white-space: nowrap;
+  }
+  tbody tr { border-bottom: 1px solid var(--border); }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: #F9FAFB; }
+  tbody td { padding: 11px 14px; font-size: 12px; vertical-align: top; }
+  .country-dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+
+  /* ── CHECKLIST ── */
+  .checklist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 16px;
+  }
+  .check-card {
+    background: var(--card);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .check-card-header {
+    padding: 12px 16px;
+    font-size: 13px; font-weight: 700;
+    color: #fff;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .check-item {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 12px;
+  }
+  .check-item:last-child { border-bottom: none; }
+  .check-item input[type=checkbox] {
+    margin-top: 2px; cursor: pointer;
+    accent-color: #0F3460;
+    width: 14px; height: 14px; flex-shrink: 0;
+  }
+  .check-item label { cursor: pointer; line-height: 1.4; }
+  .check-item .priority {
+    margin-left: auto; flex-shrink: 0;
+    font-size: 10px; font-weight: 700;
+    padding: 1px 7px; border-radius: 8px;
+  }
+  .p-high { background: #FEF2F2; color: #DC2626; }
+  .p-med { background: #FFFBEB; color: #D97706; }
+  .p-low { background: #F0FDF4; color: #16A34A; }
+
+  /* ── FOOD ── */
+  .food-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px;
+  }
+  .food-card {
+    background: var(--card);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: 16px;
+    border-top: 4px solid var(--border);
+  }
+  .food-card h4 { font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+  .food-item { font-size: 12px; padding: 4px 0; color: var(--text-light); display: flex; gap: 6px; }
+  .food-item::before { content: '•'; color: #9CA3AF; }
+
+  /* ── BUDGET ── */
+  .budget-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  .budget-card {
+    background: var(--card);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: 16px;
+  }
+  .budget-card .label { font-size: 11px; color: var(--text-light); font-weight: 500; margin-bottom: 4px; }
+  .budget-card .amount { font-size: 22px; font-weight: 700; }
+  .budget-card .sub { font-size: 11px; color: var(--text-light); margin-top: 2px; }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 18px; margin-top: 4px;
+  }
+  .section-header h2 { font-size: 17px; font-weight: 700; }
+  .section-header .count {
+    font-size: 11px; font-weight: 600;
+    background: #1A1A2E; color: #fff;
+    padding: 2px 8px; border-radius: 10px;
+  }
+
+  .divider { height: 1px; background: var(--border); margin: 20px 0; }
+  .subtitle { font-size: 12px; color: var(--text-light); margin-bottom: 16px; }
+
+  /* Print */
+  @media print {
+    .tab-bar { display: none; }
+    .section { display: block !important; page-break-before: always; }
+  }
+
+  @media (max-width: 600px) {
+    .hero { padding: 28px 16px 24px; }
+    .content { padding: 16px; }
+    .tl-item { grid-template-columns: 70px 1fr; }
+    .budget-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>🌍 유럽 여행 플래너 2026</h1>
+  <p>2026년 8월 10일 ~ 9월 4일 · 총 26일 여정</p>
+  <div class="country-chips">
+    <span class="chip" style="background:var(--netherlands)">🇳🇱 네덜란드 8/10–17</span>
+    <span class="chip" style="background:var(--conference)">🏛 국제대회 8/14–17</span>
+    <span class="chip" style="background:var(--france)">🇫🇷 프랑스 8/17–22</span>
+    <span class="chip" style="background:var(--switzerland)">🇨🇭 스위스 8/22–27</span>
+    <span class="chip" style="background:var(--italy-north)">🇮🇹 이탈리아 8/27–9/3</span>
+  </div>
+
+  <div class="rate-banner">
+    <span style="font-size:12px;font-weight:700">💱 오늘 환율 (2026.06.18 기준)</span>
+    <div class="rate-pill"><span class="rate-dot" style="background:#F05A28"></span>€1 EUR = ₩1,756</div>
+    <div class="rate-pill"><span class="rate-dot" style="background:#9B59B6"></span>CHF 1 = ₩1,895</div>
+    <span style="font-size:10px;opacity:0.65">※ 실제 환전 시 수수료 포함 환율과 다를 수 있습니다</span>
+  </div>
+</div>
+
+<div class="tab-bar">
+  <div class="tab active" onclick="showTab('timeline', this)">📅 전체 일정</div>
+  <div class="tab" onclick="showTab('transport', this)">🚆 항공 & 교통</div>
+  <div class="tab" onclick="showTab('hotel', this)">🏨 숙소</div>
+  <div class="tab" onclick="showTab('booking', this)">🎟 사전 예약</div>
+  <div class="tab" onclick="showTab('food', this)">🍽 식사 추천</div>
+  <div class="tab" onclick="showTab('sights', this)">🗺 볼거리</div>
+  <div class="tab" onclick="showTab('budget', this)">💶 예산</div>
+  <div class="tab" onclick="showTab('schedule', this)">⏱ 시간표</div>
+</div>
+
+<div class="content">
+
+  <!-- ── 전체 일정 ── -->
+  <div id="timeline" class="section active">
+    <div class="section-header"><h2>전체 여행 일정</h2></div>
+
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-date" style="color:var(--netherlands);font-weight:800">8/10<br>월</div>
+        <div class="tl-card" style="border-left-color:var(--netherlands)">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+            <span style="font-size:18px">✈</span>
+            <h3 style="margin:0">🇰🇷→🇳🇱 인천 → 암스테르담</h3>
+            <span style="margin-left:auto;background:#16A34A;color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;white-space:nowrap">✅ 예약완료</span>
+          </div>
+
+          <!-- 예약 기본 정보 -->
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">
+            <span style="background:#DCFCE7;color:#166534;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:700">예약번호 84R5VJ</span>
+            <span style="background:#EFF6FF;color:#2563EB;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:600">Economy Green</span>
+            <span style="background:#F3F4F6;color:#374151;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:600">₩2,549,000 (왕복)</span>
+          </div>
+
+          <!-- 구간 1: ICN → FRA -->
+          <div style="background:#F9FAFB;border-radius:10px;padding:12px 14px;margin-bottom:8px;font-size:12px;border-left:3px solid #1A1A2E">
+            <div style="font-size:10px;font-weight:700;color:#9CA3AF;margin-bottom:6px">1구간 · LH 713 · AIRBUS A350-900</div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <div style="text-align:center">
+                <div style="font-size:18px;font-weight:800;color:#1A1A2E">12:20</div>
+                <div style="font-size:11px;font-weight:600;color:#1A1A2E">인천 ICN</div>
+                <div style="font-size:10px;color:#9CA3AF">터미널 1</div>
+              </div>
+              <div style="flex:1;text-align:center">
+                <div style="font-size:10px;color:#9CA3AF">13h 20m</div>
+                <div style="height:2px;background:linear-gradient(90deg,#1A1A2E,#6B7280);border-radius:1px;margin:3px 0"></div>
+                <div style="font-size:10px;color:#6B7280">루프트한자</div>
+              </div>
+              <div style="text-align:center">
+                <div style="font-size:18px;font-weight:800;color:#1A1A2E">18:40</div>
+                <div style="font-size:11px;font-weight:600;color:#1A1A2E">프랑크푸르트 FRA</div>
+                <div style="font-size:10px;color:#9CA3AF">터미널 1</div>
+              </div>
+            </div>
+            <div style="margin-top:6px;font-size:11px;color:#6B7280">🍽 기내식: 스낵 + 정식 식사 제공</div>
+          </div>
+
+          <!-- 환승 -->
+          <div style="display:flex;align-items:center;gap:8px;padding:6px 14px;background:#FEF3C7;border-radius:8px;margin-bottom:8px;font-size:11px;font-weight:600;color:#92400E">
+            <span>🔄</span> 프랑크푸르트(FRA) 환승 대기 <b>2시간 20분</b> · 터미널 1 내 이동
+          </div>
+
+          <!-- 구간 2: FRA → AMS -->
+          <div style="background:#F9FAFB;border-radius:10px;padding:12px 14px;margin-bottom:10px;font-size:12px;border-left:3px solid #00AEEF">
+            <div style="font-size:10px;font-weight:700;color:#9CA3AF;margin-bottom:6px">2구간 · LH 1002 · AIRBUS A320</div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <div style="text-align:center">
+                <div style="font-size:18px;font-weight:800;color:#1A1A2E">21:00</div>
+                <div style="font-size:11px;font-weight:600;color:#1A1A2E">프랑크푸르트 FRA</div>
+                <div style="font-size:10px;color:#9CA3AF">터미널 1</div>
+              </div>
+              <div style="flex:1;text-align:center">
+                <div style="font-size:10px;color:#9CA3AF">1h 10m</div>
+                <div style="height:2px;background:linear-gradient(90deg,#00AEEF,#0EA5E9);border-radius:1px;margin:3px 0"></div>
+                <div style="font-size:10px;color:#6B7280">루프트한자</div>
+              </div>
+              <div style="text-align:center">
+                <div style="font-size:18px;font-weight:800;color:#00AEEF">22:10</div>
+                <div style="font-size:11px;font-weight:600;color:#1A1A2E">암스테르담 AMS</div>
+                <div style="font-size:10px;color:#9CA3AF">스키폴 공항</div>
+              </div>
+            </div>
+            <div style="margin-top:6px;font-size:11px;color:#6B7280">🥤 기내식: 스낵/음료 제공</div>
+          </div>
+
+          <!-- 수하물 & 패어 정보 -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:6px">
+            <div style="background:#EFF6FF;border-radius:8px;padding:9px 12px;font-size:11px">
+              <div style="font-weight:700;color:#1E40AF;margin-bottom:4px">🧳 수하물 규정</div>
+              <div style="color:#374151;line-height:1.6">
+                기내 반입: 1개 × 8kg<br>
+                <span style="font-size:10px;color:#6B7280">max. 55×40×23cm</span><br>
+                위탁 수하물: 1개 × 23kg<br>
+                <span style="font-size:10px;color:#6B7280">(50lb)</span>
+              </div>
+            </div>
+            <div style="background:#F5F3FF;border-radius:8px;padding:9px 12px;font-size:11px">
+              <div style="font-weight:700;color:#5B21B6;margin-bottom:4px">🎁 Economy Green 혜택</div>
+              <div style="color:#374151;line-height:1.6">
+                마일리지 +10% 보너스<br>
+                포인트 +10% 적립<br>
+                친환경 SAF 10% 포함<br>
+                CO₂ 프로젝트 기여
+              </div>
+            </div>
+          </div>
+          <div style="font-size:11px;color:#6B7280">총 소요시간 16h 50m · 암스테르담 도착 후 숙소 체크인</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">8/10–13</div>
+        <div class="tl-card" style="border-left-color:var(--netherlands)">
+          <h3>🇳🇱 네덜란드 자유 관광 (4일)</h3>
+          <p>암스테르담 → 잔담, 마르켄, 킨더다이크 풍차마을, 헤이그, 델프트 등.</p>
+          <div class="tl-meta">
+            <span class="badge">암스테르담 패스 구매 고려</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">8/14–17</div>
+        <div class="tl-card" style="border-left-color:var(--conference)">
+          <h3>🏛 국제대회 참가</h3>
+          <p>대회 일정에 따른 스케줄 확인 필요. 기간 중 관광 최소화.</p>
+          <div class="tl-meta">
+            <span class="badge urgent">대회 등록 확인</span>
+            <span class="badge urgent">숙소 조기 예약</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date" style="color:var(--france);font-weight:800">8/17<br>월</div>
+        <div class="tl-card" style="border-left-color:var(--france)">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+            <span style="font-size:18px">🚄</span>
+            <h3 style="margin:0">🇳🇱→🇫🇷 암스테르담 → 파리</h3>
+            <span style="margin-left:auto;background:#16A34A;color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;white-space:nowrap">✅ 예약완료</span>
+          </div>
+          <div style="background:#FFF1EC;border-radius:10px;padding:12px 14px;margin-bottom:10px;font-size:12px">
+            <div style="font-size:10px;font-weight:700;color:#9CA3AF;margin-bottom:8px">EUROSTAR 9344 · Coach 16 · Eurostar Standard · 2인</div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+              <div style="text-align:center">
+                <div style="font-size:20px;font-weight:800;color:#F05A28">11:40</div>
+                <div style="font-size:12px;font-weight:700;color:#1A1A2E">암스테르담 중앙역</div>
+                <div style="font-size:10px;color:#9CA3AF">Amsterdam Centraal</div>
+              </div>
+              <div style="flex:1;text-align:center">
+                <div style="font-size:10px;color:#9CA3AF">4h 22m · 직행</div>
+                <div style="height:3px;background:linear-gradient(90deg,#F05A28,#FF6B35);border-radius:2px;margin:4px 0"></div>
+                <div style="font-size:10px;font-weight:600;color:#F05A28">EUROSTAR</div>
+              </div>
+              <div style="text-align:center">
+                <div style="font-size:20px;font-weight:800;color:#F05A28">16:02</div>
+                <div style="font-size:12px;font-weight:700;color:#1A1A2E">파리 북역</div>
+                <div style="font-size:10px;color:#9CA3AF">Paris Gare du Nord</div>
+              </div>
+            </div>
+            <!-- 좌석 배정 -->
+            <div style="background:#fff;border-radius:8px;padding:8px 12px;font-size:11px">
+              <div style="font-weight:700;color:#374151;margin-bottom:4px">🪑 좌석 배정</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;color:#6B7280">
+                <div>JOOMYEONG OH — Coach 16 · Seat <b style="color:#F05A28">73</b></div>
+                <div>YAEUN CHOI — Coach 16 · Seat <b style="color:#F05A28">74</b></div>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap">
+            <span style="background:#DCFCE7;color:#166534;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:700">€130 (2인)</span>
+            <span style="background:#EFF6FF;color:#2563EB;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:600">직행 · 4h 22m</span>
+            <span style="background:#F3F4F6;color:#374151;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:600">2026.4.14 카드(8578) 결제</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8/17 파리 도착 -->
+      <div class="tl-item">
+        <div class="tl-date" style="color:var(--france);font-weight:800">8/17<br>월 오후</div>
+        <div class="tl-card" style="border-left-color:var(--france)">
+          <h3>📸 파리 도착 & 스냅 촬영</h3>
+          <p>파리 북역(16:02) 도착 → 이시-레-물리노 B&B 체크인 (오후 3시 이후) → <b>오후 스냅 촬영</b>.</p>
+          <div class="tl-meta">
+            <span class="badge ok">✅ 숙소 예약완료 (에어비앤비 · 호스트: Pierre)</span>
+            <span class="badge info">📷 스냅 촬영</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8/18 스냅 오전 + 자유 오후 -->
+      <div class="tl-item">
+        <div class="tl-date" style="color:var(--france);font-weight:800">8/18<br>화</div>
+        <div class="tl-card" style="border-left-color:var(--france)">
+          <h3>📸 오전 스냅 + 🛍 자유 오후</h3>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
+            <div style="background:#FFF1EC;border-radius:8px;padding:10px 12px;font-size:12px">
+              <div style="font-weight:700;color:#F05A28;margin-bottom:3px">🌅 오전 — 스냅 촬영</div>
+              <div style="color:#374151">오전 스냅 촬영</div>
+            </div>
+            <div style="background:#F0FDF4;border-radius:8px;padding:10px 12px;font-size:12px">
+              <div style="font-weight:700;color:#16A34A;margin-bottom:3px">☀️ 오후 — 자유 시간</div>
+              <div style="color:#374151">약국 쇼핑 🧴 · 카페 ☕ · 휴식 😌</div>
+            </div>
+          </div>
+          <div class="tl-meta" style="margin-top:8px">
+            <span class="badge info">📷 스냅 촬영 (오전)</span>
+            <span class="badge">약국 쇼핑 추천: Pharmacie 체인</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8/19 루브르 바이블 투어 (기존 카드 유지 — 아래에 위치) -->
+
+      <!-- 8/20 파리 시내 투어 -->
+
+      <!-- 루브르 박물관 확정 일정 -->
+      <div class="tl-item">
+        <div class="tl-date" style="color:var(--france);font-weight:800">8/19<br>수</div>
+        <div class="tl-card" style="border-left-color:var(--france);background:linear-gradient(135deg,#fff9f7 0%,#fff 100%)">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+            <span style="font-size:20px">🏛</span>
+            <h3 style="margin:0">루브르 박물관 — 바이블 투어</h3>
+            <span style="margin-left:auto;background:#F05A28;color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;white-space:nowrap">✅ 일정 확정</span>
+          </div>
+          <!-- 시간 바 -->
+          <div style="display:flex;align-items:center;gap:10px;background:#FFF1EC;border-radius:10px;padding:10px 14px;margin-bottom:12px">
+            <div style="text-align:center;min-width:48px">
+              <div style="font-size:18px;font-weight:800;color:#F05A28">14:00</div>
+              <div style="font-size:10px;color:#9CA3AF">입장</div>
+            </div>
+            <div style="flex:1;position:relative;height:6px;background:#FDDDD4;border-radius:3px">
+              <div style="position:absolute;inset:0;background:linear-gradient(90deg,#F05A28,#FF8C5A);border-radius:3px"></div>
+              <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;border:2px solid #F05A28;border-radius:10px;padding:1px 8px;font-size:10px;font-weight:700;color:#F05A28;white-space:nowrap">4시간</div>
+            </div>
+            <div style="text-align:center;min-width:48px">
+              <div style="font-size:18px;font-weight:800;color:#F05A28">18:00</div>
+              <div style="font-size:10px;color:#9CA3AF">퇴장</div>
+            </div>
+          </div>
+          <!-- 상세 정보 그리드 -->
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px">
+            <div style="background:#F9FAFB;border-radius:8px;padding:8px 10px">
+              <div style="font-size:10px;color:#9CA3AF;font-weight:600">날짜</div>
+              <div style="font-size:12px;font-weight:700;color:#1A1A2E">2026년 8월 19일 (수)</div>
+            </div>
+            <div style="background:#F9FAFB;border-radius:8px;padding:8px 10px">
+              <div style="font-size:10px;color:#9CA3AF;font-weight:600">관람 시간</div>
+              <div style="font-size:12px;font-weight:700;color:#1A1A2E">오후 2시 ~ 오후 6시</div>
+            </div>
+            <div style="background:#F9FAFB;border-radius:8px;padding:8px 10px">
+              <div style="font-size:10px;color:#9CA3AF;font-weight:600">입장료</div>
+              <div style="font-size:12px;font-weight:700;color:#1A1A2E">€22 (사전예약)</div>
+            </div>
+          </div>
+          <!-- 추천 동선 -->
+          <div style="background:#FFF1EC;border-radius:10px;padding:10px 14px;font-size:12px;color:#92400E;line-height:1.7">
+            <div style="font-weight:700;margin-bottom:4px">🗺 추천 4시간 동선</div>
+            <div style="display:flex;flex-direction:column;gap:2px">
+              <div><b>14:00</b> 드농관 입장 → 모나리자 (살 드 에타 700호) 먼저 확보</div>
+              <div><b>14:45</b> 밀로의 비너스 · 사모트라케의 니케</div>
+              <div><b>15:30</b> 리슐리외관 — 함무라비 법전, 메소포타미아 유물</div>
+              <div><b>16:30</b> 쉴리관 — 이집트 유물, 아폴로 갤러리</div>
+              <div><b>17:30</b> 카페 몰리엔 or 리슐리외 카페 휴식 후 퇴장</div>
+            </div>
+          </div>
+          <!-- 관람 안내 지도 -->
+          <div style="margin-top:14px">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+              <div style="font-size:12px;font-weight:700;color:#1A1A2E">🗺 층별 관람 안내도</div>
+              <a href="https://api-www.louvre.fr/sites/default/files/2024-06/Web%20-%20KO%20%20LOUVRE_PlanG%20-%2004-2024.pdf" target="_blank" rel="noopener"
+                style="font-size:11px;font-weight:600;color:#F05A28;text-decoration:none;background:#FFF1EC;padding:3px 10px;border-radius:8px;border:1px solid #FDDDD4">
+                📄 공식 한국어 지도 PDF ↗
+              </a>
+            </div>
+
+            <!-- SVG 관람 지도 -->
+            <div style="overflow-x:auto;background:#FAFAFA;border-radius:12px;border:1px solid #E5E7EB;padding:14px">
+              <svg viewBox="0 0 680 420" xmlns="http://www.w3.org/2000/svg" style="width:100%;min-width:420px;max-width:680px;display:block;font-family:'Noto Sans KR',sans-serif">
+
+                <!-- 배경 -->
+                <rect width="680" height="420" fill="#FAFAFA" rx="10"/>
+
+                <!-- 타이틀 -->
+                <text x="340" y="22" text-anchor="middle" font-size="13" font-weight="700" fill="#1A1A2E">루브르 박물관 3관 구조도</text>
+                <text x="340" y="38" text-anchor="middle" font-size="10" fill="#9CA3AF">Richelieu · Sully · Denon</text>
+
+                <!-- ══ 리슐리외관 (북쪽, 좌) ══ -->
+                <rect x="30" y="55" width="190" height="230" rx="10" fill="#EDE9FE" stroke="#7C3AED" stroke-width="2"/>
+                <rect x="30" y="55" width="190" height="32" rx="10" fill="#7C3AED"/>
+                <text x="125" y="75" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">리슐리외관 (Richelieu)</text>
+
+                <!-- 리슐리외 항목 -->
+                <rect x="42" y="96" width="166" height="20" rx="4" fill="#DDD6FE"/>
+                <text x="50" y="110" font-size="10" fill="#5B21B6" font-weight="600">-2F  중세 루브르 · 해자</text>
+
+                <rect x="42" y="120" width="166" height="20" rx="4" fill="#DDD6FE"/>
+                <text x="50" y="134" font-size="10" fill="#5B21B6" font-weight="600">0F   동방 고대유물 · 함무라비 법전 ⭐</text>
+
+                <rect x="42" y="144" width="166" height="20" rx="4" fill="#EDE9FE"/>
+                <text x="50" y="158" font-size="10" fill="#6D28D9">1F   프랑스 회화 · 루벤스 갤러리</text>
+
+                <rect x="42" y="168" width="166" height="20" rx="4" fill="#EDE9FE"/>
+                <text x="50" y="182" font-size="10" fill="#6D28D9">1F   나폴레옹 3세 아파트 ⭐</text>
+
+                <rect x="42" y="192" width="166" height="20" rx="4" fill="#EDE9FE"/>
+                <text x="50" y="206" font-size="10" fill="#6D28D9">2F   북유럽 · 독일 회화</text>
+
+                <rect x="42" y="216" width="166" height="20" rx="4" fill="#EDE9FE"/>
+                <text x="50" y="230" font-size="10" fill="#6D28D9">2F   공예품 · 장식미술</text>
+
+                <rect x="42" y="242" width="166" height="26" rx="6" fill="#7C3AED"/>
+                <text x="125" y="259" text-anchor="middle" font-size="10" fill="#fff" font-weight="600">리슐리외 통로 입구 (Passage Richelieu)</text>
+
+                <!-- ══ 쉴리관 (중앙) ══ -->
+                <rect x="245" y="55" width="190" height="230" rx="10" fill="#DCFCE7" stroke="#16A34A" stroke-width="2"/>
+                <rect x="245" y="55" width="190" height="32" rx="10" fill="#16A34A"/>
+                <text x="340" y="75" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">쉴리관 (Sully)</text>
+
+                <rect x="257" y="96" width="166" height="20" rx="4" fill="#BBF7D0"/>
+                <text x="265" y="110" font-size="10" fill="#14532D" font-weight="600">-2F  중세 해자 유적 (필립 오귀스트)</text>
+
+                <rect x="257" y="120" width="166" height="20" rx="4" fill="#BBF7D0"/>
+                <text x="265" y="134" font-size="10" fill="#14532D" font-weight="600">0F   고대 이집트 ⭐</text>
+
+                <rect x="257" y="144" width="166" height="20" rx="4" fill="#DCFCE7"/>
+                <text x="265" y="158" font-size="10" fill="#166534">1F   밀로의 비너스 ⭐  (그리스 조각)</text>
+
+                <rect x="257" y="168" width="166" height="20" rx="4" fill="#DCFCE7"/>
+                <text x="265" y="182" font-size="10" fill="#166534">1F   메소포타미아 · 페르시아 유물</text>
+
+                <rect x="257" y="192" width="166" height="20" rx="4" fill="#DCFCE7"/>
+                <text x="265" y="206" font-size="10" fill="#166534">2F   17–19세기 프랑스 회화</text>
+
+                <rect x="257" y="216" width="166" height="20" rx="4" fill="#DCFCE7"/>
+                <text x="265" y="230" font-size="10" fill="#166534">2F   아폴로 갤러리 (왕실 보물) ⭐</text>
+
+                <rect x="257" y="242" width="166" height="26" rx="6" fill="#16A34A"/>
+                <text x="340" y="259" text-anchor="middle" font-size="10" fill="#fff" font-weight="600">유리 피라미드 메인 입구 ▲</text>
+
+                <!-- ══ 드농관 (남쪽, 우) ══ -->
+                <rect x="460" y="55" width="190" height="230" rx="10" fill="#FEF3C7" stroke="#D97706" stroke-width="2"/>
+                <rect x="460" y="55" width="190" height="32" rx="10" fill="#D97706"/>
+                <text x="555" y="75" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">드농관 (Denon)</text>
+
+                <rect x="472" y="96" width="166" height="20" rx="4" fill="#FDE68A"/>
+                <text x="480" y="110" font-size="10" fill="#92400E" font-weight="600">0F   고대 그리스 · 로마 조각</text>
+
+                <rect x="472" y="120" width="166" height="20" rx="4" fill="#FDE68A"/>
+                <text x="480" y="134" font-size="10" fill="#92400E" font-weight="600">1F   사모트라케의 니케 ⭐ (계단)</text>
+
+                <rect x="472" y="144" width="166" height="20" rx="4" fill="#FEF3C7"/>
+                <text x="480" y="158" font-size="10" fill="#B45309">1F   모나리자 (700호) ⭐⭐</text>
+
+                <rect x="472" y="168" width="166" height="20" rx="4" fill="#FEF3C7"/>
+                <text x="480" y="182" font-size="10" fill="#B45309">1F   나폴레옹의 대관식 · 가나의 결혼</text>
+
+                <rect x="472" y="192" width="166" height="20" rx="4" fill="#FEF3C7"/>
+                <text x="480" y="206" font-size="10" fill="#B45309">1F   이탈리아 회화 (다빈치 · 라파엘)</text>
+
+                <rect x="472" y="216" width="166" height="20" rx="4" fill="#FEF3C7"/>
+                <text x="480" y="230" font-size="10" fill="#B45309">2F   스페인 · 영국 회화</text>
+
+                <rect x="472" y="242" width="166" height="26" rx="6" fill="#D97706"/>
+                <text x="555" y="259" text-anchor="middle" font-size="10" fill="#fff" font-weight="600">포르트 데 리옹 입구 (Porte des Lions)</text>
+
+                <!-- ══ 중앙 연결 표시 ══ -->
+                <line x1="220" y1="170" x2="245" y2="170" stroke="#9CA3AF" stroke-width="1.5" stroke-dasharray="4,3"/>
+                <line x1="435" y1="170" x2="460" y2="170" stroke="#9CA3AF" stroke-width="1.5" stroke-dasharray="4,3"/>
+                <text x="232" y="165" text-anchor="middle" font-size="8" fill="#9CA3AF">연결</text>
+                <text x="447" y="165" text-anchor="middle" font-size="8" fill="#9CA3AF">연결</text>
+
+                <!-- ══ 하단 동선 가이드 ══ -->
+                <rect x="30" y="298" width="620" height="110" rx="10" fill="#FFF1EC" stroke="#FDDDD4" stroke-width="1.5"/>
+                <text x="340" y="316" text-anchor="middle" font-size="11" font-weight="700" fill="#92400E">⏱ 8/19 추천 동선 (14:00~18:00)</text>
+
+                <!-- 동선 화살표 -->
+                <!-- Step 1 -->
+                <circle cx="65" cy="345" r="12" fill="#F05A28"/>
+                <text x="65" y="349" text-anchor="middle" font-size="10" fill="#fff" font-weight="700">1</text>
+                <text x="65" y="364" text-anchor="middle" font-size="9" fill="#92400E" font-weight="600">14:00</text>
+                <text x="65" y="376" text-anchor="middle" font-size="9" fill="#92400E">드농관 입장</text>
+                <text x="65" y="388" text-anchor="middle" font-size="9" fill="#92400E">모나리자 ⭐</text>
+                <!-- arrow -->
+                <path d="M83 345 L108 345" stroke="#F05A28" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+
+                <!-- Step 2 -->
+                <circle cx="125" cy="345" r="12" fill="#F05A28"/>
+                <text x="125" y="349" text-anchor="middle" font-size="10" fill="#fff" font-weight="700">2</text>
+                <text x="125" y="364" text-anchor="middle" font-size="9" fill="#92400E" font-weight="600">14:45</text>
+                <text x="125" y="376" text-anchor="middle" font-size="9" fill="#92400E">사모트라케의</text>
+                <text x="125" y="388" text-anchor="middle" font-size="9" fill="#92400E">니케 ⭐</text>
+                <path d="M143 345 L168 345" stroke="#F05A28" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+
+                <!-- Step 3 -->
+                <circle cx="185" cy="345" r="12" fill="#F05A28"/>
+                <text x="185" y="349" text-anchor="middle" font-size="10" fill="#fff" font-weight="700">3</text>
+                <text x="185" y="364" text-anchor="middle" font-size="9" fill="#92400E" font-weight="600">15:15</text>
+                <text x="185" y="376" text-anchor="middle" font-size="9" fill="#92400E">밀로의</text>
+                <text x="185" y="388" text-anchor="middle" font-size="9" fill="#92400E">비너스 ⭐</text>
+                <path d="M203 345 L228 345" stroke="#F05A28" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+
+                <!-- Step 4 -->
+                <circle cx="245" cy="345" r="12" fill="#F05A28"/>
+                <text x="245" y="349" text-anchor="middle" font-size="10" fill="#fff" font-weight="700">4</text>
+                <text x="245" y="364" text-anchor="middle" font-size="9" fill="#92400E" font-weight="600">15:45</text>
+                <text x="245" y="376" text-anchor="middle" font-size="9" fill="#92400E">리슐리외관</text>
+                <text x="245" y="388" text-anchor="middle" font-size="9" fill="#92400E">함무라비 법전</text>
+                <path d="M263 345 L288 345" stroke="#F05A28" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+
+                <!-- Step 5 -->
+                <circle cx="305" cy="345" r="12" fill="#F05A28"/>
+                <text x="305" y="349" text-anchor="middle" font-size="10" fill="#fff" font-weight="700">5</text>
+                <text x="305" y="364" text-anchor="middle" font-size="9" fill="#92400E" font-weight="600">16:30</text>
+                <text x="305" y="376" text-anchor="middle" font-size="9" fill="#92400E">이집트관</text>
+                <text x="305" y="388" text-anchor="middle" font-size="9" fill="#92400E">(쉴리관 0F)</text>
+                <path d="M323 345 L348 345" stroke="#F05A28" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+
+                <!-- Step 6 -->
+                <circle cx="365" cy="345" r="12" fill="#F05A28"/>
+                <text x="365" y="349" text-anchor="middle" font-size="10" fill="#fff" font-weight="700">6</text>
+                <text x="365" y="364" text-anchor="middle" font-size="9" fill="#92400E" font-weight="600">17:00</text>
+                <text x="365" y="376" text-anchor="middle" font-size="9" fill="#92400E">아폴로 갤러리</text>
+                <text x="365" y="388" text-anchor="middle" font-size="9" fill="#92400E">(쉴리관 2F)</text>
+                <path d="M383 345 L408 345" stroke="#F05A28" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+
+                <!-- Step 7 -->
+                <circle cx="425" cy="345" r="12" fill="#F05A28"/>
+                <text x="425" y="349" text-anchor="middle" font-size="10" fill="#fff" font-weight="700">7</text>
+                <text x="425" y="364" text-anchor="middle" font-size="9" fill="#92400E" font-weight="600">17:30</text>
+                <text x="425" y="376" text-anchor="middle" font-size="9" fill="#92400E">나폴레옹 3세</text>
+                <text x="425" y="388" text-anchor="middle" font-size="9" fill="#92400E">아파트 (리슐리외)</text>
+                <path d="M443 345 L468 345" stroke="#F05A28" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+
+                <!-- Step 8 -->
+                <circle cx="485" cy="345" r="12" fill="#16A34A"/>
+                <text x="485" y="349" text-anchor="middle" font-size="10" fill="#fff" font-weight="700">🏁</text>
+                <text x="485" y="364" text-anchor="middle" font-size="9" fill="#166534" font-weight="600">18:00</text>
+                <text x="485" y="376" text-anchor="middle" font-size="9" fill="#166534">카페 몰리엔</text>
+                <text x="485" y="388" text-anchor="middle" font-size="9" fill="#166534">휴식 후 퇴장</text>
+
+                <!-- 범례 -->
+                <text x="545" y="340" font-size="9" fill="#6B7280">⭐ 주요 작품</text>
+                <text x="545" y="354" font-size="9" fill="#6B7280">⭐⭐ 최고 인기</text>
+                <text x="545" y="368" font-size="9" fill="#6B7280">F = 층</text>
+                <text x="545" y="382" font-size="9" fill="#6B7280">0F = 지상층</text>
+
+                <!-- 화살표 마커 정의 -->
+                <defs>
+                  <marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                    <path d="M0,0 L0,6 L6,3 z" fill="#F05A28"/>
+                  </marker>
+                </defs>
+              </svg>
+            </div>
+          </div>
+
+          <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap">
+            <span class="badge info">📍 팔레 루아얄-루브르 박물관역 (M1·M7)</span>
+            <span class="badge urgent">⚠️ 수요일은 21:45까지 야간 개관 — 여유 있게 관람 가능</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8/20 파리 시내 투어 -->
+      <div class="tl-item">
+        <div class="tl-date" style="color:var(--france);font-weight:800">8/20<br>목</div>
+        <div class="tl-card" style="border-left-color:var(--france)">
+          <h3>🗼 파리 시내 투어</h3>
+          <p>에펠탑 · 샹젤리제 · 개선문 · 오르세 미술관 · 몽마르트르 & 사크레쾨르 등 파리 시내 주요 명소 탐방.</p>
+          <div class="tl-meta">
+            <span class="badge info">에펠탑 정상 사전 예약 권장</span>
+            <span class="badge">오르세 미술관 (€16)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8/21 몽생미셸 투어 -->
+      <div class="tl-item">
+        <div class="tl-date" style="color:var(--france);font-weight:800">8/21<br>금</div>
+        <div class="tl-card" style="border-left-color:var(--france)">
+          <h3>🏰 몽생미셸 당일 투어</h3>
+          <p>파리 출발 당일치기 투어. 파리 → 몽생미셸 약 4시간 (버스/기차+버스). 섬 내부 수도원 관람 후 저녁 귀환.</p>
+          <div style="background:#FEF3C7;border-radius:8px;padding:10px 12px;font-size:12px;color:#92400E;margin-top:8px">
+            💡 <b>투어 방법:</b> ① 파리 출발 당일치기 투어 버스 예약 (약 €60~90) ② TGV로 렌(Rennes)까지 이동 후 셔틀버스 이용
+          </div>
+          <div class="tl-meta" style="margin-top:8px">
+            <span class="badge urgent">⚠️ 투어 사전 예약 필요!</span>
+            <span class="badge">입장료 별도 (€13)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">8/22<br>토</div>
+        <div class="tl-card" style="border-left-color:var(--switzerland)">
+          <h3>🇨🇭 스위스 이동 — 그린델발트</h3>
+          <p>이시-레-물리노 B&B 체크아웃(8/22 오전 10시) → 파리 리옹역 출발 → TGV 약 3~4시간 → 그린델발트 아파트 체크인 (오후 3시 이후).</p>
+          <div class="tl-meta">
+            <span class="badge ok">✅ 당일 이동 — 별도 숙소 불필요</span>
+            <span class="badge urgent">TGV 조기 예약 필수</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">8/22–27</div>
+        <div class="tl-card" style="border-left-color:var(--switzerland)">
+          <h3>🇨🇭 스위스 (5일) · 그린델발트 숙박</h3>
+          <p>그린델발트 아파트 (호스트: Elisabeth) · 8/22 오후 3시 체크인 ~ 8/27 오전 체크아웃. 융프라우요흐, 아이거 트레일, 인터라켄 당일치기 최적 거점.</p>
+          <div class="tl-meta">
+            <span class="badge ok">✅ 숙소 예약완료 (에어비앤비)</span>
+            <span class="badge urgent">융프라우요흐 티켓 예약</span>
+            <span class="badge">스위스 트래블 패스 구매</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">8/27<br>목</div>
+        <div class="tl-card" style="border-left-color:var(--italy-north)">
+          <h3>🇮🇹 이탈리아 입국 — 밀라노 (1박)</h3>
+          <p>스위스 → 밀라노 기차 (취리히발 약 3.5시간 / 루가노발 약 1시간). 두오모 저녁 방문 후 밀라노 1박.</p>
+          <div class="tl-meta">
+            <span class="badge urgent">최후의 만찬 2~3개월 전 예약!</span>
+            <span class="badge urgent">밀라노 숙소 예약 필요</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">8/28–29</div>
+        <div class="tl-card" style="border-left-color:var(--italy-north)">
+          <h3>🇮🇹 피렌체 (2박)</h3>
+          <p>밀라노 → 피렌체 기차 (약 2시간). 두오모 쿠폴라, 우피치, 폰테 베키오.</p>
+          <div class="tl-meta">
+            <span class="badge urgent">우피치 미술관 사전 예약</span>
+            <span class="badge urgent">두오모 쿠폴라 사전 예약</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date">8/30–9/2</div>
+        <div class="tl-card" style="border-left-color:var(--italy-north)">
+          <h3>🇮🇹 로마 (4박)</h3>
+          <p>피렌체 → 로마 기차 (약 1.5시간). 콜로세움, 바티칸, 트레비 분수, 판테온. 9/3 아침 공항 이동.</p>
+          <div class="tl-meta">
+            <span class="badge urgent">바티칸 박물관 사전 예약</span>
+            <span class="badge urgent">콜로세움 사전 예약</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-date" style="font-weight:800">9/3<br>목</div>
+        <div class="tl-card" style="border-left-color:#6B7280">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+            <span style="font-size:18px">✈</span>
+            <h3 style="margin:0">🇮🇹→🇰🇷 로마 → 인천 (귀국)</h3>
+            <span style="margin-left:auto;background:#16A34A;color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;white-space:nowrap">✅ 예약완료</span>
+          </div>
+
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">
+            <span style="background:#DCFCE7;color:#166534;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:700">예약번호 84R5VJ</span>
+            <span style="background:#EFF6FF;color:#2563EB;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:600">Economy Green</span>
+            <span style="background:#FEF3C7;color:#D97706;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:600">9/4 인천 도착 (+1일)</span>
+          </div>
+
+          <!-- 구간 1: FCO → MUC -->
+          <div style="background:#F9FAFB;border-radius:10px;padding:12px 14px;margin-bottom:8px;font-size:12px;border-left:3px solid #27AE60">
+            <div style="font-size:10px;font-weight:700;color:#9CA3AF;margin-bottom:6px">1구간 · LH 4171 · AIRBUS A320neo · Lufthansa City Airlines 운항</div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <div style="text-align:center">
+                <div style="font-size:18px;font-weight:800;color:#1A1A2E">12:50</div>
+                <div style="font-size:11px;font-weight:600;color:#1A1A2E">로마 FCO</div>
+                <div style="font-size:10px;color:#9CA3AF">피우미치노 · 터미널 1</div>
+              </div>
+              <div style="flex:1;text-align:center">
+                <div style="font-size:10px;color:#9CA3AF">1h 35m</div>
+                <div style="height:2px;background:linear-gradient(90deg,#27AE60,#16A34A);border-radius:1px;margin:3px 0"></div>
+                <div style="font-size:10px;color:#6B7280">Lufthansa City Airlines</div>
+              </div>
+              <div style="text-align:center">
+                <div style="font-size:18px;font-weight:800;color:#1A1A2E">14:25</div>
+                <div style="font-size:11px;font-weight:600;color:#1A1A2E">뮌헨 MUC</div>
+                <div style="font-size:10px;color:#9CA3AF">터미널 2</div>
+              </div>
+            </div>
+            <div style="margin-top:6px;font-size:11px;color:#6B7280">🥤 기내식: 스낵/음료 제공</div>
+          </div>
+
+          <!-- 환승 -->
+          <div style="display:flex;align-items:center;gap:8px;padding:6px 14px;background:#FEF3C7;border-radius:8px;margin-bottom:8px;font-size:11px;font-weight:600;color:#92400E">
+            <span>🔄</span> 뮌헨(MUC) 환승 대기 <b>1시간 30분</b> · 터미널 2 내 이동
+          </div>
+
+          <!-- 구간 2: MUC → ICN -->
+          <div style="background:#F9FAFB;border-radius:10px;padding:12px 14px;margin-bottom:10px;font-size:12px;border-left:3px solid #1A1A2E">
+            <div style="font-size:10px;font-weight:700;color:#9CA3AF;margin-bottom:6px">2구간 · LH 718 · AIRBUS A350-900 · 루프트한자 운항</div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <div style="text-align:center">
+                <div style="font-size:18px;font-weight:800;color:#1A1A2E">15:55</div>
+                <div style="font-size:11px;font-weight:600;color:#1A1A2E">뮌헨 MUC</div>
+                <div style="font-size:10px;color:#9CA3AF">터미널 2</div>
+              </div>
+              <div style="flex:1;text-align:center">
+                <div style="font-size:10px;color:#9CA3AF">11h 00m</div>
+                <div style="height:2px;background:linear-gradient(90deg,#1A1A2E,#6B7280);border-radius:1px;margin:3px 0"></div>
+                <div style="font-size:10px;color:#6B7280">루프트한자</div>
+              </div>
+              <div style="text-align:center">
+                <div style="font-size:18px;font-weight:800;color:#1A1A2E">09:55</div>
+                <div style="font-size:11px;font-weight:600;color:#1A1A2E">인천 ICN</div>
+                <div style="font-size:10px;color:#9CA3AF">터미널 1 (+1일, 9/4)</div>
+              </div>
+            </div>
+            <div style="margin-top:6px;font-size:11px;color:#6B7280">🍽 기내식: 스낵 + 정식 식사 제공</div>
+          </div>
+
+          <!-- 수하물 & 혜택 -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <div style="background:#EFF6FF;border-radius:8px;padding:9px 12px;font-size:11px">
+              <div style="font-weight:700;color:#1E40AF;margin-bottom:4px">🧳 수하물 규정</div>
+              <div style="color:#374151;line-height:1.6">
+                기내 반입: 1개 × 8kg<br>
+                <span style="font-size:10px;color:#6B7280">max. 55×40×23cm</span><br>
+                위탁 수하물: 1개 × 23kg<br>
+                <span style="font-size:10px;color:#6B7280">(50lb)</span>
+              </div>
+            </div>
+            <div style="background:#F5F3FF;border-radius:8px;padding:9px 12px;font-size:11px">
+              <div style="font-weight:700;color:#5B21B6;margin-bottom:4px">🎁 Economy Green 혜택</div>
+              <div style="color:#374151;line-height:1.6">
+                마일리지 +10% 보너스<br>
+                포인트 +10% 적립<br>
+                친환경 SAF 10% 포함<br>
+                CO₂ 프로젝트 기여
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── 항공 & 교통 ── -->
+  <div id="transport" class="section">
+    <div class="section-header"><h2>항공 & 교통편</h2></div>
+
+    <!-- ══ 예매 정보 저장 관리 ══ -->
+    <div id="booking-manager">
+
+      <!-- 상단 요약 바 -->
+      <div id="summary-bar" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;"></div>
+
+      <!-- 구간 카드 목록 -->
+      <div id="route-cards"></div>
+
+      <!-- 새 예약 추가 버튼 -->
+      <button onclick="openModal(null)" style="
+        display:flex;align-items:center;gap:8px;
+        margin:20px 0 30px;
+        padding:12px 22px;
+        background:#0F3460;color:#fff;
+        border:none;border-radius:10px;
+        font-size:13px;font-weight:600;cursor:pointer;
+        box-shadow:0 4px 14px rgba(15,52,96,0.25);
+        transition:transform 0.1s,box-shadow 0.1s;
+      " onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform=''">
+        <span style="font-size:18px">＋</span> 새 예매 정보 추가
+      </button>
+
+      <div class="divider"></div>
+    </div>
+
+    <!-- ══ 참고 정보 (기존 테이블) ══ -->
+    <div style="margin-bottom:10px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
+        <span style="font-size:15px">📋</span>
+        <span style="font-size:14px;font-weight:700">구간별 참고 정보</span>
+        <span style="font-size:11px;color:#6B7280">(예매 전 참고용)</span>
+      </div>
+    </div>
+
+    <p class="subtitle">✈ 항공 (왕복)</p>
+    <div class="table-wrap" style="margin-bottom:24px">
+      <table>
+        <thead>
+          <tr>
+            <th>구간</th><th>수단</th><th>소요시간</th><th>권장 예약</th><th>예상 비용</th><th>비고</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:#F0FDF4">
+            <td><b>인천 → 암스테르담</b></td>
+            <td>LH713 (ICN→FRA) A350-900<br>+ LH1002 (FRA→AMS) A320</td>
+            <td>16h 50m<br><span style="font-size:10px;color:#6B7280">FRA 환승 2h 20m</span></td>
+            <td><span class="badge ok">✅ 예약완료</span></td>
+            <td>₩2,549,000 (왕복)</td>
+            <td>예약번호 84R5VJ · Economy Green · 8/10 ICN 12:20 출발 → AMS 22:10 도착</td>
+          </tr>
+          <tr style="background:#F0FDF4">
+            <td><b>로마 → 인천</b></td>
+            <td>LH4171 (FCO→MUC) A320neo<br>+ LH718 (MUC→ICN) A350-900</td>
+            <td>14h 05m<br><span style="font-size:10px;color:#6B7280">MUC 환승 1h 30m</span></td>
+            <td><span class="badge ok">✅ 예약완료</span></td>
+            <td>₩2,549,000 (왕복)</td>
+            <td>예약번호 84R5VJ · Economy Green · 9/3 FCO 12:50 출발 → 9/4 ICN 09:55 도착</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="subtitle">🚆 국가간 이동 (기차)</p>
+    <div class="table-wrap" style="margin-bottom:24px">
+      <table>
+        <thead>
+          <tr>
+            <th>구간</th><th>기차</th><th>소요</th><th>예약</th><th>예상비용</th><th>팁</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:#F0FDF4">
+            <td>암스테르담 → 파리</td>
+            <td>Eurostar 9344 · Eurostar Standard</td>
+            <td>4h 22m · 직행</td>
+            <td><span class="badge ok">✅ 예약완료</span></td>
+            <td>€130 (2인) <span class="krw-tag">약 22.8만원</span></td>
+            <td>8/17 AMS 11:40 → Paris Gare du Nord 16:02 · Coach 16 · Seats 73, 74</td>
+          </tr>
+          <tr>
+            <td>파리 → 취리히/제네바</td>
+            <td>TGV Lyria</td>
+            <td>3h~4h</td>
+            <td><span class="badge urgent">조기 예약 필수</span></td>
+            <td>€39~150</td>
+            <td>좌석 지정 필수</td>
+          </tr>
+          <tr>
+            <td>취리히 → 밀라노</td>
+            <td>SBB/Trenitalia</td>
+            <td>3h 30m</td>
+            <td><span class="badge">1~2달 전</span></td>
+            <td>€25~80</td>
+            <td>루가노 경유 추천</td>
+          </tr>
+          <tr>
+            <td>밀라노 → 피렌체</td>
+            <td>Trenitalia 프레차로사</td>
+            <td>2h</td>
+            <td><span class="badge ok">1달 전</span></td>
+            <td>€15~50</td>
+            <td>고속열차 추천</td>
+          </tr>
+          <tr>
+            <td>피렌체 → 로마</td>
+            <td>Trenitalia 프레차로사</td>
+            <td>1h 30m</td>
+            <td><span class="badge ok">1달 전</span></td>
+            <td>€15~50</td>
+            <td>고속열차 추천</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="subtitle">🏛 로마에서 공항 이동</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>구간</th><th>수단</th><th>소요</th><th>비용</th><th>비고</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>로마 테르미니 → FCO 공항</td>
+            <td>레오나르도 익스프레스</td>
+            <td>32분</td>
+            <td>€14</td>
+            <td>9/3 귀국편 탑승</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── 숙소 ── -->
+  <div id="hotel" class="section">
+    <div class="section-header"><h2>숙소 계획</h2></div>
+
+    <!-- 예약 완료 숙소 카드 -->
+    <div style="margin-bottom:10px;display:flex;align-items:center;gap:8px">
+      <span style="font-size:15px">✅</span>
+      <span style="font-size:14px;font-weight:700;color:#1A1A2E">예약 완료된 숙소</span>
+      <span style="background:#16A34A;color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px">4건</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;margin-bottom:28px">
+
+      <!-- 카드 1: 이시-레-물리노 B&B -->
+      <div style="
+        background:#fff;border-radius:16px;
+        box-shadow:0 2px 16px rgba(0,0,0,0.09);
+        overflow:hidden;border:2px solid #BBF7D0;
+        position:relative;
+      ">
+        <div style="background:linear-gradient(135deg,#F05A28,#FF8C5A);padding:14px 18px;color:#fff;display:flex;align-items:center;gap:10px">
+          <span style="font-size:22px">🇫🇷</span>
+          <div>
+            <div style="font-size:14px;font-weight:700">이시-레-물리노의 B&amp;B</div>
+            <div style="font-size:11px;opacity:0.85">파리 근교 · 에어비앤비</div>
+          </div>
+          <span style="margin-left:auto;background:rgba(255,255,255,0.25);padding:3px 10px;border-radius:10px;font-size:11px;font-weight:700">✅ 예약완료</span>
+        </div>
+        <div style="padding:16px 18px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+            <div>
+              <div style="font-size:10px;color:#9CA3AF;font-weight:600;margin-bottom:2px">체크인</div>
+              <div style="font-size:14px;font-weight:700;color:#1A1A2E">8월 17일 (월)</div>
+              <div style="font-size:12px;color:#6B7280">오후 3:00 이후</div>
+            </div>
+            <div>
+              <div style="font-size:10px;color:#9CA3AF;font-weight:600;margin-bottom:2px">체크아웃</div>
+              <div style="font-size:14px;font-weight:700;color:#1A1A2E">8월 22일 (토)</div>
+              <div style="font-size:12px;color:#6B7280">오전 10:00</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+            <div style="background:#F9FAFB;border-radius:8px;padding:7px 12px;flex:1;min-width:100px">
+              <div style="font-size:10px;color:#9CA3AF;font-weight:600">호스트</div>
+              <div style="font-size:13px;font-weight:600;color:#1A1A2E">🙋 Pierre 님</div>
+            </div>
+            <div style="background:#F9FAFB;border-radius:8px;padding:7px 12px;flex:1;min-width:100px">
+              <div style="font-size:10px;color:#9CA3AF;font-weight:600">숙박 기간</div>
+              <div style="font-size:13px;font-weight:600;color:#1A1A2E">5박 6일</div>
+            </div>
+          </div>
+          <div style="background:#FFF7ED;border-radius:8px;padding:9px 12px;font-size:12px;color:#92400E;line-height:1.5">
+            📍 이시-레-물리노(Issy-les-Moulineaux)는 파리 남서쪽 인접 코뮌으로, 메트로 12호선으로 파리 중심까지 약 15~20분
+          </div>
+          <div style="margin-top:10px;display:flex;gap:6px">
+            <div style="background:#DCFCE7;color:#16A34A;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:600">단독 픽업 차량 예약 가능</div>
+            <div style="background:#EFF6FF;color:#2563EB;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:600">체크인 전 짐 보관</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 카드 2: 그린델발트 아파트 -->
+      <div style="
+        background:#fff;border-radius:16px;
+        box-shadow:0 2px 16px rgba(0,0,0,0.09);
+        overflow:hidden;border:2px solid #BBF7D0;
+        position:relative;
+      ">
+        <div style="background:linear-gradient(135deg,#9B59B6,#C27DE0);padding:14px 18px;color:#fff;display:flex;align-items:center;gap:10px">
+          <span style="font-size:22px">🇨🇭</span>
+          <div>
+            <div style="font-size:14px;font-weight:700">그린델발트의 아파트</div>
+            <div style="font-size:11px;opacity:0.85">스위스 그린델발트 · 에어비앤비</div>
+          </div>
+          <span style="margin-left:auto;background:rgba(255,255,255,0.25);padding:3px 10px;border-radius:10px;font-size:11px;font-weight:700">✅ 예약완료</span>
+        </div>
+        <div style="padding:16px 18px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+            <div>
+              <div style="font-size:10px;color:#9CA3AF;font-weight:600;margin-bottom:2px">체크인</div>
+              <div style="font-size:14px;font-weight:700;color:#1A1A2E">8월 22일 (토)</div>
+              <div style="font-size:12px;color:#6B7280">오후 3:00 이후</div>
+            </div>
+            <div>
+              <div style="font-size:10px;color:#9CA3AF;font-weight:600;margin-bottom:2px">체크아웃</div>
+              <div style="font-size:14px;font-weight:700;color:#1A1A2E">8월 27일 (목)</div>
+              <div style="font-size:12px;color:#6B7280">오전 10:00</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+            <div style="background:#F9FAFB;border-radius:8px;padding:7px 12px;flex:1;min-width:100px">
+              <div style="font-size:10px;color:#9CA3AF;font-weight:600">호스트</div>
+              <div style="font-size:13px;font-weight:600;color:#1A1A2E">🙋 Elisabeth 님</div>
+            </div>
+            <div style="background:#F9FAFB;border-radius:8px;padding:7px 12px;flex:1;min-width:100px">
+              <div style="font-size:10px;color:#9CA3AF;font-weight:600">숙박 기간</div>
+              <div style="font-size:13px;font-weight:600;color:#1A1A2E">5박 6일</div>
+            </div>
+          </div>
+          <div style="background:#F5F3FF;border-radius:8px;padding:9px 12px;font-size:12px;color:#5B21B6;line-height:1.5">
+            🏔 그린델발트는 융프라우 & 아이거 등산 베이스캠프. 인터라켄 동역에서 기차 약 35분. 고도 약 1,034m로 여름에도 서늘해요.
+          </div>
+          <div style="margin-top:10px">
+            <div style="background:#DCFCE7;color:#16A34A;display:inline-block;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:600">융프라우 당일치기 최적 위치 🏔</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 카드 3: 밀라노 숙소 -->
+      <div style="
+        background:#fff;border-radius:16px;
+        box-shadow:0 2px 16px rgba(0,0,0,0.09);
+        overflow:hidden;border:2px solid #BBF7D0;
+        position:relative;
+      ">
+        <div style="background:linear-gradient(135deg,#27AE60,#52C78A);padding:14px 18px;color:#fff;display:flex;align-items:center;gap:10px">
+          <span style="font-size:22px">🇮🇹</span>
+          <div>
+            <div style="font-size:14px;font-weight:700">밀라노 숙소</div>
+            <div style="font-size:11px;opacity:0.85">이탈리아 밀라노 · Booking.com</div>
+          </div>
+          <span style="margin-left:auto;background:rgba(255,255,255,0.25);padding:3px 10px;border-radius:10px;font-size:11px;font-weight:700">✅ 예약완료</span>
+        </div>
+        <div style="padding:16px 18px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+            <div>
+              <div style="font-size:10px;color:#9CA3AF;font-weight:600;margin-bottom:2px">체크인</div>
+              <div style="font-size:14px;font-weight:700;color:#1A1A2E">8월 27일 (목)</div>
+              <div style="font-size:12px;color:#6B7280">오후 2:00 이후</div>
+            </div>
+            <div>
+              <div style="font-size:10px;color:#9CA3AF;font-weight:600;margin-bottom:2px">체크아웃</div>
+              <div style="font-size:14px;font-weight:700;color:#1A1A2E">8월 28일 (금)</div>
+              <div style="font-size:12px;color:#6B7280"></div>
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+            <div style="background:#F9FAFB;border-radius:8px;padding:7px 12px;flex:1;min-width:100px">
+              <div style="font-size:10px;color:#9CA3AF;font-weight:600">예약 번호</div>
+              <div style="font-size:13px;font-weight:700;color:#0F3460;letter-spacing:0.5px">1742338358</div>
+            </div>
+            <div style="background:#F9FAFB;border-radius:8px;padding:7px 12px;flex:1;min-width:100px">
+              <div style="font-size:10px;color:#9CA3AF;font-weight:600">숙박 기간</div>
+              <div style="font-size:13px;font-weight:600;color:#1A1A2E">1박 2일</div>
+            </div>
+          </div>
+          <div style="background:#F0FDF4;border-radius:8px;padding:9px 12px;font-size:12px;color:#166534;line-height:1.5">
+            💳 2026년 8월 24일 결제 예정 · 무료 취소: 밀라노 현지 시간 8월 25일 23:59까지
+          </div>
+        </div>
+      </div>
+
+      <!-- 카드 4: 로마 숙소 -->
+      <div style="
+        background:#fff;border-radius:16px;
+        box-shadow:0 2px 16px rgba(0,0,0,0.09);
+        overflow:hidden;border:2px solid #BBF7D0;
+        position:relative;
+      ">
+        <div style="background:linear-gradient(135deg,#E74C3C,#FF6B6B);padding:14px 18px;color:#fff;display:flex;align-items:center;gap:10px">
+          <span style="font-size:22px">🇮🇹</span>
+          <div>
+            <div style="font-size:14px;font-weight:700">로마 숙소</div>
+            <div style="font-size:11px;opacity:0.85">이탈리아 로마 · Booking.com</div>
+          </div>
+          <span style="margin-left:auto;background:rgba(255,255,255,0.25);padding:3px 10px;border-radius:10px;font-size:11px;font-weight:700">✅ 예약완료</span>
+        </div>
+        <div style="padding:16px 18px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+            <div>
+              <div style="font-size:10px;color:#9CA3AF;font-weight:600;margin-bottom:2px">체크인</div>
+              <div style="font-size:14px;font-weight:700;color:#1A1A2E">8월 30일 (일)</div>
+              <div style="font-size:12px;color:#6B7280">오후 2:00 이후</div>
+            </div>
+            <div>
+              <div style="font-size:10px;color:#9CA3AF;font-weight:600;margin-bottom:2px">체크아웃</div>
+              <div style="font-size:14px;font-weight:700;color:#1A1A2E">9월 3일 (목)</div>
+              <div style="font-size:12px;color:#6B7280"></div>
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+            <div style="background:#F9FAFB;border-radius:8px;padding:7px 12px;flex:1;min-width:100px">
+              <div style="font-size:10px;color:#9CA3AF;font-weight:600">예약 번호</div>
+              <div style="font-size:13px;font-weight:700;color:#0F3460;letter-spacing:0.5px">1742335909</div>
+            </div>
+            <div style="background:#F9FAFB;border-radius:8px;padding:7px 12px;flex:1;min-width:100px">
+              <div style="font-size:10px;color:#9CA3AF;font-weight:600">숙박 기간</div>
+              <div style="font-size:13px;font-weight:600;color:#1A1A2E">4박 5일</div>
+            </div>
+          </div>
+          <div style="background:#F0FDF4;border-radius:8px;padding:9px 12px;font-size:12px;color:#166534;line-height:1.5">
+            💳 2026년 8월 25일 결제 예정 · 무료 취소: 로마 현지 시간 8월 26일 23:59까지
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 예약 필요 숙소 -->
+    <div style="margin-bottom:10px;display:flex;align-items:center;gap:8px">
+      <span style="font-size:15px">📌</span>
+      <span style="font-size:14px;font-weight:700;color:#1A1A2E">예약 필요한 숙소</span>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>국가/도시</th><th>기간</th><th>박수</th><th>추천 지역</th><th>예산/박</th><th>예약 시기</th><th>비고</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="country-dot" style="background:var(--netherlands)"></span><b>암스테르담</b></td>
+            <td>8/10~14</td>
+            <td>4박</td>
+            <td>담 광장 / 요르단 지구</td>
+            <td>€80~150</td>
+            <td><span class="badge urgent">즉시 예약</span></td>
+            <td>국제대회 기간 숙박비 급등</td>
+          </tr>
+          <tr>
+            <td><span class="country-dot" style="background:var(--conference)"></span><b>암스테르담 (대회)</b></td>
+            <td>8/14~17</td>
+            <td>3박</td>
+            <td>대회장 인근</td>
+            <td>€100~200</td>
+            <td><span class="badge urgent">즉시 예약</span></td>
+            <td>대회 공식 숙소 확인 우선</td>
+          </tr>
+          <tr style="background:#F0FDF4">
+            <td><span class="country-dot" style="background:var(--france)"></span><b>파리 (이시-레-물리노)</b></td>
+            <td>8/17~22</td>
+            <td>5박</td>
+            <td>이시-레-물리노 B&amp;B</td>
+            <td>—</td>
+            <td><span class="badge ok">✅ 예약완료</span></td>
+            <td>호스트: Pierre · 에어비앤비</td>
+          </tr>
+          <tr style="background:#F0FDF4">
+            <td><span class="country-dot" style="background:var(--switzerland)"></span><b>그린델발트</b></td>
+            <td>8/22~27</td>
+            <td>5박</td>
+            <td>그린델발트 아파트</td>
+            <td>—</td>
+            <td><span class="badge ok">✅ 예약완료</span></td>
+            <td>호스트: Elisabeth · 에어비앤비 · 체크인 15:00 / 체크아웃 10:00</td>
+          </tr>
+          <tr style="background:#F0FDF4">
+            <td><span class="country-dot" style="background:var(--italy-north)"></span><b>밀라노</b></td>
+            <td>8/27~28</td>
+            <td>1박</td>
+            <td>중앙역 / 두오모 근처</td>
+            <td>—</td>
+            <td><span class="badge ok">✅ 예약완료</span></td>
+            <td>예약번호: 1742338358 · 무료취소 8/25까지</td>
+          </tr>
+          <tr>
+            <td><span class="country-dot" style="background:var(--italy-north)"></span><b>피렌체</b></td>
+            <td>8/28~30</td>
+            <td>2박</td>
+            <td>산타 마리아 노벨라역 근처</td>
+            <td>€80~140</td>
+            <td><span class="badge urgent">즉시 예약</span></td>
+            <td>두오모 도보권 선호</td>
+          </tr>
+          <tr style="background:#F0FDF4">
+            <td><span class="country-dot" style="background:var(--italy-north)"></span><b>로마</b></td>
+            <td>8/30~9/3</td>
+            <td>4박</td>
+            <td>테르미니역 / 나보나 광장 주변</td>
+            <td>—</td>
+            <td><span class="badge ok">✅ 예약완료</span></td>
+            <td>예약번호: 1742335909 · 무료취소 8/26까지</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 숙소 연결 안내 -->
+    <div style="margin-top:16px;padding:14px 16px;background:#F0FDF4;border-radius:10px;font-size:12px;color:#166534;border-left:4px solid #16A34A">
+      ✅ <b>숙소 일정 완벽 연결:</b> 이시-레-물리노 B&amp;B 체크아웃(8/22 오전 10시) → 당일 파리 출발 → 그린델발트 아파트 체크인(8/22 오후 3시). 이동 시간 충분히 여유 있어요!
+    </div>
+  </div>
+
+  <!-- ── 사전 예약 ── -->
+  <div id="booking" class="section">
+    <div class="section-header"><h2>사전 예약 체크리스트</h2><span class="count">우선순위 순</span></div>
+
+    <!-- ══ 예매 사이트 링크 모음 ══ -->
+    <div style="margin-bottom:28px">
+      <div style="font-size:13px;font-weight:700;color:#1A1A2E;margin-bottom:12px;display:flex;align-items:center;gap:6px">
+        🔗 <span>예매 사이트 바로가기</span>
+        <span style="font-size:11px;font-weight:400;color:#9CA3AF">· 클릭하면 해당 예매 사이트로 이동해요</span>
+      </div>
+
+      <div id="booking-link-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px"></div>
+
+      <script>
+      /* ══════════════════════════════════════
+         예약 링크 데이터 & 렌더 엔진
+      ══════════════════════════════════════ */
+      const LINK_STORAGE_KEY = 'booking-links-v1';
+
+      const BOOKING_GROUPS = [
+        {
+          id: 'flight', icon: '✈', label: '항공권',
+          headerBg: 'linear-gradient(135deg,#1A1A2E,#0F3460)',
+          items: [
+            { id: 'lh', icon: '✈', iconBg: '#003B6E', label: 'Lufthansa (ICN↔AMS/FCO)', sub: 'ICN↔AMS↔FCO · 예약번호 84R5VJ', defaultUrl: 'https://www.lufthansa.com/gb/en/homepage', status: 'done' }
+          ]
+        },
+        {
+          id: 'train', icon: '🚄', label: '기차',
+          headerBg: 'linear-gradient(135deg,#0D3B5E,#1A6EA6)',
+          items: [
+            { id: 'eurostar', icon: '🚄', iconBg: '#003D6B', label: 'Eurostar (AMS→PAR)', sub: '8/17 · No.9344 · Coach 16', defaultUrl: 'https://www.eurostar.com/rw-en', status: 'done' },
+            { id: 'tgv',     icon: '🚄', iconBg: '#CE1126', label: 'SNCF (TGV) PAR→스위스', sub: '8/22 · 조기 예약 필수', defaultUrl: 'https://www.sncf-connect.com', status: 'need' },
+            { id: 'sbb',     icon: '🚄', iconBg: '#EB0000', label: 'SBB 취리히→밀라노', sub: '8/27 · 루가노 경유', defaultUrl: 'https://www.sbb.ch/en', status: 'need' },
+            { id: 'tre-mfl', icon: '🚄', iconBg: '#009246', label: 'Trenitalia 밀라노→피렌체', sub: '8/28 · 고속열차', defaultUrl: 'https://www.trenitalia.com', status: 'need' },
+            { id: 'tre-fro', icon: '🚄', iconBg: '#009246', label: 'Trenitalia 피렌체→로마', sub: '8/30 · 프레차로사', defaultUrl: 'https://www.trenitalia.com', status: 'need' }
+          ]
+        },
+        {
+          id: 'hotel', icon: '🏨', label: '숙소',
+          headerBg: 'linear-gradient(135deg,#FF5A5F,#E31C5F)',
+          items: [
+            { id: 'h-paris', icon: '🏠', iconBg: '#FF5A5F', label: 'Airbnb — 이시-레-물리노 B&B', sub: '파리 8/17~22 · 호스트: Pierre', defaultUrl: 'https://www.airbnb.co.kr/', status: 'done' },
+            { id: 'h-grin',  icon: '🏠', iconBg: '#FF5A5F', label: 'Airbnb — 그린델발트 아파트', sub: '스위스 8/22~27 · 호스트: Elisabeth', defaultUrl: 'https://www.airbnb.co.kr/', status: 'done' },
+            { id: 'h-ams',   icon: '🏨', iconBg: '#FF5A5F', label: '암스테르담 숙소 (8/10~17)', sub: '성수기 + 국제대회 기간 → 즉시 예약!', defaultUrl: '', status: 'urgent' },
+            { id: 'h-milan', icon: '🏨', iconBg: '#003580', label: '밀라노 숙소 (8/27~28)', sub: '예약번호: 1742338358 · 무료취소 8/25까지', defaultUrl: 'https://www.booking.com', status: 'done' },
+            { id: 'h-flor',  icon: '🏨', iconBg: '#003580', label: '피렌체 숙소 (8/28~30)', sub: '2박 · 즉시 예약 필요!', defaultUrl: '', status: 'urgent' },
+            { id: 'h-rome',  icon: '🏨', iconBg: '#003580', label: '로마 숙소 (8/30~9/3)', sub: '예약번호: 1742335909 · 무료취소 8/26까지', defaultUrl: 'https://www.booking.com', status: 'done' }
+          ]
+        },
+        {
+          id: 'ticket', icon: '🎟', label: '명소 입장권',
+          headerBg: 'linear-gradient(135deg,#7C3AED,#A855F7)',
+          items: [
+            { id: 'louvre',  icon: '🏛', iconBg: '#704214', label: '루브르 박물관', sub: 'ticketlouvre.fr · 8/19 14:00', defaultUrl: 'https://www.ticketlouvre.fr', status: 'done' },
+            { id: 'lc',      icon: '🖼', iconBg: '#1B4F72', label: '최후의 만찬 (밀라노)', sub: 'vivaticket.com · 2~3달 전 마감 주의!', defaultUrl: 'https://www.vivaticket.com', status: 'urgent' },
+            { id: 'vatican', icon: '⛪', iconBg: '#FFD700', label: '바티칸 박물관', sub: 'museivaticani.va · 로마', defaultUrl: 'https://www.museivaticani.va', status: 'warn' },
+            { id: 'versail', icon: '🏰', iconBg: '#C9A84C', label: '베르사유 궁전', sub: 'chateauversailles.fr · 파리', defaultUrl: 'https://www.chateauversailles.fr', status: 'warn' },
+            { id: 'colos',   icon: '🏟', iconBg: '#8B6914', label: '콜로세움 + 로마 포럼', sub: 'colosseo.it · 로마', defaultUrl: 'https://www.colosseo.it', status: 'normal' },
+            { id: 'uffizi',  icon: '🖼', iconBg: '#8B0000', label: '우피치 미술관', sub: 'uffizi.it · 피렌체', defaultUrl: 'https://www.uffizi.it', status: 'normal' },
+            { id: 'jung',    icon: '🏔', iconBg: '#4A90D9', label: '융프라우요흐', sub: 'jungfrau.ch · 스위스 · CHF 210~', defaultUrl: 'https://www.jungfrau.ch', status: 'normal' }
+          ]
+        }
+      ];
+
+      function loadLinks() {
+        try { return JSON.parse(localStorage.getItem(LINK_STORAGE_KEY) || '{}'); } catch(e) { return {}; }
+      }
+      function saveLinks(map) {
+        try { localStorage.setItem(LINK_STORAGE_KEY, JSON.stringify(map)); } catch(e) {}
+      }
+
+      const STATUS_STYLE = {
+        done:   { border:'#DCFCE7', badge:'background:#DCFCE7;color:#16A34A', text:'✅ 완료' },
+        urgent: { border:'#FEE2E2', badge:'background:#FEE2E2;color:#DC2626', text:'🚨 긴급' },
+        warn:   { border:'#FEF3C7', badge:'background:#FEF3C7;color:#D97706', text:'⚡ 2달 전' },
+        need:   { border:'#FEF3C7', badge:'background:#FEF3C7;color:#D97706', text:'📌 예약 필요' },
+        normal: { border:'#F3F4F6', badge:'background:#F3F4F6;color:#374151', text:'📋 1달 전' }
+      };
+
+      function toggleLinkInput(itemId) {
+        const wrap = document.getElementById('liw-' + itemId);
+        if (!wrap) return;
+        const isOpen = wrap.style.display === 'flex';
+        wrap.style.display = isOpen ? 'none' : 'flex';
+        if (!isOpen) {
+          const inp = document.getElementById('lin-' + itemId);
+          if (inp) { inp.focus(); inp.select(); }
+        }
+      }
+
+      function saveLink(itemId) {
+        const inp = document.getElementById('lin-' + itemId);
+        if (!inp) return;
+        const val = inp.value.trim();
+        const map = loadLinks();
+        if (val) {
+          map[itemId] = val;
+          saveLinks(map);
+          const mainLink = document.getElementById('il-' + itemId);
+          if (mainLink) { mainLink.href = val; mainLink.style.display = 'inline-flex'; }
+          const btn = document.getElementById('eb-' + itemId);
+          if (btn) { btn.textContent = '🔗 수정'; btn.style.background = '#EFF6FF'; btn.style.color = '#2563EB'; }
+          showToast('링크가 저장되었습니다 ✅');
+        } else {
+          delete map[itemId];
+          saveLinks(map);
+          showToast('링크가 삭제되었습니다');
+        }
+        toggleLinkInput(itemId);
+      }
+
+      function onLinkKeydown(e, itemId) {
+        if (e.key === 'Enter') saveLink(itemId);
+        if (e.key === 'Escape') toggleLinkInput(itemId);
+      }
+
+      function showToast(msg) {
+        let t = document.getElementById('link-toast');
+        if (!t) {
+          t = document.createElement('div');
+          t.id = 'link-toast';
+          t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1A1A2E;color:#fff;padding:9px 20px;border-radius:24px;font-size:13px;font-weight:600;z-index:9999;opacity:0;transition:opacity 0.2s;pointer-events:none;white-space:nowrap';
+          document.body.appendChild(t);
+        }
+        t.textContent = msg;
+        t.style.opacity = '1';
+        clearTimeout(t._timer);
+        t._timer = setTimeout(() => { t.style.opacity = '0'; }, 2000);
+      }
+
+      function renderBookingGroups() {
+        const map = loadLinks();
+        const grid = document.getElementById('booking-link-grid');
+        if (!grid) return;
+        grid.innerHTML = BOOKING_GROUPS.map(g => {
+          const itemsHtml = g.items.map(item => {
+            const st = STATUS_STYLE[item.status] || STATUS_STYLE.normal;
+            const savedUrl = map[item.id];
+            const url = savedUrl || item.defaultUrl || '';
+            const hasLink = !!url;
+            const isCustom = !!savedUrl;
+            const btnLabel = isCustom ? '🔗 수정' : (item.defaultUrl ? '🔗 수정' : '🔗 링크 입력');
+            const btnStyle = hasLink ? 'background:#EFF6FF;color:#2563EB' : 'background:#F3F4F6;color:#9CA3AF';
+
+            return `
+            <div style="border-radius:10px;border:1.5px solid ${st.border};overflow:hidden">
+              <div style="display:flex;align-items:center;gap:8px;padding:9px 10px;background:#F9FAFB">
+                <div style="width:30px;height:30px;background:${item.iconBg};border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">${item.icon}</div>
+                <div style="flex:1;min-width:0">
+                  <div style="font-size:12px;font-weight:700;color:#1A1A2E;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${item.label}</div>
+                  <div style="font-size:10px;color:#6B7280;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${item.sub}</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:4px;flex-shrink:0">
+                  <span style="font-size:10px;font-weight:700;${st.badge};padding:2px 7px;border-radius:6px;white-space:nowrap">${st.text}</span>
+                  <a id="il-${item.id}" href="${url || '#'}" target="_blank" rel="noopener"
+                     style="display:${hasLink ? 'inline-flex' : 'none'};align-items:center;padding:3px 7px;background:#F0FDF4;color:#16A34A;border-radius:6px;font-size:10px;font-weight:700;text-decoration:none"
+                     title="예약 사이트 열기">↗</a>
+                  <button id="eb-${item.id}" onclick="toggleLinkInput('${item.id}')"
+                    style="${btnStyle};border:none;border-radius:6px;padding:3px 8px;font-size:10px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap">${btnLabel}</button>
+                </div>
+              </div>
+              <div id="liw-${item.id}" style="display:none;align-items:center;gap:6px;padding:8px 10px;background:#F0F9FF;border-top:1px solid #BAE6FD">
+                <span style="font-size:11px;flex-shrink:0">🔗</span>
+                <input id="lin-${item.id}" type="url" placeholder="예약 완료 후 링크를 붙여넣으세요"
+                  value="${savedUrl || item.defaultUrl || ''}"
+                  onkeydown="onLinkKeydown(event,'${item.id}')"
+                  style="flex:1;min-width:0;padding:6px 9px;border:1.5px solid #BAE6FD;border-radius:7px;font-size:12px;outline:none;font-family:inherit"
+                  onfocus="this.style.borderColor='#0284C7'" onblur="this.style.borderColor='#BAE6FD'">
+                <button onclick="saveLink('${item.id}')" style="padding:6px 11px;background:#0284C7;color:#fff;border:none;border-radius:7px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0">저장</button>
+                <button onclick="toggleLinkInput('${item.id}')" style="padding:6px 8px;background:#E5E7EB;color:#6B7280;border:none;border-radius:7px;font-size:11px;cursor:pointer;font-family:inherit;flex-shrink:0">✕</button>
+              </div>
+            </div>`;
+          }).join('');
+
+          return `
+          <div style="background:#fff;border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,0.07);overflow:hidden;border:1px solid #E5E7EB">
+            <div style="background:${g.headerBg};padding:11px 16px;display:flex;align-items:center;gap:8px">
+              <span style="font-size:18px">${g.icon}</span>
+              <span style="font-size:13px;font-weight:700;color:#fff">${g.label}</span>
+            </div>
+            <div style="padding:12px 14px;display:flex;flex-direction:column;gap:8px">${itemsHtml}</div>
+          </div>`;
+        }).join('');
+      }
+
+      renderBookingGroups();
+      </script>
+
+
+      <!-- 진행 상황 요약 바 -->
+      <div style="margin-top:16px;background:#fff;border-radius:12px;padding:14px 18px;box-shadow:0 2px 8px rgba(0,0,0,0.06);display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+        <div style="font-size:12px;font-weight:700;color:#1A1A2E">📊 예약 진행 현황</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <span style="display:flex;align-items:center;gap:5px;font-size:12px"><span style="background:#DCFCE7;color:#16A34A;padding:2px 8px;border-radius:6px;font-weight:700">✅ 완료 5건</span></span>
+          <span style="display:flex;align-items:center;gap:5px;font-size:12px"><span style="background:#FEF2F2;color:#DC2626;padding:2px 8px;border-radius:6px;font-weight:700">🚨 긴급 2건</span></span>
+          <span style="display:flex;align-items:center;gap:5px;font-size:12px"><span style="background:#FEF3C7;color:#D97706;padding:2px 8px;border-radius:6px;font-weight:700">⚡ 2달 전 3건</span></span>
+          <span style="display:flex;align-items:center;gap:5px;font-size:12px"><span style="background:#F3F4F6;color:#374151;padding:2px 8px;border-radius:6px;font-weight:700">📋 1달 전 5건</span></span>
+        </div>
+        <div style="margin-left:auto">
+          <div style="height:8px;width:180px;background:#E5E7EB;border-radius:4px;overflow:hidden">
+            <div style="height:100%;width:33%;background:linear-gradient(90deg,#16A34A,#22C55E);border-radius:4px"></div>
+          </div>
+          <div style="font-size:10px;color:#9CA3AF;margin-top:3px;text-align:right">전체 15건 중 5건 완료 (33%)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="section-header" style="margin-top:4px"><h2>세부 체크리스트</h2><span class="count">우선순위 순</span></div>
+    <div class="checklist-grid">
+
+      <div class="check-card">
+        <div class="check-card-header" style="background:#DC2626">🚨 즉시 예약 필수</div>
+        <div class="check-item">
+          <input type="checkbox" id="c1" checked><label for="c1" style="text-decoration:line-through;color:#9CA3AF">인천 ↔ 암스테르담 / 로마 항공권 (왕복)</label>
+          <span class="priority p-low" style="background:#DCFCE7;color:#16A34A">✅ 84R5VJ</span>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="c-msm"><label for="c-msm">몽생미셸 당일 투어 예약 (8/21) — 파리 출발 투어 버스</label>
+          <span class="priority p-high">긴급</span>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="c2"><label for="c2">최후의 만찬 (밀라노) — vivaticket.com<br><small style="color:#9CA3AF">8/27 방문 예정 → 최소 6월 중 예약</small></label>
+          <span class="priority p-high">긴급</span>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="c3"><label for="c3">국제대회 기간 암스테르담 숙소 (8/14~17)</label>
+          <span class="priority p-high">긴급</span>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="c4" checked><label for="c4" style="text-decoration:line-through;color:#9CA3AF">밀라노 숙소 (8/27~28, 1박)</label>
+          <span class="priority p-low" style="background:#DCFCE7;color:#16A34A">✅ 1742338358</span>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="c4b"><label for="c4b">피렌체 숙소 (8/28~30, 2박)</label>
+          <span class="priority p-high">긴급</span>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="c5" checked><label for="c5" style="text-decoration:line-through;color:#9CA3AF">암스테르담 → 파리 유로스타 (8/17)</label>
+          <span class="priority p-low" style="background:#DCFCE7;color:#16A34A">✅ Eurostar 9344</span>
+        </div>
+      </div>
+
+      <div class="check-card">
+        <div class="check-card-header" style="background:#D97706">⚡ 2달 전 예약</div>
+        <div class="check-item">
+          <input type="checkbox" id="c6"><label for="c6">바티칸 박물관 + 시스티나 예배당 — museivaticani.va</label>
+          <span class="priority p-med">2달 전</span>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="c7" checked><label for="c7" style="text-decoration:line-through;color:#9CA3AF">파리 루브르 박물관 — ticketlouvre.fr</label>
+          <span class="priority p-low" style="background:#DCFCE7;color:#16A34A">✅ 8/19 확정</span>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="c8"><label for="c8">파리 베르사유 궁전 — châteauversailles.fr</label>
+          <span class="priority p-med">2달 전</span>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="c9"><label for="c9">파리 → 스위스 TGV Lyria (8/22)</label>
+          <span class="priority p-med">2달 전</span>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="c10"><label for="c10">파리 숙소 (8/17~22, 5박)</label>
+          <span class="priority p-med">2달 전</span>
+        </div>
+      </div>
+
+      <div class="check-card">
+        <div class="check-card-header" style="background:#2563EB">📋 1달 전 예약</div>
+        <div class="check-item">
+          <input type="checkbox" id="c11"><label for="c11">우피치 미술관 (피렌체) — uffizi.it</label>
+          <span class="priority p-low">1달 전</span>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="c12"><label for="c12">피렌체 두오모 쿠폴라 클라이밍 — duomo.firenze.it</label>
+          <span class="priority p-low">1달 전</span>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="c13"><label for="c13">콜로세움 + 로마 포럼 통합권 — colosseo.it</label>
+          <span class="priority p-low">1달 전</span>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="c14"><label for="c14">융프라우요흐 티켓 (스위스) — jungfrau.ch</label>
+          <span class="priority p-low">1달 전</span>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="c15"><label for="c15">이탈리아 기차 전 구간 — trenitalia.com</label>
+          <span class="priority p-low">1달 전</span>
+        </div>
+      </div>
+
+      <div class="check-card">
+        <div class="check-card-header" style="background:#16A34A">✅ 패스 & 준비물</div>
+        <div class="check-item">
+          <input type="checkbox" id="c16"><label for="c16">유럽 SIM 카드 or 로밍 플랜 준비</label>
+          <span class="priority p-low">출발 전</span>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="c17"><label for="c17">스위스 트래블 패스 구매 고려 — swisstravelsystem.ch</label>
+          <span class="priority p-low">1달 전</span>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="c18"><label for="c18">파리 뮤지엄 패스 구매 고려 (2/4/6일권)</label>
+          <span class="priority p-low">2달 전</span>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="c19"><label for="c19">여행자 보험 가입</label>
+          <span class="priority p-med">출발 2주 전</span>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="c20"><label for="c20">해외 결제 가능 카드 확인 (트래블월렛 등)</label>
+          <span class="priority p-low">출발 전</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── 식사 추천 ── -->
+  <div id="food" class="section">
+    <div class="section-header"><h2>🍽 도시별 식사 추천</h2></div>
+    <div class="food-grid">
+
+      <div class="food-card" style="border-top-color:var(--netherlands)">
+        <h4>🇳🇱 암스테르담</h4>
+        <div class="food-item">헤링 (청어) 샌드위치 — 거리 노점</div>
+        <div class="food-item">스트룹와플 & 네덜란드 치즈</div>
+        <div class="food-item">보르치 운하 주변 카페</div>
+        <div class="food-item">네덜란드 판네쿠크 (팬케이크)</div>
+        <div class="food-item">인도네시아 음식 (식민지 영향)</div>
+      </div>
+
+      <div class="food-card" style="border-top-color:var(--france)">
+        <h4>🇫🇷 파리</h4>
+        <div class="food-item">크루아상 & 바게트 (아침 필수)</div>
+        <div class="food-item">크레페 — 몽마르트르 근처</div>
+        <div class="food-item">비스트로 런치 (plat du jour)</div>
+        <div class="food-item">레스토랑 예약 앱: The Fork</div>
+        <div class="food-item">카페 드 플로르 — 유명 카페 문화</div>
+      </div>
+
+      <div class="food-card" style="border-top-color:var(--switzerland)">
+        <h4>🇨🇭 스위스</h4>
+        <div class="food-item">퐁뒤 & 라클렛 — 저녁 필수</div>
+        <div class="food-item">로스티 (감자 요리) — 아침/점심</div>
+        <div class="food-item">스위스 초콜릿 (린트, 토블러론)</div>
+        <div class="food-item">수퍼마켓(Migros/Coop) 도시락 활용</div>
+        <div class="food-item">체리 케이크 — 루체른 특산</div>
+      </div>
+
+      <div class="food-card" style="border-top-color:#1DB954">
+        <h4>🇮🇹 밀라노</h4>
+        <div class="food-item">리조토 알라 밀라네세</div>
+        <div class="food-item">오소부코 (밀라노식 소 정강이)</div>
+        <div class="food-item">오레키에테 파스타 — 밀라노식</div>
+        <div class="food-item">젤라토 매일 1~2개씩</div>
+      </div>
+
+      <div class="food-card" style="border-top-color:#27AE60">
+        <h4>🇮🇹 피렌체</h4>
+        <div class="food-item">비스테카 알라 피오렌티나 (T본 스테이크)</div>
+        <div class="food-item">트리파 파니노 (내장 샌드위치) — 현지인 최애</div>
+        <div class="food-item">카쵸 에 페페 파스타</div>
+        <div class="food-item">라 메나게레 — 분위기 좋은 카페</div>
+        <div class="food-item">산 로렌초 시장 먹거리 탐방</div>
+      </div>
+
+      <div class="food-card" style="border-top-color:#E74C3C">
+        <h4>🇮🇹 로마</h4>
+        <div class="food-item">카르보나라 (현지 정통) — Roscioli 추천</div>
+        <div class="food-item">카쵸 에 페페 & 아마트리치아나</div>
+        <div class="food-item">수플리 (쌀 튀김 길거리 간식)</div>
+        <div class="food-item">에스프레소 — 선 채로 마시기</div>
+        <div class="food-item">트레비 분수 근처 젤라토 주의 (비쌈)</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── 볼거리 ── -->
+  <div id="sights" class="section">
+    <div class="section-header"><h2>🗺 도시별 볼거리</h2></div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>도시</th><th>명소</th><th>유형</th><th>소요</th><th>입장료</th><th>예약</th></tr>
+        </thead>
+        <tbody>
+          <tr><td rowspan="5"><b>🇳🇱 암스테르담</b></td><td>반 고흐 미술관</td><td>미술관</td><td>2~3h</td><td>€22</td><td><span class="badge">권장</span></td></tr>
+          <tr><td>안네 프랑크의 집</td><td>역사</td><td>1h</td><td>€16</td><td><span class="badge urgent">필수 예약</span></td></tr>
+          <tr><td>리즈크스 뮤지엄 (국립박물관)</td><td>미술관</td><td>3h</td><td>€22.5</td><td><span class="badge">권장</span></td></tr>
+          <tr><td>운하 보트 투어</td><td>투어</td><td>1h</td><td>€15~25</td><td><span class="badge ok">현장 가능</span></td></tr>
+          <tr><td>킨더다이크 풍차마을</td><td>세계유산</td><td>반나절</td><td>€18</td><td><span class="badge ok">현장 가능</span></td></tr>
+          <tr><td rowspan="5"><b>🇫🇷 파리</b></td><td>루브르 박물관</td><td>미술관</td><td>3~4h</td><td>€22</td><td><span class="badge urgent">사전 예약</span></td></tr>
+          <tr><td>에펠탑 (정상)</td><td>랜드마크</td><td>2h</td><td>€29.4</td><td><span class="badge urgent">사전 예약</span></td></tr>
+          <tr><td>베르사유 궁전</td><td>세계유산</td><td>4~5h</td><td>€21.5</td><td><span class="badge urgent">사전 예약</span></td></tr>
+          <tr><td>오르세 미술관</td><td>미술관</td><td>2~3h</td><td>€16</td><td><span class="badge">권장</span></td></tr>
+          <tr><td>몽마르트르 & 사크레쾨르</td><td>지구</td><td>반나절</td><td>무료</td><td>—</td></tr>
+          <tr><td rowspan="4"><b>🇨🇭 스위스</b></td><td>융프라우요흐 (Top of Europe)</td><td>자연</td><td>종일</td><td>CHF 210</td><td><span class="badge urgent">사전 예약</span></td></tr>
+          <tr><td>인터라켄 파라글라이딩</td><td>액티비티</td><td>2h</td><td>CHF 170~</td><td><span class="badge">권장</span></td></tr>
+          <tr><td>루체른 구시가지 & 카펠교</td><td>도시</td><td>반나절</td><td>무료</td><td>—</td></tr>
+          <tr><td>필라투스산 (케이블카)</td><td>자연</td><td>반나절</td><td>CHF 90</td><td><span class="badge ok">현장 가능</span></td></tr>
+          <tr><td rowspan="3"><b>🇮🇹 밀라노</b></td><td>최후의 만찬 (다빈치)</td><td>미술</td><td>20분</td><td>€15</td><td><span class="badge urgent">2~3달 전!</span></td></tr>
+          <tr><td>두오모 + 옥상 테라스</td><td>성당</td><td>2h</td><td>€8~20</td><td><span class="badge">권장</span></td></tr>
+          <tr><td>브레라 미술관</td><td>미술관</td><td>2h</td><td>€15</td><td><span class="badge ok">현장 가능</span></td></tr>
+          <tr><td rowspan="3"><b>🇮🇹 피렌체</b></td><td>우피치 미술관</td><td>미술관</td><td>3~4h</td><td>€20</td><td><span class="badge urgent">사전 예약</span></td></tr>
+          <tr><td>두오모 쿠폴라 클라이밍</td><td>성당</td><td>2h</td><td>€30 (패스)</td><td><span class="badge urgent">사전 예약</span></td></tr>
+          <tr><td>피아잘레 미켈란젤로 (일몰)</td><td>전망대</td><td>1h</td><td>무료</td><td>—</td></tr>
+          <tr><td rowspan="4"><b>🇮🇹 로마</b></td><td>콜로세움 + 로마 포럼</td><td>유적</td><td>3~4h</td><td>€18</td><td><span class="badge urgent">사전 예약</span></td></tr>
+          <tr><td>바티칸 박물관 + 시스티나</td><td>미술관</td><td>3~4h</td><td>€20</td><td><span class="badge urgent">사전 예약</span></td></tr>
+          <tr><td>트레비 분수</td><td>랜드마크</td><td>30분</td><td>€2 (입장)</td><td>—</td></tr>
+          <tr><td>판테온</td><td>유적</td><td>1h</td><td>€5</td><td><span class="badge ok">현장 가능</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── 예산 ── -->
+  <div id="budget" class="section">
+    <div class="section-header"><h2>💶 예상 예산 (1인 기준)</h2></div>
+    <div class="budget-grid">
+      <div class="budget-card">
+        <div class="label">✈ 항공권 (왕복)</div>
+        <div class="amount" style="color:#DC2626">₩200만~</div>
+        <div class="sub">인천↔암스테르담 / 나폴리↔인천</div>
+      </div>
+      <div class="budget-card">
+        <div class="label">🏨 숙소 (25박)</div>
+        <div class="amount" style="color:#D97706">₩300만~</div>
+        <div class="sub">평균 €80~120/박 기준</div>
+      </div>
+      <div class="budget-card">
+        <div class="label">🚆 교통 (기차+현지)</div>
+        <div class="amount" style="color:#2563EB">₩60~80만</div>
+        <div class="sub">국가간 기차 + 시내 교통</div>
+      </div>
+      <div class="budget-card">
+        <div class="label">🎟 입장료 & 투어</div>
+        <div class="amount" style="color:#7C3AED">₩30~50만</div>
+        <div class="sub">주요 명소 입장권 합산</div>
+      </div>
+      <div class="budget-card">
+        <div class="label">🍽 식비 (26일)</div>
+        <div class="amount" style="color:#059669">₩80~120만</div>
+        <div class="sub">€20~35/일 기준</div>
+      </div>
+      <div class="budget-card">
+        <div class="label">🛍 쇼핑 & 기타</div>
+        <div class="amount" style="color:#6B7280">₩50만~</div>
+        <div class="sub">기념품, 예비비 포함</div>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>항목</th><th>최소</th><th>적정</th><th>여유</th></tr></thead>
+        <tbody>
+          <tr><td>항공권 (왕복)</td><td>₩180만</td><td>₩220만</td><td>₩280만</td></tr>
+          <tr><td>숙소 (25박)</td><td>₩260만</td><td>₩340만</td><td>₩450만</td></tr>
+          <tr><td>교통 (기차 전구간)</td><td>₩55만</td><td>₩75만</td><td>₩100만</td></tr>
+          <tr><td>입장료 & 투어</td><td>₩25만</td><td>₩45만</td><td>₩65만</td></tr>
+          <tr><td>식비</td><td>₩70만</td><td>₩100만</td><td>₩140만</td></tr>
+          <tr><td>쇼핑 & 기타</td><td>₩30만</td><td>₩60만</td><td>₩100만</td></tr>
+          <tr style="background:#F0FDF4; font-weight:700">
+            <td><b>총합계</b></td>
+            <td><b>₩620만</b></td>
+            <td><b>₩840만</b></td>
+            <td><b>₩1,135만</b></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="margin-top:16px; padding:14px 16px; background:#EFF6FF; border-radius:10px; font-size:12px; color:#1E40AF;">
+      💡 <b>절약 팁:</b> 파리 뮤지엄 패스(€72, 4일권), 스위스 트래블 패스(CHF 289, 4일권), 이탈리아 기차는 Trenitalia 조기할인 이용 시 최대 60% 절약 가능
+    </div>
+  </div>
+
+
+  <!-- ── 시간표 ── -->
+  <div id="schedule" class="section">
+    <div class="section-header"><h2>시간대별 일정표</h2></div>
+    <p style="font-size:12px;color:#6B7280;margin-bottom:14px">날짜 클릭 → 시간표 확인 · 블록 클릭 → 수정/삭제 · 시간대 클릭 → 일정 추가. 완성 후 HTML 내보내기로 저장하세요.</p>
+
+    <!-- 나라 탭 -->
+    <div id="sc-week-tabs" style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap"></div>
+
+    <!-- 주간 캘린더 -->
+    <div id="sc-week-cal" style="border:1px solid #E5E7EB;border-radius:12px;overflow:hidden;margin-bottom:14px"></div>
+
+    <!-- 툴바 -->
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px">
+      <div id="sc-day-label" style="font-size:14px;font-weight:700;color:#1A1A2E"></div>
+      <div style="display:flex;gap:6px">
+        <button onclick="scOpenAddForm()" style="display:flex;align-items:center;gap:5px;padding:6px 14px;background:#1A1A2E;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">＋ 일정 추가</button>
+        <button onclick="scExportHTML()" style="display:flex;align-items:center;gap:5px;padding:6px 14px;background:#F0FDF4;color:#166534;border:1px solid #BBF7D0;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">⬇ HTML 내보내기</button>
+      </div>
+    </div>
+
+    <!-- 시간표 -->
+    <div id="sc-timetable" style="border:1px solid #E5E7EB;border-radius:12px;overflow:hidden;margin-bottom:12px"></div>
+
+    <!-- 범례 -->
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:4px">
+      <span style="font-size:11px;color:#9CA3AF">클릭: 블록=수정·삭제 / 빈칸=일정추가</span>
+      <div style="display:flex;align-items:center;gap:4px;font-size:11px;color:#6B7280"><div style="width:8px;height:8px;border-radius:2px;background:#6D28D9"></div>스냅</div>
+      <div style="display:flex;align-items:center;gap:4px;font-size:11px;color:#6B7280"><div style="width:8px;height:8px;border-radius:2px;background:#16A34A"></div>자유</div>
+      <div style="display:flex;align-items:center;gap:4px;font-size:11px;color:#6B7280"><div style="width:8px;height:8px;border-radius:2px;background:#D97706"></div>투어</div>
+      <div style="display:flex;align-items:center;gap:4px;font-size:11px;color:#6B7280"><div style="width:8px;height:8px;border-radius:2px;background:#2563EB"></div>확정</div>
+      <div style="display:flex;align-items:center;gap:4px;font-size:11px;color:#6B7280"><div style="width:8px;height:8px;border-radius:2px;background:#9CA3AF"></div>이동</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ 시간표 편집 모달 ══ -->
+<div id="sc-modal-overlay" onclick="scCloseModal(event)" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:2000;align-items:center;justify-content:center;padding:16px">
+  <div onclick="event.stopPropagation()" style="background:#fff;border-radius:16px;width:100%;max-width:440px;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.25)">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 20px 14px;border-bottom:1px solid #F3F4F6;position:sticky;top:0;background:#fff;border-radius:16px 16px 0 0;z-index:1">
+      <div id="sc-modal-title" style="font-size:15px;font-weight:700;color:#1A1A2E">일정 추가</div>
+      <button onclick="scCloseModal()" style="width:28px;height:28px;border-radius:50%;border:none;background:#F3F4F6;cursor:pointer;font-size:14px;color:#6B7280">✕</button>
+    </div>
+    <div style="padding:18px 20px 20px;display:flex;flex-direction:column;gap:14px">
+      <input type="hidden" id="sc-edit-day">
+      <input type="hidden" id="sc-edit-slot">
+      <input type="hidden" id="sc-edit-block">
+
+      <!-- 날짜 & 시간대 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div>
+          <div style="font-size:11px;font-weight:600;color:#374151;margin-bottom:5px">날짜</div>
+          <select id="sc-f-day" style="width:100%;padding:8px 10px;border:1px solid #E5E7EB;border-radius:8px;font-size:13px;font-family:inherit;background:#fff"></select>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:600;color:#374151;margin-bottom:5px">시간대</div>
+          <select id="sc-f-slot" style="width:100%;padding:8px 10px;border:1px solid #E5E7EB;border-radius:8px;font-size:13px;font-family:inherit;background:#fff"></select>
+        </div>
+      </div>
+
+      <!-- 유형 -->
+      <div>
+        <div style="font-size:11px;font-weight:600;color:#374151;margin-bottom:6px">유형</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap" id="sc-type-btns">
+          <button class="sc-tbtn" data-t="snap"      onclick="scPickType(this)" style="padding:5px 11px;border-radius:6px;border:1.5px solid #DDD6FE;background:#F5F3FF;color:#6D28D9;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">📷 스냅</button>
+          <button class="sc-tbtn" data-t="free"      onclick="scPickType(this)" style="padding:5px 11px;border-radius:6px;border:1.5px solid #BBF7D0;background:#F0FDF4;color:#166534;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">🌿 자유</button>
+          <button class="sc-tbtn" data-t="tour"      onclick="scPickType(this)" style="padding:5px 11px;border-radius:6px;border:1.5px solid #FDE68A;background:#FFFBEB;color:#92400E;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">🗺 투어</button>
+          <button class="sc-tbtn" data-t="confirmed" onclick="scPickType(this)" style="padding:5px 11px;border-radius:6px;border:1.5px solid #BFDBFE;background:#EFF6FF;color:#1E40AF;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">✅ 확정</button>
+          <button class="sc-tbtn" data-t="move"      onclick="scPickType(this)" style="padding:5px 11px;border-radius:6px;border:1.5px solid #E5E7EB;background:#F9FAFB;color:#374151;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">🚄 이동</button>
+        </div>
+      </div>
+
+      <!-- 내용 -->
+      <div>
+        <div style="font-size:11px;font-weight:600;color:#374151;margin-bottom:5px">내용 <span style="color:#DC2626">*</span></div>
+        <input id="sc-f-label" type="text" placeholder="예: 🏛 루브르 바이블 투어" maxlength="40"
+          style="width:100%;padding:9px 11px;border:1px solid #E5E7EB;border-radius:8px;font-size:13px;font-family:inherit;outline:none"
+          onfocus="this.style.borderColor='#0F3460'" onblur="this.style.borderColor='#E5E7EB'">
+      </div>
+
+      <!-- 메모 -->
+      <div>
+        <div style="font-size:11px;font-weight:600;color:#374151;margin-bottom:5px">메모 <span style="font-weight:400;color:#9CA3AF">(선택)</span></div>
+        <input id="sc-f-note" type="text" placeholder="예: €22 · 사전예약 완료" maxlength="60"
+          style="width:100%;padding:9px 11px;border:1px solid #E5E7EB;border-radius:8px;font-size:13px;font-family:inherit;outline:none"
+          onfocus="this.style.borderColor='#0F3460'" onblur="this.style.borderColor='#E5E7EB'">
+      </div>
+
+      <!-- 버튼 -->
+      <div style="display:flex;gap:8px;margin-top:4px">
+        <button onclick="scSaveBlock()" style="flex:1;padding:10px;background:#1A1A2E;color:#fff;border:none;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">저장</button>
+        <button id="sc-del-btn" onclick="scDeleteBlock()" style="display:none;padding:10px 16px;background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">삭제</button>
+        <button onclick="scCloseModal()" style="padding:10px 16px;background:#F3F4F6;color:#374151;border:none;border-radius:9px;font-size:13px;cursor:pointer;font-family:inherit">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════════
+   시간표 데이터 & 렌더링
+══════════════════════════════════════ */
+const SC_DAYS = [
+  { date:'8/17', dow:'월', country:'🇫🇷 파리',
+    pills:[{t:'move',l:'🚄 파리 도착'},{t:'snap',l:'📷 오후 스냅'}],
+    slots:[
+      {h:'07–09',blocks:[]},
+      {h:'09–12',blocks:[]},
+      {h:'12–16',blocks:[{t:'move',l:'🚄 유로스타 도착 16:02',n:'암스테르담 출발 11:40 · Coach 16'}]},
+      {h:'16–18',blocks:[{t:'move',l:'🏨 B&B 체크인',n:'이시-레-물리노 · 호스트 Pierre'},{t:'snap',l:'📷 오후 스냅 촬영'}]},
+      {h:'18–21',blocks:[]},
+      {h:'21–24',blocks:[]},
+    ]
+  },
+  { date:'8/18', dow:'화', country:'🇫🇷 파리',
+    pills:[{t:'snap',l:'📷 오전 스냅'},{t:'free',l:'🛍 자유 오후'}],
+    slots:[
+      {h:'07–09',blocks:[]},
+      {h:'09–12',blocks:[{t:'snap',l:'📷 오전 스냅 촬영',n:'파리 명소 스냅'}]},
+      {h:'12–14',blocks:[]},
+      {h:'14–18',blocks:[{t:'free',l:'🛍 약국 쇼핑',n:'Pharmacie 체인 추천'},{t:'free',l:'☕ 카페 · 휴식'}]},
+      {h:'18–21',blocks:[]},
+      {h:'21–24',blocks:[]},
+    ]
+  },
+  { date:'8/19', dow:'수', country:'🇫🇷 파리',
+    pills:[{t:'confirmed',l:'🏛 루브르 14:00'}],
+    slots:[
+      {h:'07–09',blocks:[]},
+      {h:'09–12',blocks:[]},
+      {h:'12–14',blocks:[]},
+      {h:'14–18',blocks:[{t:'confirmed',l:'🏛 루브르 바이블 투어',n:'14:00~18:00 · €22 · ✅ 예약완료'}]},
+      {h:'18–21',blocks:[]},
+      {h:'21–24',blocks:[]},
+    ]
+  },
+  { date:'8/20', dow:'목', country:'🇫🇷 파리',
+    pills:[{t:'tour',l:'🗼 파리 시내 투어'}],
+    slots:[
+      {h:'07–09',blocks:[]},
+      {h:'09–12',blocks:[{t:'tour',l:'🗼 에펠탑 · 샹젤리제',n:'에펠탑 정상 사전 예약 권장'}]},
+      {h:'12–14',blocks:[]},
+      {h:'14–18',blocks:[{t:'tour',l:'🎨 오르세 미술관',n:'€16'}]},
+      {h:'18–21',blocks:[{t:'tour',l:'⛪ 몽마르트르 · 사크레쾨르',n:'무료 · 석양 뷰 추천'}]},
+      {h:'21–24',blocks:[]},
+    ]
+  },
+  { date:'8/21', dow:'금', country:'🇫🇷 파리',
+    pills:[{t:'tour',l:'🏰 몽생미셸 (종일)'}],
+    slots:[
+      {h:'07–09',blocks:[{t:'move',l:'🚌 파리 출발',n:'투어버스 or TGV+셔틀 · ⚠️ 사전 예약 필요'}]},
+      {h:'09–14',blocks:[{t:'tour',l:'🏰 몽생미셸 이동 · 도착',n:'약 4시간 · 수도원 €13'}]},
+      {h:'14–18',blocks:[{t:'tour',l:'🏰 몽생미셸 관람 · 산책'}]},
+      {h:'18–21',blocks:[{t:'move',l:'🚌 파리 귀환'}]},
+      {h:'21–24',blocks:[]},
+    ]
+  },
+  { date:'8/22', dow:'토', country:'🇨🇭 스위스 이동',
+    pills:[{t:'move',l:'🚄 스위스 이동'}],
+    slots:[
+      {h:'07–09',blocks:[]},
+      {h:'09–12',blocks:[{t:'move',l:'🏨 B&B 체크아웃 10:00'},{t:'move',l:'🚄 TGV 리옹역 출발',n:'파리→스위스 약 3~4시간'}]},
+      {h:'12–16',blocks:[{t:'move',l:'🚄 스위스 이동 중'}]},
+      {h:'16–18',blocks:[{t:'confirmed',l:'🏨 그린델발트 체크인',n:'아파트 · 호스트 Elisabeth · 15:00~'}]},
+      {h:'18–21',blocks:[]},
+      {h:'21–24',blocks:[]},
+    ]
+  },
+  { date:'8/23', dow:'일', country:'🇨🇭 그린델발트',
+    pills:[{t:'free',l:'🏔 자유 탐방'}],
+    slots:[
+      {h:'07–09',blocks:[]},
+      {h:'09–12',blocks:[{t:'free',l:'🏔 그린델발트 마을 산책'}]},
+      {h:'12–14',blocks:[]},
+      {h:'14–18',blocks:[{t:'free',l:'🏔 아이거 트레일 하이킹'}]},
+      {h:'18–21',blocks:[]},
+      {h:'21–24',blocks:[]},
+    ]
+  },
+  { date:'8/24', dow:'월', country:'🇨🇭 그린델발트',
+    pills:[{t:'tour',l:'🏔 융프라우요흐'}],
+    slots:[
+      {h:'07–09',blocks:[{t:'move',l:'🚞 융프라우 열차 출발',n:'그린델발트 역 출발'}]},
+      {h:'09–14',blocks:[{t:'tour',l:'🏔 융프라우요흐 관람',n:'Top of Europe · CHF 210~'}]},
+      {h:'14–18',blocks:[{t:'move',l:'🚞 하산 · 그린델발트 귀환'}]},
+      {h:'18–21',blocks:[]},
+      {h:'21–24',blocks:[]},
+    ]
+  },
+  { date:'8/25', dow:'화', country:'🇨🇭 그린델발트',
+    pills:[{t:'free',l:'인터라켄 · 파라글라이딩'}],
+    slots:[
+      {h:'07–09',blocks:[]},
+      {h:'09–12',blocks:[{t:'free',l:'🏙 인터라켄 당일치기'}]},
+      {h:'12–14',blocks:[]},
+      {h:'14–18',blocks:[{t:'free',l:'🏄 파라글라이딩',n:'CHF 170~ · 권장'}]},
+      {h:'18–21',blocks:[]},
+      {h:'21–24',blocks:[]},
+    ]
+  },
+  { date:'8/26', dow:'수', country:'🇨🇭 루체른',
+    pills:[{t:'free',l:'🏙 루체른 당일치기'}],
+    slots:[
+      {h:'07–09',blocks:[]},
+      {h:'09–12',blocks:[{t:'free',l:'🏙 루체른 당일치기',n:'기차 약 2시간'},{t:'free',l:'🌉 카펠교 · 구시가지'}]},
+      {h:'12–14',blocks:[]},
+      {h:'14–18',blocks:[{t:'free',l:'⛰ 필라투스산',n:'CHF 90 · 케이블카'}]},
+      {h:'18–21',blocks:[{t:'move',l:'🚆 그린델발트 귀환'}]},
+      {h:'21–24',blocks:[]},
+    ]
+  },
+  { date:'8/27', dow:'목', country:'🇮🇹 밀라노',
+    pills:[{t:'move',l:'🚄 밀라노 이동'},{t:'tour',l:'⛪ 두오모'}],
+    slots:[
+      {h:'07–09',blocks:[{t:'move',l:'🏨 그린델발트 체크아웃'}]},
+      {h:'09–12',blocks:[{t:'move',l:'🚄 취리히→밀라노',n:'SBB · 약 3.5시간'}]},
+      {h:'12–14',blocks:[{t:'confirmed',l:'🏨 밀라노 체크인',n:'예약번호 1742338358'}]},
+      {h:'14–18',blocks:[{t:'tour',l:'⛪ 두오모 · 옥상 테라스',n:'€8~20'}]},
+      {h:'18–21',blocks:[{t:'tour',l:'🎨 브레라 미술관 or 갤러리아 비토리오'}]},
+      {h:'21–24',blocks:[]},
+    ]
+  },
+  { date:'8/28', dow:'금', country:'🇮🇹 피렌체',
+    pills:[{t:'move',l:'🚄 피렌체 이동'},{t:'tour',l:'🌉 폰테 베키오'}],
+    slots:[
+      {h:'07–09',blocks:[{t:'move',l:'🏨 밀라노 체크아웃'}]},
+      {h:'09–12',blocks:[{t:'move',l:'🚄 밀라노→피렌체',n:'고속열차 약 2시간'}]},
+      {h:'12–14',blocks:[{t:'move',l:'🏨 피렌체 숙소 체크인',n:'산타 마리아 노벨라역 근처'}]},
+      {h:'14–18',blocks:[{t:'tour',l:'🌉 폰테 베키오 · 구시가지',n:'아르노강 산책'}]},
+      {h:'18–21',blocks:[{t:'free',l:'🌅 피아잘레 미켈란젤로 일몰',n:'무료 · 뷰 최고'}]},
+      {h:'21–24',blocks:[]},
+    ]
+  },
+  { date:'8/29', dow:'토', country:'🇮🇹 피렌체',
+    pills:[{t:'tour',l:'🎨 우피치'},{t:'tour',l:'⛪ 두오모 쿠폴라'}],
+    slots:[
+      {h:'07–09',blocks:[]},
+      {h:'09–12',blocks:[{t:'tour',l:'⛪ 두오모 쿠폴라 클라이밍',n:'€30(패스) · 사전예약 필수'}]},
+      {h:'12–14',blocks:[]},
+      {h:'14–18',blocks:[{t:'tour',l:'🎨 우피치 미술관',n:'€20 · 사전예약 필수'}]},
+      {h:'18–21',blocks:[{t:'free',l:'🥩 비스테카 알라 피오렌티나',n:'피렌체 명물 T본 스테이크'}]},
+      {h:'21–24',blocks:[]},
+    ]
+  },
+  { date:'8/30', dow:'일', country:'🇮🇹 로마',
+    pills:[{t:'move',l:'🚄 로마 이동'}],
+    slots:[
+      {h:'07–09',blocks:[{t:'move',l:'🏨 피렌체 체크아웃'}]},
+      {h:'09–12',blocks:[{t:'move',l:'🚄 피렌체→로마',n:'프레차로사 약 1.5시간'}]},
+      {h:'12–14',blocks:[{t:'confirmed',l:'🏨 로마 체크인',n:'예약번호 1742335909'}]},
+      {h:'14–18',blocks:[{t:'tour',l:'🏛 판테온 · 나보나 광장',n:'판테온 €5'}]},
+      {h:'18–21',blocks:[{t:'tour',l:'⛲ 트레비 분수',n:'€2 · 야간 뷰 추천'}]},
+      {h:'21–24',blocks:[]},
+    ]
+  },
+  { date:'8/31', dow:'월', country:'🇮🇹 로마',
+    pills:[{t:'tour',l:'⛪ 바티칸'}],
+    slots:[
+      {h:'07–09',blocks:[{t:'move',l:'🌅 이른 아침 출발',n:'바티칸 혼잡 피하기'}]},
+      {h:'09–12',blocks:[{t:'tour',l:'⛪ 바티칸 박물관 · 시스티나',n:'€20 · 사전예약 필수'}]},
+      {h:'12–14',blocks:[{t:'tour',l:'⛪ 성 베드로 대성당',n:'무료'}]},
+      {h:'14–18',blocks:[]},
+      {h:'18–21',blocks:[{t:'free',l:'🍝 카르보나라',n:'Roscioli 추천'}]},
+      {h:'21–24',blocks:[]},
+    ]
+  },
+  { date:'9/1', dow:'화', country:'🇮🇹 로마',
+    pills:[{t:'tour',l:'🏟 콜로세움'}],
+    slots:[
+      {h:'07–09',blocks:[]},
+      {h:'09–12',blocks:[{t:'tour',l:'🏟 콜로세움 · 로마 포럼',n:'€18 · 사전예약 필수'}]},
+      {h:'12–14',blocks:[]},
+      {h:'14–18',blocks:[{t:'tour',l:'🏛 팔라티노 언덕',n:'콜로세움 통합권'}]},
+      {h:'18–21',blocks:[{t:'free',l:'🌆 트라스테베레 저녁 산책'}]},
+      {h:'21–24',blocks:[]},
+    ]
+  },
+  { date:'9/2', dow:'수', country:'🇮🇹 로마',
+    pills:[{t:'free',l:'🛍 자유일'}],
+    slots:[
+      {h:'07–09',blocks:[]},
+      {h:'09–12',blocks:[{t:'free',l:'🛍 쇼핑 · 기념품',n:'스페인 계단 · 포폴로 광장'}]},
+      {h:'12–14',blocks:[]},
+      {h:'14–18',blocks:[{t:'free',l:'☕ 카페 · 여유시간'}]},
+      {h:'18–21',blocks:[{t:'free',l:'🍝 마지막 로마 저녁'}]},
+      {h:'21–24',blocks:[{t:'move',l:'✈ 귀국 준비',n:'9/3 FCO 12:50 출발 대비'}]},
+    ]
+  },
+  { date:'9/3', dow:'목', country:'✈ 귀국',
+    pills:[{t:'move',l:'✈ 로마→인천'}],
+    slots:[
+      {h:'07–10',blocks:[{t:'move',l:'🚆 레오나르도 익스프레스',n:'테르미니→FCO 32분'}]},
+      {h:'10–13',blocks:[{t:'move',l:'✈ LH4171 FCO 12:50 출발',n:'FCO→MUC 1h 35m'}]},
+      {h:'13–16',blocks:[{t:'move',l:'🔄 뮌헨 MUC 환승 15:55',n:'T2 · 환승 1시간 30분'}]},
+      {h:'16–21',blocks:[{t:'move',l:'✈ LH718 MUC→ICN',n:'11시간 · 9/4 09:55 인천 도착'}]},
+      {h:'21–24',blocks:[{t:'move',l:'✈ 귀국 비행 중'}]},
+    ]
+  },
+];
+
+const SC_WEEKS = [
+  {label:'🇫🇷 파리', idx:[0,1,2,3,4,5]},
+  {label:'🇨🇭 스위스', idx:[5,6,7,8,9,10]},
+  {label:'🇮🇹 이탈리아', idx:[10,11,12,13,14,15,16,17]},
+];
+
+const SC_C = {
+  snap:     {bg:'#F5F3FF',color:'#6D28D9',border:'#DDD6FE'},
+  free:     {bg:'#F0FDF4',color:'#166534',border:'#BBF7D0'},
+  tour:     {bg:'#FFFBEB',color:'#92400E',border:'#FDE68A'},
+  confirmed:{bg:'#EFF6FF',color:'#1E40AF',border:'#BFDBFE'},
+  move:     {bg:'#F9FAFB',color:'#374151',border:'#E5E7EB'},
+};
+
+let sc_week=0, sc_day=0;
+let sc_selected_type='tour';
+
+/* ── 렌더 유틸 ── */
+function scPill(t,l){
+  const c=SC_C[t]||SC_C.move;
+  return `<div style="border-radius:4px;padding:3px 5px;font-size:10px;font-weight:600;line-height:1.3;background:${c.bg};color:${c.color};border:0.5px solid ${c.border};margin-bottom:2px">${l}</div>`;
+}
+
+function scBlock(t,l,n,di,si,bi){
+  const c=SC_C[t]||SC_C.move;
+  const edit=di!==undefined?`onclick="scOpenEditForm(${di},${si},${bi})" style="cursor:pointer" title="클릭하여 수정"`:'' ;
+  return `<div ${edit} style="border-radius:6px;padding:6px 10px;font-size:12px;font-weight:500;background:${c.bg};color:${c.color};border-left:3px solid ${c.border};transition:opacity .15s" onmouseover="this.style.opacity='.75'" onmouseout="this.style.opacity='1'">${l}${n?`<div style="font-size:10px;color:#6B7280;margin-top:2px">${n}</div>`:''}</div>`;
+}
+
+/* ── 주간 탭 ── */
+function renderScWeekTabs(){
+  const el=document.getElementById('sc-week-tabs');
+  if(!el) return;
+  el.innerHTML=SC_WEEKS.map((w,i)=>`
+    <div onclick="scSelectWeek(${i})" style="padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;border:1px solid ${i===sc_week?'transparent':'#E5E7EB'};background:${i===sc_week?'#1A1A2E':'#F9FAFB'};color:${i===sc_week?'#fff':'#6B7280'}">${w.label}</div>
+  `).join('');
+}
+
+/* ── 주간 캘린더 ── */
+function renderScWeekCal(){
+  const el=document.getElementById('sc-week-cal');
+  if(!el) return;
+  const days=SC_WEEKS[sc_week].idx.map(i=>SC_DAYS[i]);
+  const cols=days.length;
+  const head=days.map((d,ci)=>{
+    const ri=SC_WEEKS[sc_week].idx[ci];
+    const sel=ri===sc_day;
+    return `<div onclick="scSelectDay(${ri})" style="padding:6px 3px;text-align:center;border-right:1px solid #E5E7EB;cursor:pointer;background:${sel?'#EFF6FF':'#F9FAFB'}">
+      <div style="font-size:14px;font-weight:${sel?700:400};color:${sel?'#1E40AF':'#1A1A2E'};line-height:1.1">${d.date}</div>
+      <div style="font-size:9px;color:#9CA3AF;margin-top:1px">${d.dow}</div>
+    </div>`;
+  }).join('');
+  const cells=days.map((d,ci)=>{
+    const ri=SC_WEEKS[sc_week].idx[ci];
+    const sel=ri===sc_day;
+    return `<div onclick="scSelectDay(${ri})" style="padding:5px 4px;border-right:1px solid #E5E7EB;min-height:72px;cursor:pointer;background:${sel?'#F0F9FF':'#fff'}">${d.pills.map(p=>scPill(p.t,p.l)).join('')}</div>`;
+  }).join('');
+  el.innerHTML=`
+    <div style="display:grid;grid-template-columns:repeat(${cols},1fr);background:#F9FAFB;border-bottom:1px solid #E5E7EB">${head}</div>
+    <div style="display:grid;grid-template-columns:repeat(${cols},1fr)">${cells}</div>`;
+}
+
+/* ── 시간표 ── */
+function renderScTimetable(){
+  const el=document.getElementById('sc-timetable');
+  const lbl=document.getElementById('sc-day-label');
+  if(!el) return;
+  const d=SC_DAYS[sc_day];
+  if(lbl) lbl.textContent=`${d.date} (${d.dow}요일) · ${d.country}`;
+  const rows=d.slots.map((s,si)=>{
+    const blocks=s.blocks.length
+      ? s.blocks.map((b,bi)=>scBlock(b.t,b.l,b.n,sc_day,si,bi)).join('')
+      : `<div onclick="scOpenAddForm(${sc_day},${si})" style="font-size:11px;color:#C4C9D4;padding:4px 2px;cursor:pointer;border-radius:5px;transition:background .12s" onmouseover="this.style.background='#F0F9FF';this.style.color='#2563EB'" onmouseout="this.style.background='transparent';this.style.color='#C4C9D4'">＋ 일정 추가</div>`;
+    return `<div style="display:grid;grid-template-columns:42px 1fr;border-top:1px solid #F3F4F6;min-height:38px">
+      <div onclick="scOpenAddForm(${sc_day},${si})" title="이 시간대에 추가" style="padding:8px 6px 8px 0;font-size:10px;color:#9CA3AF;text-align:right;border-right:1px solid #F3F4F6;line-height:1.3;cursor:pointer" onmouseover="this.style.color='#2563EB'" onmouseout="this.style.color='#9CA3AF'">${s.h}</div>
+      <div style="padding:5px 8px;display:flex;flex-direction:column;gap:4px">${blocks}</div>
+    </div>`;
+  }).join('');
+  el.innerHTML=`
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:#F9FAFB;border-bottom:1px solid #E5E7EB">
+      <div style="font-size:13px;font-weight:700;color:#1A1A2E">${d.date} (${d.dow}요일)</div>
+      <div style="font-size:11px;color:#6B7280">${d.country}</div>
+    </div>${rows}`;
+}
+
+/* ── pills 동기화 ── */
+function syncPills(di){
+  const d=SC_DAYS[di];
+  const all=[];
+  d.slots.forEach(s=>s.blocks.forEach(b=>{ if(!all.find(p=>p.l===b.l)) all.push({t:b.t,l:b.l}); }));
+  d.pills=all.slice(0,4);
+}
+
+/* ── 선택 ── */
+function scSelectWeek(i){ sc_week=i; sc_day=SC_WEEKS[i].idx[0]; renderScWeekTabs(); renderScWeekCal(); renderScTimetable(); }
+function scSelectDay(i){
+  sc_day=i;
+  const w=SC_WEEKS.findIndex(w=>w.idx.includes(i));
+  if(w!==-1&&w!==sc_week){ sc_week=w; renderScWeekTabs(); }
+  renderScWeekCal(); renderScTimetable();
+}
+
+/* ── 모달 열기/닫기 ── */
+function scShowModal(){
+  const ov=document.getElementById('sc-modal-overlay');
+  ov.style.display='flex';
+  setTimeout(()=>document.getElementById('sc-f-label').focus(),80);
+}
+function scCloseModal(e){
+  if(e&&e.target!==document.getElementById('sc-modal-overlay')) return;
+  document.getElementById('sc-modal-overlay').style.display='none';
+}
+
+/* ── 날짜/슬롯 셀렉트 채우기 ── */
+function scFillSelects(di,si){
+  const dayEl=document.getElementById('sc-f-day');
+  dayEl.innerHTML=SC_DAYS.map((d,i)=>`<option value="${i}" ${i===di?'selected':''}>${d.date} (${d.dow}) ${d.country}</option>`).join('');
+  const slotEl=document.getElementById('sc-f-slot');
+  slotEl.innerHTML=SC_DAYS[di].slots.map((s,i)=>`<option value="${i}" ${i===si?'selected':''}>${s.h}</option>`).join('');
+  dayEl.onchange=()=>{ const nd=parseInt(dayEl.value); const newSlots=SC_DAYS[nd].slots; slotEl.innerHTML=newSlots.map((s,i)=>`<option value="${i}">${s.h}</option>`).join(''); };
+}
+
+/* ── 유형 선택 ── */
+function scPickType(btn){
+  document.querySelectorAll('.sc-tbtn').forEach(b=>b.style.outline='none');
+  btn.style.outline='2px solid #1A1A2E';
+  sc_selected_type=btn.dataset.t;
+}
+function scSetType(t){
+  sc_selected_type=t;
+  document.querySelectorAll('.sc-tbtn').forEach(b=>{
+    b.style.outline=b.dataset.t===t?'2px solid #1A1A2E':'none';
+  });
+}
+
+/* ── 추가 폼 열기 ── */
+function scOpenAddForm(di,si){
+  const d=di!==undefined?di:sc_day;
+  const s=si!==undefined?si:0;
+  document.getElementById('sc-modal-title').textContent='일정 추가';
+  document.getElementById('sc-edit-day').value='';
+  document.getElementById('sc-edit-slot').value='';
+  document.getElementById('sc-edit-block').value='';
+  document.getElementById('sc-f-label').value='';
+  document.getElementById('sc-f-note').value='';
+  document.getElementById('sc-del-btn').style.display='none';
+  scFillSelects(d,s);
+  scSetType('tour');
+  scShowModal();
+}
+
+/* ── 수정 폼 열기 ── */
+function scOpenEditForm(di,si,bi){
+  const b=SC_DAYS[di].slots[si].blocks[bi];
+  document.getElementById('sc-modal-title').textContent='일정 수정';
+  document.getElementById('sc-edit-day').value=di;
+  document.getElementById('sc-edit-slot').value=si;
+  document.getElementById('sc-edit-block').value=bi;
+  document.getElementById('sc-f-label').value=b.l||'';
+  document.getElementById('sc-f-note').value=b.n||'';
+  document.getElementById('sc-del-btn').style.display='block';
+  scFillSelects(di,si);
+  scSetType(b.t||'tour');
+  scShowModal();
+}
+
+/* ── 저장 ── */
+function scSaveBlock(){
+  const label=document.getElementById('sc-f-label').value.trim();
+  if(!label){ document.getElementById('sc-f-label').style.borderColor='#DC2626'; return; }
+  document.getElementById('sc-f-label').style.borderColor='#E5E7EB';
+  const note=document.getElementById('sc-f-note').value.trim();
+  const di=parseInt(document.getElementById('sc-f-day').value);
+  const si=parseInt(document.getElementById('sc-f-slot').value);
+  const editDay=document.getElementById('sc-edit-day').value;
+  const editSlot=document.getElementById('sc-edit-slot').value;
+  const editBlock=document.getElementById('sc-edit-block').value;
+  const newBlock={t:sc_selected_type,l:label,n:note||undefined};
+
+  if(editDay!==''){
+    /* 수정 — 원래 위치에서 제거 후 새 위치에 삽입 */
+    const odi=parseInt(editDay), osi=parseInt(editSlot), obi=parseInt(editBlock);
+    SC_DAYS[odi].slots[osi].blocks.splice(obi,1);
+    syncPills(odi);
+  }
+  SC_DAYS[di].slots[si].blocks.push(newBlock);
+  syncPills(di);
+
+  document.getElementById('sc-modal-overlay').style.display='none';
+  sc_day=di;
+  const w=SC_WEEKS.findIndex(w=>w.idx.includes(di));
+  if(w!==-1&&w!==sc_week){ sc_week=w; renderScWeekTabs(); }
+  renderScWeekCal(); renderScTimetable();
+  scShowToast('일정이 저장됐어요 ✅');
+}
+
+/* ── 삭제 ── */
+function scDeleteBlock(){
+  const di=parseInt(document.getElementById('sc-edit-day').value);
+  const si=parseInt(document.getElementById('sc-edit-slot').value);
+  const bi=parseInt(document.getElementById('sc-edit-block').value);
+  SC_DAYS[di].slots[si].blocks.splice(bi,1);
+  syncPills(di);
+  document.getElementById('sc-modal-overlay').style.display='none';
+  renderScWeekCal(); renderScTimetable();
+  scShowToast('일정이 삭제됐어요 🗑');
+}
+
+/* ── HTML 내보내기 ── */
+function scExportHTML(){
+  const dataStr='const SC_DAYS = '+JSON.stringify(SC_DAYS,null,2)+';';
+  const src=document.documentElement.outerHTML;
+  const updated=src.replace(/const SC_DAYS = \[[\s\S]*?\];(?=\s*\n\s*const SC_WEEKS)/,dataStr);
+  const blob=new Blob([updated],{type:'text/html;charset=utf-8'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='europe_travel_planner.html';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  scShowToast('HTML 파일이 다운로드됐어요 ⬇');
+}
+
+/* ── 토스트 ── */
+function scShowToast(msg){
+  let t=document.getElementById('sc-toast');
+  if(!t){
+    t=document.createElement('div');
+    t.id='sc-toast';
+    t.style.cssText='position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#1A1A2E;color:#fff;padding:9px 20px;border-radius:24px;font-size:13px;font-weight:600;z-index:9999;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap';
+    document.body.appendChild(t);
+  }
+  t.textContent=msg; t.style.opacity='1';
+  clearTimeout(t._t);
+  t._t=setTimeout(()=>t.style.opacity='0',2200);
+}
+</script>
+</div>
+
+<!-- ══ 예매 정보 입력 모달 ══ -->
+<div id="modal-overlay" onclick="closeModal(event)" style="
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,0.55);backdrop-filter:blur(3px);
+  z-index:1000;align-items:center;justify-content:center;
+  padding:16px;
+">
+  <div onclick="event.stopPropagation()" style="
+    background:#fff;border-radius:18px;
+    width:100%;max-width:560px;
+    max-height:90vh;overflow-y:auto;
+    box-shadow:0 20px 60px rgba(0,0,0,0.25);
+  ">
+    <!-- 모달 헤더 -->
+    <div style="
+      display:flex;align-items:center;justify-content:space-between;
+      padding:20px 24px 16px;
+      border-bottom:1px solid #E5E7EB;
+      position:sticky;top:0;background:#fff;z-index:1;
+      border-radius:18px 18px 0 0;
+    ">
+      <div>
+        <div id="modal-title" style="font-size:16px;font-weight:700;color:#1A1A2E">예매 정보 추가</div>
+        <div style="font-size:11px;color:#9CA3AF;margin-top:2px">저장하면 브라우저에 보관됩니다</div>
+      </div>
+      <button onclick="closeModal()" style="
+        width:32px;height:32px;border-radius:50%;border:none;
+        background:#F3F4F6;cursor:pointer;font-size:16px;
+        display:flex;align-items:center;justify-content:center;
+        color:#6B7280;
+      ">✕</button>
+    </div>
+
+    <!-- 폼 바디 -->
+    <div style="padding:20px 24px 24px">
+      <input type="hidden" id="edit-id">
+
+      <!-- 구분 선택 -->
+      <div style="margin-bottom:16px">
+        <label style="font-size:12px;font-weight:600;color:#374151;display:block;margin-bottom:6px">교통 유형 *</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap" id="type-btns">
+          <button class="type-btn active" data-val="✈ 항공" onclick="selectType(this)">✈ 항공</button>
+          <button class="type-btn" data-val="🚄 고속열차" onclick="selectType(this)">🚄 고속열차</button>
+          <button class="type-btn" data-val="🚆 기차" onclick="selectType(this)">🚆 기차</button>
+          <button class="type-btn" data-val="🚢 페리" onclick="selectType(this)">🚢 페리</button>
+          <button class="type-btn" data-val="🚌 버스" onclick="selectType(this)">🚌 버스</button>
+          <button class="type-btn" data-val="🚇 지하철" onclick="selectType(this)">🚇 지하철</button>
+          <button class="type-btn" data-val="🚕 택시" onclick="selectType(this)">🚕 택시</button>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
+        <div>
+          <label style="font-size:12px;font-weight:600;color:#374151;display:block;margin-bottom:6px">출발지 *</label>
+          <input id="f-from" type="text" placeholder="예: 인천공항, 암스테르담 중앙역" style="width:100%;padding:10px 12px;border:1.5px solid #E5E7EB;border-radius:8px;font-size:13px;outline:none;font-family:inherit" onfocus="this.style.borderColor='#0F3460'" onblur="this.style.borderColor='#E5E7EB'">
+        </div>
+        <div>
+          <label style="font-size:12px;font-weight:600;color:#374151;display:block;margin-bottom:6px">도착지 *</label>
+          <input id="f-to" type="text" placeholder="예: 암스테르담, 파리 북역" style="width:100%;padding:10px 12px;border:1.5px solid #E5E7EB;border-radius:8px;font-size:13px;outline:none;font-family:inherit" onfocus="this.style.borderColor='#0F3460'" onblur="this.style.borderColor='#E5E7EB'">
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
+        <div>
+          <label style="font-size:12px;font-weight:600;color:#374151;display:block;margin-bottom:6px">출발 날짜 & 시간</label>
+          <input id="f-depart" type="datetime-local" style="width:100%;padding:10px 12px;border:1.5px solid #E5E7EB;border-radius:8px;font-size:13px;outline:none;font-family:inherit" onfocus="this.style.borderColor='#0F3460'" onblur="this.style.borderColor='#E5E7EB'">
+        </div>
+        <div>
+          <label style="font-size:12px;font-weight:600;color:#374151;display:block;margin-bottom:6px">도착 날짜 & 시간</label>
+          <input id="f-arrive" type="datetime-local" style="width:100%;padding:10px 12px;border:1.5px solid #E5E7EB;border-radius:8px;font-size:13px;outline:none;font-family:inherit" onfocus="this.style.borderColor='#0F3460'" onblur="this.style.borderColor='#E5E7EB'">
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
+        <div>
+          <label style="font-size:12px;font-weight:600;color:#374151;display:block;margin-bottom:6px">항공사/운행사</label>
+          <input id="f-carrier" type="text" placeholder="예: KLM, Trenitalia, Thalys" style="width:100%;padding:10px 12px;border:1.5px solid #E5E7EB;border-radius:8px;font-size:13px;outline:none;font-family:inherit" onfocus="this.style.borderColor='#0F3460'" onblur="this.style.borderColor='#E5E7EB'">
+        </div>
+        <div>
+          <label style="font-size:12px;font-weight:600;color:#374151;display:block;margin-bottom:6px">편명 / 열차번호</label>
+          <input id="f-flightno" type="text" placeholder="예: KL0856, TGV 9411" style="width:100%;padding:10px 12px;border:1.5px solid #E5E7EB;border-radius:8px;font-size:13px;outline:none;font-family:inherit" onfocus="this.style.borderColor='#0F3460'" onblur="this.style.borderColor='#E5E7EB'">
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
+        <div>
+          <label style="font-size:12px;font-weight:600;color:#374151;display:block;margin-bottom:6px">예약 번호</label>
+          <input id="f-pnr" type="text" placeholder="예: XKAB23, 7C4F9" style="width:100%;padding:10px 12px;border:1.5px solid #E5E7EB;border-radius:8px;font-size:13px;outline:none;font-family:inherit" onfocus="this.style.borderColor='#0F3460'" onblur="this.style.borderColor='#E5E7EB'">
+        </div>
+        <div>
+          <label style="font-size:12px;font-weight:600;color:#374151;display:block;margin-bottom:6px">좌석 / 등급</label>
+          <input id="f-seat" type="text" placeholder="예: 23A, 이코노미, 1등석" style="width:100%;padding:10px 12px;border:1.5px solid #E5E7EB;border-radius:8px;font-size:13px;outline:none;font-family:inherit" onfocus="this.style.borderColor='#0F3460'" onblur="this.style.borderColor='#E5E7EB'">
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
+        <div>
+          <label style="font-size:12px;font-weight:600;color:#374151;display:block;margin-bottom:6px">결제 금액</label>
+          <input id="f-price" type="text" placeholder="예: ₩1,250,000, €89" style="width:100%;padding:10px 12px;border:1.5px solid #E5E7EB;border-radius:8px;font-size:13px;outline:none;font-family:inherit" onfocus="this.style.borderColor='#0F3460'" onblur="this.style.borderColor='#E5E7EB'">
+        </div>
+        <div>
+          <label style="font-size:12px;font-weight:600;color:#374151;display:block;margin-bottom:6px">예약 상태</label>
+          <select id="f-status" style="width:100%;padding:10px 12px;border:1.5px solid #E5E7EB;border-radius:8px;font-size:13px;outline:none;font-family:inherit;background:#fff" onfocus="this.style.borderColor='#0F3460'" onblur="this.style.borderColor='#E5E7EB'">
+            <option value="confirmed">✅ 예약 완료</option>
+            <option value="pending">⏳ 예약 대기중</option>
+            <option value="todo">📌 예약 예정</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 예약 링크 -->
+      <div style="margin-bottom:14px">
+        <label style="font-size:12px;font-weight:600;color:#374151;display:block;margin-bottom:6px">🔗 예약 링크 URL</label>
+        <input id="f-link" type="url" placeholder="https://www.klm.com/booking/..." style="width:100%;padding:10px 12px;border:1.5px solid #E5E7EB;border-radius:8px;font-size:13px;outline:none;font-family:inherit" onfocus="this.style.borderColor='#0F3460'" onblur="this.style.borderColor='#E5E7EB'">
+      </div>
+
+      <!-- 이미지 URL 또는 파일 업로드 -->
+      <div style="margin-bottom:14px">
+        <label style="font-size:12px;font-weight:600;color:#374151;display:block;margin-bottom:6px">🖼 티켓 이미지</label>
+        <div style="display:flex;gap:8px;margin-bottom:8px">
+          <button onclick="setImgMode('url')" id="img-mode-url" style="padding:6px 14px;border-radius:6px;border:1.5px solid #0F3460;background:#0F3460;color:#fff;font-size:12px;cursor:pointer;font-family:inherit">이미지 URL</button>
+          <button onclick="setImgMode('file')" id="img-mode-file" style="padding:6px 14px;border-radius:6px;border:1.5px solid #E5E7EB;background:#fff;color:#6B7280;font-size:12px;cursor:pointer;font-family:inherit">파일 업로드</button>
+        </div>
+        <div id="img-url-wrap">
+          <input id="f-img-url" type="url" placeholder="https://... 이미지 주소를 붙여넣기" style="width:100%;padding:10px 12px;border:1.5px solid #E5E7EB;border-radius:8px;font-size:13px;outline:none;font-family:inherit" onfocus="this.style.borderColor='#0F3460'" onblur="this.style.borderColor='#E5E7EB'" oninput="previewImg(this.value,'url')">
+        </div>
+        <div id="img-file-wrap" style="display:none">
+          <label style="
+            display:flex;flex-direction:column;align-items:center;justify-content:center;
+            gap:6px;padding:20px;
+            border:2px dashed #D1D5DB;border-radius:10px;
+            cursor:pointer;background:#F9FAFB;
+            font-size:12px;color:#6B7280;
+            transition:border-color 0.15s;
+          " id="drop-zone" ondragover="event.preventDefault();this.style.borderColor='#0F3460'" ondragleave="this.style.borderColor='#D1D5DB'" ondrop="handleDrop(event)">
+            <span style="font-size:28px">📎</span>
+            <span>클릭하거나 이미지를 드래그해서 올려주세요</span>
+            <span style="font-size:11px;color:#9CA3AF">JPG, PNG, PDF 지원</span>
+            <input type="file" id="f-img-file" accept="image/*,application/pdf" style="display:none" onchange="handleFile(this)">
+          </label>
+        </div>
+        <!-- 미리보기 -->
+        <div id="img-preview" style="display:none;margin-top:10px;position:relative">
+          <img id="img-preview-el" style="max-width:100%;max-height:160px;border-radius:8px;object-fit:contain;border:1px solid #E5E7EB" src="">
+          <button onclick="clearImg()" style="position:absolute;top:4px;right:4px;background:rgba(0,0,0,0.6);color:#fff;border:none;border-radius:50%;width:22px;height:22px;cursor:pointer;font-size:11px">✕</button>
+        </div>
+      </div>
+
+      <!-- 메모 -->
+      <div style="margin-bottom:20px">
+        <label style="font-size:12px;font-weight:600;color:#374151;display:block;margin-bottom:6px">📝 메모</label>
+        <textarea id="f-memo" rows="2" placeholder="짐 찾는 곳, 연결편, 터미널 정보 등..." style="width:100%;padding:10px 12px;border:1.5px solid #E5E7EB;border-radius:8px;font-size:13px;outline:none;resize:vertical;font-family:inherit" onfocus="this.style.borderColor='#0F3460'" onblur="this.style.borderColor='#E5E7EB'"></textarea>
+      </div>
+
+      <!-- 저장 버튼 -->
+      <div style="display:flex;gap:10px">
+        <button onclick="saveBooking()" style="
+          flex:1;padding:12px;
+          background:#0F3460;color:#fff;
+          border:none;border-radius:10px;
+          font-size:14px;font-weight:700;cursor:pointer;
+          font-family:inherit;
+        ">💾 저장하기</button>
+        <button onclick="closeModal()" style="
+          padding:12px 20px;
+          background:#F3F4F6;color:#6B7280;
+          border:none;border-radius:10px;
+          font-size:14px;font-weight:600;cursor:pointer;
+          font-family:inherit;
+        ">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 삭제 확인 모달 -->
+<div id="delete-overlay" onclick="closeDelete()" style="
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,0.4);z-index:1001;
+  align-items:center;justify-content:center;
+">
+  <div onclick="event.stopPropagation()" style="background:#fff;border-radius:14px;padding:28px;max-width:360px;width:90%;box-shadow:0 10px 40px rgba(0,0,0,0.2)">
+    <div style="font-size:32px;text-align:center;margin-bottom:12px">🗑</div>
+    <div style="font-size:15px;font-weight:700;text-align:center;margin-bottom:8px">예매 정보를 삭제할까요?</div>
+    <div style="font-size:12px;color:#6B7280;text-align:center;margin-bottom:20px" id="delete-label"></div>
+    <div style="display:flex;gap:10px">
+      <button onclick="confirmDelete()" style="flex:1;padding:10px;background:#DC2626;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">삭제</button>
+      <button onclick="closeDelete()" style="flex:1;padding:10px;background:#F3F4F6;color:#374151;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit">취소</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .type-btn {
+    padding:7px 14px;border-radius:8px;border:1.5px solid #E5E7EB;
+    background:#fff;color:#6B7280;font-size:12px;font-weight:500;
+    cursor:pointer;font-family:inherit;transition:all 0.12s;
+  }
+  .type-btn.active { border-color:#0F3460;background:#0F3460;color:#fff; }
+  .type-btn:hover:not(.active) { border-color:#0F3460;color:#0F3460; }
+
+  /* 예매 카드 */
+  .booking-card {
+    background:#fff;border-radius:14px;
+    box-shadow:0 2px 12px rgba(0,0,0,0.07);
+    margin-bottom:14px;
+    overflow:hidden;
+    border:1px solid #E5E7EB;
+    transition:box-shadow 0.15s;
+  }
+  .booking-card:hover { box-shadow:0 4px 20px rgba(0,0,0,0.12); }
+
+  .booking-card-header {
+    padding:14px 18px;
+    display:flex;align-items:center;gap:12px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .booking-card-body {
+    padding:0 18px 16px;
+    border-top:1px solid #F3F4F6;
+  }
+  .bc-route {
+    font-size:16px;font-weight:700;color:#1A1A2E;flex:1;
+  }
+  .bc-date { font-size:12px;color:#6B7280; }
+  .bc-type-badge {
+    font-size:11px;font-weight:600;padding:3px 10px;
+    border-radius:10px;background:#EFF6FF;color:#2563EB;
+  }
+  .bc-status { font-size:12px;font-weight:600; }
+  .status-confirmed { color:#16A34A; }
+  .status-pending { color:#D97706; }
+  .status-todo { color:#6B7280; }
+
+  .info-grid {
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+    gap:10px;margin:12px 0 8px;
+  }
+  .info-cell { }
+  .info-cell .lbl { font-size:10px;color:#9CA3AF;font-weight:600;margin-bottom:2px; }
+  .info-cell .val { font-size:13px;color:#1A1A2E;font-weight:500; }
+
+  .summary-pill {
+    display:flex;align-items:center;gap:6px;
+    padding:6px 14px;border-radius:20px;
+    font-size:12px;font-weight:600;color:#fff;
+    box-shadow:0 2px 6px rgba(0,0,0,0.15);
+  }
+  .empty-state {
+    text-align:center;padding:40px 20px;
+    background:#fff;border-radius:14px;
+    border:2px dashed #E5E7EB;
+    margin-bottom:20px;
+  }
+  .empty-state .icon { font-size:40px;margin-bottom:10px; }
+  .empty-state p { font-size:13px;color:#6B7280;line-height:1.6; }
+</style>
+
+<script>
+/* ══════════════════════════════
+   탭 전환 - showTab은 아래 applyRates 정의 후에 선언됨
+══════════════════════════════ */
+
+/* ══════════════════════════════
+   Storage helpers (in-memory)
+══════════════════════════════ */
+let _store = {};
+
+async function storageGet(key) {
+  if (window.storage) {
+    try {
+      const r = await window.storage.get(key);
+      return r ? JSON.parse(r.value) : null;
+    } catch(e) { return _store[key] ?? null; }
+  }
+  return _store[key] ?? null;
+}
+async function storageSet(key, val) {
+  if (window.storage) {
+    try { await window.storage.set(key, JSON.stringify(val)); return; } catch(e){}
+  }
+  _store[key] = val;
+}
+
+/* ══════════════════════════════
+   데이터 로드 / 저장
+══════════════════════════════ */
+let bookings = [];
+
+async function loadBookings() {
+  bookings = (await storageGet('transport-bookings')) || [];
+  renderAll();
+}
+
+async function persistBookings() {
+  await storageSet('transport-bookings', bookings);
+}
+
+/* ══════════════════════════════
+   모달 열기/닫기
+══════════════════════════════ */
+let currentImgData = '';  // base64 or URL
+let currentImgMode = 'url';
+
+function openModal(id) {
+  currentImgData = '';
+  const overlay = document.getElementById('modal-overlay');
+  overlay.style.display = 'flex';
+  document.getElementById('modal-title').textContent = id ? '예매 정보 수정' : '예매 정보 추가';
+
+  // 폼 초기화
+  ['f-from','f-to','f-depart','f-arrive','f-carrier','f-flightno','f-pnr','f-seat','f-price','f-link','f-img-url','f-memo'].forEach(i => {
+    const el = document.getElementById(i);
+    if (el) el.value = '';
+  });
+  document.getElementById('f-status').value = 'confirmed';
+  document.getElementById('edit-id').value = '';
+  clearImg();
+  setImgMode('url');
+  document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.type-btn[data-val="✈ 항공"]').classList.add('active');
+
+  if (id) {
+    const b = bookings.find(x => x.id === id);
+    if (!b) return;
+    document.getElementById('edit-id').value = id;
+    document.getElementById('f-from').value = b.from || '';
+    document.getElementById('f-to').value = b.to || '';
+    document.getElementById('f-depart').value = b.depart || '';
+    document.getElementById('f-arrive').value = b.arrive || '';
+    document.getElementById('f-carrier').value = b.carrier || '';
+    document.getElementById('f-flightno').value = b.flightno || '';
+    document.getElementById('f-pnr').value = b.pnr || '';
+    document.getElementById('f-seat').value = b.seat || '';
+    document.getElementById('f-price').value = b.price || '';
+    document.getElementById('f-link').value = b.link || '';
+    document.getElementById('f-memo').value = b.memo || '';
+    document.getElementById('f-status').value = b.status || 'confirmed';
+    document.querySelectorAll('.type-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.val === b.type);
+    });
+    if (b.img) {
+      currentImgData = b.img;
+      if (b.img.startsWith('data:')) {
+        setImgMode('file');
+        showPreview(b.img);
+      } else {
+        setImgMode('url');
+        document.getElementById('f-img-url').value = b.img;
+        showPreview(b.img);
+      }
+    }
+  }
+  setTimeout(() => document.getElementById('f-from').focus(), 100);
+}
+
+function closeModal(e) {
+  if (e && e.target !== document.getElementById('modal-overlay')) return;
+  document.getElementById('modal-overlay').style.display = 'none';
+}
+
+/* ══════════════════════════════
+   타입 선택
+══════════════════════════════ */
+function selectType(btn) {
+  document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+/* ══════════════════════════════
+   이미지 모드 전환
+══════════════════════════════ */
+function setImgMode(mode) {
+  currentImgMode = mode;
+  document.getElementById('img-url-wrap').style.display = mode === 'url' ? '' : 'none';
+  document.getElementById('img-file-wrap').style.display = mode === 'file' ? '' : 'none';
+  document.getElementById('img-mode-url').style.background = mode === 'url' ? '#0F3460' : '#fff';
+  document.getElementById('img-mode-url').style.color = mode === 'url' ? '#fff' : '#6B7280';
+  document.getElementById('img-mode-url').style.borderColor = mode === 'url' ? '#0F3460' : '#E5E7EB';
+  document.getElementById('img-mode-file').style.background = mode === 'file' ? '#0F3460' : '#fff';
+  document.getElementById('img-mode-file').style.color = mode === 'file' ? '#fff' : '#6B7280';
+  document.getElementById('img-mode-file').style.borderColor = mode === 'file' ? '#0F3460' : '#E5E7EB';
+}
+
+function previewImg(src, mode) {
+  if (!src) { clearImg(); return; }
+  currentImgData = src;
+  showPreview(src);
+}
+
+function showPreview(src) {
+  const wrap = document.getElementById('img-preview');
+  const img = document.getElementById('img-preview-el');
+  img.src = src;
+  wrap.style.display = 'block';
+}
+
+function clearImg() {
+  currentImgData = '';
+  document.getElementById('img-preview').style.display = 'none';
+  document.getElementById('img-preview-el').src = '';
+  if (document.getElementById('f-img-url')) document.getElementById('f-img-url').value = '';
+  if (document.getElementById('f-img-file')) document.getElementById('f-img-file').value = '';
+}
+
+function handleFile(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    currentImgData = e.target.result;
+    showPreview(currentImgData);
+  };
+  reader.readAsDataURL(file);
+}
+
+function handleDrop(e) {
+  e.preventDefault();
+  document.getElementById('drop-zone').style.borderColor = '#D1D5DB';
+  const file = e.dataTransfer.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    currentImgData = ev.target.result;
+    showPreview(currentImgData);
+  };
+  reader.readAsDataURL(file);
+}
+
+document.getElementById('drop-zone')?.addEventListener('click', () => {
+  document.getElementById('f-img-file').click();
+});
+
+/* ══════════════════════════════
+   저장
+══════════════════════════════ */
+function saveBooking() {
+  const from = document.getElementById('f-from').value.trim();
+  const to   = document.getElementById('f-to').value.trim();
+  if (!from || !to) {
+    alert('출발지와 도착지는 필수입니다!'); return;
+  }
+  const typeBtn = document.querySelector('.type-btn.active');
+  const type = typeBtn ? typeBtn.dataset.val : '✈ 항공';
+  const imgVal = currentImgMode === 'url'
+    ? (document.getElementById('f-img-url').value.trim() || currentImgData)
+    : currentImgData;
+
+  const editId = document.getElementById('edit-id').value;
+  const obj = {
+    id: editId || Date.now().toString(),
+    type,
+    from,
+    to,
+    depart: document.getElementById('f-depart').value,
+    arrive: document.getElementById('f-arrive').value,
+    carrier: document.getElementById('f-carrier').value.trim(),
+    flightno: document.getElementById('f-flightno').value.trim(),
+    pnr: document.getElementById('f-pnr').value.trim(),
+    seat: document.getElementById('f-seat').value.trim(),
+    price: document.getElementById('f-price').value.trim(),
+    status: document.getElementById('f-status').value,
+    link: document.getElementById('f-link').value.trim(),
+    img: imgVal,
+    memo: document.getElementById('f-memo').value.trim(),
+  };
+
+  if (editId) {
+    bookings = bookings.map(b => b.id === editId ? obj : b);
+  } else {
+    bookings.push(obj);
+  }
+  // 날짜순 정렬
+  bookings.sort((a,b) => (a.depart||'').localeCompare(b.depart||''));
+  persistBookings();
+  renderAll();
+  document.getElementById('modal-overlay').style.display = 'none';
+}
+
+/* ══════════════════════════════
+   삭제
+══════════════════════════════ */
+let deleteTargetId = null;
+
+function deleteBooking(id) {
+  deleteTargetId = id;
+  const b = bookings.find(x => x.id === id);
+  document.getElementById('delete-label').textContent = b ? `${b.from} → ${b.to}` : '';
+  const ov = document.getElementById('delete-overlay');
+  ov.style.display = 'flex';
+}
+function closeDelete() {
+  document.getElementById('delete-overlay').style.display = 'none';
+  deleteTargetId = null;
+}
+function confirmDelete() {
+  if (!deleteTargetId) return;
+  bookings = bookings.filter(b => b.id !== deleteTargetId);
+  persistBookings();
+  renderAll();
+  closeDelete();
+}
+
+/* ══════════════════════════════
+   렌더링
+══════════════════════════════ */
+const statusMap = {
+  confirmed: { label:'✅ 예약 완료', cls:'status-confirmed', color:'#16A34A' },
+  pending:   { label:'⏳ 대기중',   cls:'status-pending',   color:'#D97706' },
+  todo:      { label:'📌 예약 예정', cls:'status-todo',      color:'#6B7280' },
+};
+
+const typeColor = {
+  '✈ 항공':   '#2563EB',
+  '🚄 고속열차':'#DC2626',
+  '🚆 기차':  '#7C3AED',
+  '🚢 페리':  '#0891B2',
+  '🚌 버스':  '#EA580C',
+  '🚇 지하철':'#16A34A',
+  '🚕 택시':  '#CA8A04',
+};
+
+function fmtDt(str) {
+  if (!str) return '—';
+  const d = new Date(str);
+  if (isNaN(d)) return str;
+  return d.toLocaleString('ko-KR', { month:'short', day:'numeric', hour:'2-digit', minute:'2-digit' });
+}
+
+function renderAll() {
+  renderSummary();
+  renderCards();
+}
+
+function renderSummary() {
+  const bar = document.getElementById('summary-bar');
+  if (!bookings.length) { bar.innerHTML = ''; return; }
+  const counts = { confirmed:0, pending:0, todo:0 };
+  bookings.forEach(b => { if (counts[b.status] !== undefined) counts[b.status]++; });
+  bar.innerHTML = `
+    <div class="summary-pill" style="background:#16A34A">✅ 예약완료 ${counts.confirmed}건</div>
+    <div class="summary-pill" style="background:#D97706">⏳ 대기중 ${counts.pending}건</div>
+    <div class="summary-pill" style="background:#6B7280">📌 예약예정 ${counts.todo}건</div>
+    <div class="summary-pill" style="background:#1A1A2E">총 ${bookings.length}건</div>
+  `;
+}
+
+function renderCards() {
+  const container = document.getElementById('route-cards');
+  if (!bookings.length) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="icon">✈</div>
+        <p>아직 저장된 예매 정보가 없어요.<br>위의 <b>＋ 새 예매 정보 추가</b> 버튼을 눌러 입력해보세요!</p>
+      </div>`;
+    return;
+  }
+  container.innerHTML = bookings.map(b => {
+    const sm = statusMap[b.status] || statusMap.todo;
+    const tColor = typeColor[b.type] || '#2563EB';
+    const hasImg = !!b.img;
+    return `
+    <div class="booking-card" id="card-${b.id}">
+      <div class="booking-card-header" onclick="toggleCard('${b.id}')">
+        <div style="width:38px;height:38px;border-radius:10px;background:${tColor}15;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">
+          ${b.type.split(' ')[0]}
+        </div>
+        <div style="flex:1;min-width:0">
+          <div class="bc-route">${b.from} → ${b.to}</div>
+          <div class="bc-date">${b.depart ? fmtDt(b.depart) : (b.carrier || '')} ${b.flightno ? '· '+b.flightno : ''}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0">
+          <span class="bc-status ${sm.cls}">${sm.label}</span>
+          ${b.price ? `<span style="font-size:12px;font-weight:700;color:#1A1A2E">${b.price}</span>` : ''}
+        </div>
+        <span style="font-size:12px;color:#9CA3AF;margin-left:8px" id="arrow-${b.id}">▼</span>
+      </div>
+      <div class="booking-card-body" id="body-${b.id}" style="display:none">
+        <div class="info-grid">
+          ${b.carrier  ? `<div class="info-cell"><div class="lbl">항공사/운행사</div><div class="val">${b.carrier}</div></div>` : ''}
+          ${b.flightno ? `<div class="info-cell"><div class="lbl">편명/열차번호</div><div class="val">${b.flightno}</div></div>` : ''}
+          ${b.pnr      ? `<div class="info-cell"><div class="lbl">예약번호</div><div class="val" style="font-family:monospace;font-size:14px;color:#0F3460;letter-spacing:1px">${b.pnr}</div></div>` : ''}
+          ${b.seat     ? `<div class="info-cell"><div class="lbl">좌석/등급</div><div class="val">${b.seat}</div></div>` : ''}
+          ${b.depart   ? `<div class="info-cell"><div class="lbl">출발</div><div class="val">${fmtDt(b.depart)}</div></div>` : ''}
+          ${b.arrive   ? `<div class="info-cell"><div class="lbl">도착</div><div class="val">${fmtDt(b.arrive)}</div></div>` : ''}
+          ${b.price    ? `<div class="info-cell"><div class="lbl">결제금액</div><div class="val" style="color:#DC2626;font-weight:700">${b.price}</div></div>` : ''}
+        </div>
+        ${b.memo ? `<div style="background:#F9FAFB;border-radius:8px;padding:10px 12px;font-size:12px;color:#374151;margin:8px 0">📝 ${b.memo}</div>` : ''}
+        ${b.link ? `<a href="${b.link}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;padding:7px 14px;background:#EFF6FF;color:#2563EB;border-radius:8px;font-size:12px;font-weight:600;text-decoration:none;margin:6px 0">🔗 예약 사이트 열기 ↗</a>` : ''}
+        ${hasImg ? `
+          <div style="margin:10px 0 4px">
+            <div style="font-size:11px;color:#9CA3AF;font-weight:600;margin-bottom:6px">🎫 티켓 이미지</div>
+            <img src="${b.img}" alt="티켓" style="max-width:100%;max-height:220px;border-radius:10px;object-fit:contain;border:1px solid #E5E7EB;cursor:pointer" onclick="zoomImg('${b.id}')">
+          </div>` : ''}
+        <div style="display:flex;gap:8px;margin-top:12px;padding-top:10px;border-top:1px solid #F3F4F6">
+          <button onclick="openModal('${b.id}')" style="padding:7px 16px;background:#F3F4F6;color:#374151;border:none;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">✏️ 수정</button>
+          <button onclick="deleteBooking('${b.id}')" style="padding:7px 16px;background:#FEF2F2;color:#DC2626;border:none;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">🗑 삭제</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleCard(id) {
+  const body = document.getElementById('body-'+id);
+  const arrow = document.getElementById('arrow-'+id);
+  const open = body.style.display === 'block';
+  body.style.display = open ? 'none' : 'block';
+  arrow.textContent = open ? '▼' : '▲';
+}
+
+/* 이미지 풀스크린 */
+function zoomImg(id) {
+  const b = bookings.find(x => x.id === id);
+  if (!b || !b.img) return;
+  const ov = document.createElement('div');
+  ov.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:2000;display:flex;align-items:center;justify-content:center;cursor:zoom-out;padding:20px';
+  ov.onclick = () => document.body.removeChild(ov);
+  const img = document.createElement('img');
+  img.src = b.img;
+  img.style.cssText = 'max-width:90vw;max-height:90vh;border-radius:12px;object-fit:contain';
+  ov.appendChild(img);
+  document.body.appendChild(ov);
+}
+
+/* ══ 초기 로드 ══ */
+async function initBookings() {
+  bookings = (await storageGet('transport-bookings')) || [];
+
+  // 항공권이 아직 없으면 기본 데이터 삽입
+  const hasFlights = bookings.some(b => b.pnr === '84R5VJ');
+  if (!hasFlights) {
+    const flights = [
+      {
+        id: 'flight-ams-001',
+        type: '✈ 항공',
+        from: '인천 ICN (터미널 1)',
+        to: '암스테르담 AMS (스키폴)',
+        depart: '2026-08-10T12:20',
+        arrive: '2026-08-10T22:10',
+        carrier: 'Lufthansa (루프트한자)',
+        flightno: 'LH713 (ICN→FRA) + LH1002 (FRA→AMS)',
+        pnr: '84R5VJ',
+        seat: 'Economy Green',
+        price: '₩2,549,000 (왕복)',
+        status: 'confirmed',
+        link: '',
+        img: '',
+        memo: '▶ 1구간 LH713 A350-900: ICN 12:20 → FRA 18:40 (13h 20m)\n🔄 프랑크푸르트 환승 2h 20m (터미널 1)\n▶ 2구간 LH1002 A320: FRA 21:00 → AMS 22:10 (1h 10m)\n🧳 기내반입 1×8kg / 위탁 1×23kg\n🍽 ICN-FRA 정식 기내식 / FRA-AMS 스낵'
+      },
+      {
+        id: 'eurostar-ams-par-001',
+        type: '🚄 고속열차',
+        from: '암스테르담 중앙역 (Amsterdam Centraal)',
+        to: '파리 북역 (Paris Gare du Nord)',
+        depart: '2026-08-17T11:40',
+        arrive: '2026-08-17T16:02',
+        carrier: 'Eurostar',
+        flightno: 'Eurostar 9344 · Coach 16',
+        pnr: '—',
+        seat: 'Seats 73, 74 (2인) · Eurostar Standard',
+        price: '€130 (2인 / 약 22.8만원)',
+        status: 'confirmed',
+        link: '',
+        img: '',
+        memo: '직행 · 4h 22m\n👤 JOOMYEONG OH — Coach 16, Seat 73\n👤 YAEUN CHOI — Coach 16, Seat 74\n💳 2026.04.14 카드(8578) €130 결제완료'
+      },
+      {
+        id: 'flight-icn-002',
+        type: '✈ 항공',
+        from: '로마 FCO (피우미치노 · 터미널 1)',
+        to: '인천 ICN (터미널 1)',
+        depart: '2026-09-03T12:50',
+        arrive: '2026-09-04T09:55',
+        carrier: 'Lufthansa City Airlines + Lufthansa',
+        flightno: 'LH4171 (FCO→MUC) + LH718 (MUC→ICN)',
+        pnr: '84R5VJ',
+        seat: 'Economy Green',
+        price: '₩2,549,000 (왕복)',
+        status: 'confirmed',
+        link: '',
+        img: '',
+        memo: '▶ 1구간 LH4171 A320neo: FCO 12:50 → MUC 14:25 (1h 35m) · Lufthansa City Airlines 운항\n🔄 뮌헨 환승 1h 30m (터미널 2)\n▶ 2구간 LH718 A350-900: MUC 15:55 → ICN 09:55+1 (11h 00m)\n🧳 기내반입 1×8kg / 위탁 1×23kg\n🍽 FCO-MUC 스낵 / MUC-ICN 정식 기내식'
+      }
+    ];
+    bookings = [...flights, ...bookings];
+    bookings.sort((a,b) => (a.depart||'').localeCompare(b.depart||''));
+    await persistBookings();
+  }
+
+  renderAll();
+}
+
+initBookings();
+
+/* ══════════════════════════════
+   환율 자동 변환
+══════════════════════════════ */
+const RATES = {
+  EUR: 1756,   // 오늘 기준 EUR/KRW (2026.06.18)
+  CHF: 1895,   // 오늘 기준 CHF/KRW (2026.06.18)
+};
+
+function krwStr(amount) {
+  if (amount >= 10000) return (amount/10000).toFixed(1)+'만원';
+  return amount.toLocaleString()+'원';
+}
+
+function applyRates() {
+  // 모든 td 셀 탐색해서 통화 패턴 찾기
+  document.querySelectorAll('td, .info-cell .val, .budget-card .amount').forEach(el => {
+    const text = el.innerHTML;
+    // 이미 변환된 경우 스킵
+    if (el.dataset.converted) return;
+
+    let newHtml = text;
+    let changed = false;
+
+    // €숫자 ~ €숫자 범위 패턴 (예: €35~120)
+    newHtml = newHtml.replace(/€(\d+(?:\.\d+)?)~(\d+(?:\.\d+)?)/g, (m, a, b) => {
+      changed = true;
+      const lo = Math.round(parseFloat(a) * RATES.EUR);
+      const hi = Math.round(parseFloat(b) * RATES.EUR);
+      return `€${a}~${b} <span class="krw-tag">약 ${krwStr(lo)}~${krwStr(hi)}</span>`;
+    });
+    // €숫자+ 패턴
+    newHtml = newHtml.replace(/€(\d+(?:\.\d+)?)\+/g, (m, a) => {
+      changed = true;
+      const w = Math.round(parseFloat(a) * RATES.EUR);
+      return `€${a}+ <span class="krw-tag">약 ${krwStr(w)}+</span>`;
+    });
+    // €숫자 단독
+    newHtml = newHtml.replace(/€(\d+(?:\.\d+)?)(?![~\d\+<])/g, (m, a) => {
+      changed = true;
+      const w = Math.round(parseFloat(a) * RATES.EUR);
+      return `€${a} <span class="krw-tag">약 ${krwStr(w)}</span>`;
+    });
+
+    // CHF 범위
+    newHtml = newHtml.replace(/CHF\s*(\d+(?:\.\d+)?)~(\d+(?:\.\d+)?)/g, (m, a, b) => {
+      changed = true;
+      const lo = Math.round(parseFloat(a) * RATES.CHF);
+      const hi = Math.round(parseFloat(b) * RATES.CHF);
+      return `CHF ${a}~${b} <span class="krw-tag chf">약 ${krwStr(lo)}~${krwStr(hi)}</span>`;
+    });
+    // CHF 단독
+    newHtml = newHtml.replace(/CHF\s*(\d+(?:\.\d+)?)(?![~\d<])/g, (m, a) => {
+      changed = true;
+      const w = Math.round(parseFloat(a) * RATES.CHF);
+      return `CHF ${a} <span class="krw-tag chf">약 ${krwStr(w)}</span>`;
+    });
+
+    if (changed) {
+      el.innerHTML = newHtml;
+      el.dataset.converted = '1';
+    }
+  });
+}
+
+// 초기 실행
+setTimeout(applyRates, 300);
+
+/* ══════════════════════════════
+   탭 전환 (applyRates 이후 선언)
+══════════════════════════════ */
+function showTab(id, el) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  var section = document.getElementById(id);
+  if (section) section.classList.add('active');
+  if (el) el.classList.add('active');
+  setTimeout(applyRates, 50);
+  if (id === 'schedule') {
+    setTimeout(function() {
+      renderScWeekTabs();
+      renderScWeekCal();
+      renderScTimetable();
+    }, 10);
+  }
+}
+</script>
+
+<style>
+  .krw-tag {
+    display: inline-block;
+    background: #DCFCE7;
+    color: #166534;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 6px;
+    margin-left: 3px;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+  .krw-tag.chf {
+    background: #F5F3FF;
+    color: #5B21B6;
+  }
+  .rate-banner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 8px 14px;
+    background: rgba(255,255,255,0.10);
+    border-radius: 10px;
+    margin-top: 14px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.85);
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .rate-pill {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(255,255,255,0.15);
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #fff;
+  }
+  .rate-dot { width: 6px; height: 6px; border-radius: 50%; }
+</style>
+</body>
+</html>
