@@ -282,23 +282,116 @@
 </div>
 
 <div class="tab-bar">
-  <div class="tab active" onclick="showTab('timeline', this)">📅 전체 일정</div>
-  <div class="tab" onclick="showTab('transport', this)">🚆 항공 & 교통</div>
-  <div class="tab" onclick="showTab('hotel', this)">🏨 숙소</div>
-  <div class="tab" onclick="showTab('booking', this)">🎟 사전 예약</div>
-  <div class="tab" onclick="showTab('food', this)">🍽 식사 추천</div>
-  <div class="tab" onclick="showTab('sights', this)">🗺 볼거리</div>
+  <div class="tab active" onclick="showTab('dashboard', this)">🏠 대시보드</div>
+  <div class="tab" onclick="showTab('schedule', this)">🗓 일정</div>
+  <div class="tab" onclick="showTab('bookings', this)">🎫 예약 현황</div>
+  <div class="tab" onclick="showTab('guide', this)">🗺 현지 가이드</div>
   <div class="tab" onclick="showTab('budget', this)">💶 예산</div>
-  <div class="tab" onclick="showTab('schedule', this)">⏱ 시간표</div>
 </div>
 
 <div class="content">
 
-  <!-- ── 전체 일정 ── -->
-  <div id="timeline" class="section active">
-    <div class="section-header"><h2>전체 여행 일정</h2></div>
+  <!-- ── 대시보드 ── -->
+  <div id="dashboard" class="section active">
 
-    <div class="timeline">
+    <!-- D-Day 카운터 -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:20px">
+      <div style="background:linear-gradient(135deg,#1A1A2E,#0F3460);border-radius:14px;padding:18px;color:#fff;text-align:center">
+        <div id="dday-count" style="font-size:36px;font-weight:800;line-height:1">—</div>
+        <div style="font-size:11px;opacity:0.7;margin-top:4px">출발까지</div>
+        <div style="font-size:10px;opacity:0.5;margin-top:2px">2026. 8. 10</div>
+      </div>
+      <div style="background:linear-gradient(135deg,#16A34A,#22C55E);border-radius:14px;padding:18px;color:#fff;text-align:center">
+        <div style="font-size:28px;font-weight:800">26일</div>
+        <div style="font-size:11px;opacity:0.85;margin-top:4px">총 여행 기간</div>
+        <div style="font-size:10px;opacity:0.65;margin-top:2px">8/10 ~ 9/4</div>
+      </div>
+      <div style="background:linear-gradient(135deg,#D97706,#F59E0B);border-radius:14px;padding:18px;color:#fff;text-align:center">
+        <div style="font-size:28px;font-weight:800">5개국</div>
+        <div style="font-size:11px;opacity:0.85;margin-top:4px">방문 국가</div>
+        <div style="font-size:10px;opacity:0.65;margin-top:2px">NL·FR·CH·IT·DE</div>
+      </div>
+    </div>
+
+    <!-- 예약 진행 현황 -->
+    <div style="background:#fff;border-radius:14px;padding:16px 18px;box-shadow:0 2px 12px rgba(0,0,0,0.07);margin-bottom:16px">
+      <div style="font-size:13px;font-weight:700;color:#1A1A2E;margin-bottom:12px">📊 예약 진행 현황</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+        <span style="background:#DCFCE7;color:#16A34A;padding:4px 12px;border-radius:8px;font-size:12px;font-weight:700">✅ 완료 8건</span>
+        <span style="background:#FEF2F2;color:#DC2626;padding:4px 12px;border-radius:8px;font-size:12px;font-weight:700">🚨 긴급 4건</span>
+        <span style="background:#FEF3C7;color:#D97706;padding:4px 12px;border-radius:8px;font-size:12px;font-weight:700">⚡ 2달 전 2건</span>
+        <span style="background:#F3F4F6;color:#374151;padding:4px 12px;border-radius:8px;font-size:12px;font-weight:700">📋 1달 전 5건</span>
+      </div>
+      <div style="height:10px;background:#E5E7EB;border-radius:5px;overflow:hidden;margin-bottom:6px">
+        <div style="height:100%;width:42%;background:linear-gradient(90deg,#16A34A,#22C55E);border-radius:5px"></div>
+      </div>
+      <div style="font-size:11px;color:#9CA3AF;text-align:right">전체 19건 중 8건 완료 (42%)</div>
+    </div>
+
+    <!-- 확정 예약 요약 -->
+    <div style="background:#fff;border-radius:14px;padding:16px 18px;box-shadow:0 2px 12px rgba(0,0,0,0.07);margin-bottom:16px">
+      <div style="font-size:13px;font-weight:700;color:#1A1A2E;margin-bottom:10px">✅ 확정된 예약</div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#F0FDF4;border-radius:8px;font-size:12px">
+          <span>✈</span><span style="font-weight:600">인천 ↔ 암스테르담/로마 (왕복)</span><span style="margin-left:auto;color:#16A34A;font-weight:700;font-size:11px">84R5VJ</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#F0FDF4;border-radius:8px;font-size:12px">
+          <span>🚄</span><span style="font-weight:600">Eurostar 암스 → 파리 (8/17)</span><span style="margin-left:auto;color:#16A34A;font-weight:700;font-size:11px">Coach16 · 73/74</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#F0FDF4;border-radius:8px;font-size:12px">
+          <span>🚄</span><span style="font-weight:600">TGV Lyria 파리 → 바젤 SBB (8/22)</span><span style="margin-left:auto;color:#16A34A;font-weight:700;font-size:11px">LKL82J · 327/324</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#F0FDF4;border-radius:8px;font-size:12px">
+          <span>🏛</span><span style="font-weight:600">루브르 바이블 투어 (8/19 14:00)</span><span style="margin-left:auto;color:#16A34A;font-weight:700;font-size:11px">확정</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#F0FDF4;border-radius:8px;font-size:12px">
+          <span>🏨</span><span style="font-weight:600">파리 이시-레-물리노 B&B (8/17~22)</span><span style="margin-left:auto;color:#16A34A;font-weight:700;font-size:11px">완료</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#F0FDF4;border-radius:8px;font-size:12px">
+          <span>🏨</span><span style="font-weight:600">그린델발트 아파트 (8/22~27)</span><span style="margin-left:auto;color:#16A34A;font-weight:700;font-size:11px">완료</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#F0FDF4;border-radius:8px;font-size:12px">
+          <span>🏨</span><span style="font-weight:600">밀라노 숙소 (8/27~28)</span><span style="margin-left:auto;color:#16A34A;font-weight:700;font-size:11px">1742338358</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#F0FDF4;border-radius:8px;font-size:12px">
+          <span>🏨</span><span style="font-weight:600">로마 숙소 (8/30~9/3)</span><span style="margin-left:auto;color:#16A34A;font-weight:700;font-size:11px">1742335909</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 긴급 할 일 -->
+    <div style="background:#fff;border-radius:14px;padding:16px 18px;box-shadow:0 2px 12px rgba(0,0,0,0.07)">
+      <div style="font-size:13px;font-weight:700;color:#DC2626;margin-bottom:10px">🚨 즉시 해야 할 일</div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div style="display:flex;align-items:flex-start;gap:8px;padding:8px 10px;background:#FEF2F2;border-radius:8px;font-size:12px;border-left:3px solid #DC2626">
+          <span>⚠️</span><div><b>암스테르담 대회 기간 숙소 (8/14~17)</b><br><span style="color:#6B7280;font-size:11px">국제대회 기간 → 숙박비 급등. 즉시 예약 필수!</span></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:8px;padding:8px 10px;background:#FEF2F2;border-radius:8px;font-size:12px;border-left:3px solid #DC2626">
+          <span>⚠️</span><div><b>피렌체 숙소 (8/28~30, 2박)</b><br><span style="color:#6B7280;font-size:11px">성수기 → 지금 바로 예약하세요</span></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:8px;padding:8px 10px;background:#FEF2F2;border-radius:8px;font-size:12px;border-left:3px solid #DC2626">
+          <span>⚠️</span><div><b>최후의 만찬 (밀라노, 8/27) — vivaticket.com</b><br><span style="color:#6B7280;font-size:11px">2~3개월 전 예약 필수. 지금 이미 빡빡해요!</span></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:8px;padding:8px 10px;background:#FEF3C7;border-radius:8px;font-size:12px;border-left:3px solid #D97706">
+          <span>⚡</span><div><b>몽생미셸 당일 투어 (8/21) 예약</b><br><span style="color:#6B7280;font-size:11px">파리 출발 투어 버스 — 7~8월 성수기 매진 주의</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── 일정 (타임라인 + 시간표) ── -->
+  <div id="schedule" class="section">
+
+    <!-- 뷰 토글 -->
+    <div style="display:flex;gap:8px;margin-bottom:16px;padding:4px;background:#F3F4F6;border-radius:24px;width:fit-content">
+      <button id="btn-timeline" onclick="toggleSchedView('timeline')" style="padding:7px 18px;border-radius:20px;border:none;background:#1A1A2E;color:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s">📋 타임라인</button>
+      <button id="btn-timetable" onclick="toggleSchedView('timetable')" style="padding:7px 18px;border-radius:20px;border:none;background:transparent;color:#6B7280;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s">⏱ 시간표</button>
+    </div>
+
+    <div id="view-timeline">
+      <div class="section-header"><h2>전체 여행 일정</h2></div>
+      <div class="timeline">
 
       <div class="tl-item">
         <div class="tl-date" style="color:var(--netherlands);font-weight:800">8/10<br>월</div>
@@ -776,13 +869,66 @@
       </div>
 
       <div class="tl-item">
-        <div class="tl-date">8/22<br>토</div>
+        <div class="tl-date" style="color:var(--switzerland);font-weight:800">8/22<br>토</div>
         <div class="tl-card" style="border-left-color:var(--switzerland)">
-          <h3>🇨🇭 스위스 이동 — 그린델발트</h3>
-          <p>이시-레-물리노 B&B 체크아웃(8/22 오전 10시) → 파리 리옹역 출발 → TGV 약 3~4시간 → 그린델발트 아파트 체크인 (오후 3시 이후).</p>
-          <div class="tl-meta">
-            <span class="badge ok">✅ 당일 이동 — 별도 숙소 불필요</span>
-            <span class="badge urgent">TGV 조기 예약 필수</span>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+            <span style="font-size:18px">🚄</span>
+            <h3 style="margin:0">🇫🇷→🇨🇭 파리 → 바젤 SBB (스위스 이동)</h3>
+            <span style="margin-left:auto;background:#16A34A;color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;white-space:nowrap">✅ 예약완료</span>
+          </div>
+
+          <!-- 이시-레-물리노 체크아웃 -->
+          <div style="display:flex;align-items:center;gap:8px;padding:7px 12px;background:#F0FDF4;border-radius:8px;margin-bottom:8px;font-size:11px;font-weight:600;color:#166534">
+            🏨 이시-레-물리노 B&amp;B 체크아웃 <b>오전 10:00</b> → 파리 리옹역(Gare de Lyon) 이동
+          </div>
+
+          <!-- TGV Lyria 구간 -->
+          <div style="background:#F5F3FF;border-radius:10px;padding:12px 14px;margin-bottom:8px;font-size:12px;border-left:3px solid #9B59B6">
+            <div style="font-size:10px;font-weight:700;color:#9CA3AF;margin-bottom:8px">TGVLyria · 리리아(Lyria) · 직행 · 2인 · 예약번호 LKL82J</div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+              <div style="text-align:center">
+                <div style="font-size:20px;font-weight:800;color:#9B59B6">10:22</div>
+                <div style="font-size:12px;font-weight:700;color:#1A1A2E">파리 리옹역</div>
+                <div style="font-size:10px;color:#9CA3AF">Paris Gare de Lyon</div>
+              </div>
+              <div style="flex:1;text-align:center">
+                <div style="font-size:10px;color:#9CA3AF">3h 4m · 직행</div>
+                <div style="height:3px;background:linear-gradient(90deg,#9B59B6,#C27DE0);border-radius:2px;margin:4px 0"></div>
+                <div style="font-size:10px;font-weight:600;color:#9B59B6">TGV Lyria</div>
+              </div>
+              <div style="text-align:center">
+                <div style="font-size:20px;font-weight:800;color:#9B59B6">13:26</div>
+                <div style="font-size:12px;font-weight:700;color:#1A1A2E">바젤 SBB</div>
+                <div style="font-size:10px;color:#9CA3AF">Basel SBB</div>
+              </div>
+            </div>
+            <!-- 좌석 배정 -->
+            <div style="background:#fff;border-radius:8px;padding:8px 12px;font-size:11px">
+              <div style="font-weight:700;color:#374151;margin-bottom:6px">🪑 좌석 배정</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;color:#6B7280">
+                <div style="background:#F5F3FF;border-radius:6px;padding:6px 10px">
+                  <div style="font-weight:700;color:#7C3AED;font-size:10px;margin-bottom:2px">최 야은아</div>
+                  <div>13호 객차 · 하층 갑판 · 좌석 <b style="color:#9B59B6">327</b></div>
+                  <div style="font-size:10px;color:#9CA3AF">개인 의석</div>
+                </div>
+                <div style="background:#F5F3FF;border-radius:6px;padding:6px 10px">
+                  <div style="font-weight:700;color:#7C3AED;font-size:10px;margin-bottom:2px">오주명아</div>
+                  <div>13호 객차 · 하층 갑판 · 좌석 <b style="color:#9B59B6">324</b></div>
+                  <div style="font-size:10px;color:#9CA3AF">개인 의석</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 바젤 SBB → 그린델발트 연결편 -->
+          <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:#FEF3C7;border-radius:8px;margin-bottom:8px;font-size:11px;font-weight:600;color:#92400E">
+            🔄 바젤 SBB 도착(13:26) → 인터라켄 오스트 경유 → 그린델발트 (약 2시간 30분 소요 · SBB 연결편 이용)
+          </div>
+
+          <div style="display:flex;gap:6px;flex-wrap:wrap">
+            <span style="background:#DCFCE7;color:#166534;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:700">예약번호 LKL82J</span>
+            <span style="background:#EFF6FF;color:#2563EB;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:600">직행 · 3h 4m</span>
+            <span style="background:#F5F3FF;color:#7C3AED;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:600">그린델발트 체크인 오후 3시 이후</span>
           </div>
         </div>
       </div>
@@ -927,10 +1073,36 @@
       </div>
 
     </div>
-  </div>
+    </div><!-- /view-timeline -->
 
-  <!-- ── 항공 & 교통 ── -->
-  <div id="transport" class="section">
+    <!-- 시간표 뷰 -->
+    <div id="view-timetable" style="display:none">
+      <div class="section-header"><h2>시간대별 일정표</h2></div>
+      <p style="font-size:12px;color:#6B7280;margin-bottom:14px">날짜 클릭 → 시간표 확인 · 블록 클릭 → 수정/삭제 · 시간대 클릭 → 일정 추가. 완성 후 HTML 내보내기로 저장하세요.</p>
+      <div id="sc-week-tabs" style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap"></div>
+      <div id="sc-week-cal" style="border:1px solid #E5E7EB;border-radius:12px;overflow:hidden;margin-bottom:14px"></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px">
+        <div id="sc-day-label" style="font-size:14px;font-weight:700;color:#1A1A2E"></div>
+        <div style="display:flex;gap:6px">
+          <button onclick="scOpenAddForm()" style="display:flex;align-items:center;gap:5px;padding:6px 14px;background:#1A1A2E;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">＋ 일정 추가</button>
+          <button onclick="scExportHTML()" style="display:flex;align-items:center;gap:5px;padding:6px 14px;background:#F0FDF4;color:#166534;border:1px solid #BBF7D0;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">⬇ HTML 내보내기</button>
+        </div>
+      </div>
+      <div id="sc-timetable" style="border:1px solid #E5E7EB;border-radius:12px;overflow:hidden;margin-bottom:12px"></div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:4px">
+        <span style="font-size:11px;color:#9CA3AF">클릭: 블록=수정·삭제 / 빈칸=일정추가</span>
+        <div style="display:flex;align-items:center;gap:4px;font-size:11px;color:#6B7280"><div style="width:8px;height:8px;border-radius:2px;background:#6D28D9"></div>스냅</div>
+        <div style="display:flex;align-items:center;gap:4px;font-size:11px;color:#6B7280"><div style="width:8px;height:8px;border-radius:2px;background:#16A34A"></div>자유</div>
+        <div style="display:flex;align-items:center;gap:4px;font-size:11px;color:#6B7280"><div style="width:8px;height:8px;border-radius:2px;background:#D97706"></div>투어</div>
+        <div style="display:flex;align-items:center;gap:4px;font-size:11px;color:#6B7280"><div style="width:8px;height:8px;border-radius:2px;background:#2563EB"></div>확정</div>
+        <div style="display:flex;align-items:center;gap:4px;font-size:11px;color:#6B7280"><div style="width:8px;height:8px;border-radius:2px;background:#9CA3AF"></div>이동</div>
+      </div>
+    </div><!-- /view-timetable -->
+
+  </div><!-- /schedule -->
+
+  <!-- ── 예약 현황 ── -->
+  <div id="bookings" class="section">
     <div class="section-header"><h2>항공 & 교통편</h2></div>
 
     <!-- ══ 예매 정보 저장 관리 ══ -->
@@ -1014,13 +1186,13 @@
             <td>€130 (2인) <span class="krw-tag">약 22.8만원</span></td>
             <td>8/17 AMS 11:40 → Paris Gare du Nord 16:02 · Coach 16 · Seats 73, 74</td>
           </tr>
-          <tr>
-            <td>파리 → 취리히/제네바</td>
-            <td>TGV Lyria</td>
-            <td>3h~4h</td>
-            <td><span class="badge urgent">조기 예약 필수</span></td>
-            <td>€39~150</td>
-            <td>좌석 지정 필수</td>
+          <tr style="background:#F0FDF4">
+            <td><b>파리 → 바젤 SBB</b></td>
+            <td>TGV Lyria (리리아) · 직행</td>
+            <td>3h 4m</td>
+            <td><span class="badge ok">✅ 예약완료</span></td>
+            <td>예약번호 LKL82J</td>
+            <td>8/22(토) 파리 리옹역 10:22 출발 → 바젤 SBB 13:26 도착 · Coach 13 · 최 야은아 327석 / 오주명아 324석</td>
           </tr>
           <tr>
             <td>취리히 → 밀라노</td>
@@ -1065,10 +1237,10 @@
         </tbody>
       </table>
     </div>
-  </div>
 
-  <!-- ── 숙소 ── -->
-  <div id="hotel" class="section">
+    <div class="divider"></div>
+
+    <!-- 숙소 -->
     <div class="section-header"><h2>숙소 계획</h2></div>
 
     <!-- 예약 완료 숙소 카드 -->
@@ -1348,12 +1520,11 @@
 
     <!-- 숙소 연결 안내 -->
     <div style="margin-top:16px;padding:14px 16px;background:#F0FDF4;border-radius:10px;font-size:12px;color:#166534;border-left:4px solid #16A34A">
-      ✅ <b>숙소 일정 완벽 연결:</b> 이시-레-물리노 B&amp;B 체크아웃(8/22 오전 10시) → 당일 파리 출발 → 그린델발트 아파트 체크인(8/22 오후 3시). 이동 시간 충분히 여유 있어요!
+      ✅ <b>숙소 일정 완벽 연결:</b> 이시-레-물리노 B&amp;B 체크아웃(8/22 오전 10:00) → 파리 리옹역 10:22 출발 → 바젤 SBB 13:26 도착 → 인터라켄 경유 → 그린델발트 아파트 체크인(8/22 오후 3시 이후). 예약번호 <b>LKL82J</b> ✅
     </div>
-  </div>
 
-  <!-- ── 사전 예약 ── -->
-  <div id="booking" class="section">
+    <div class="divider"></div>
+
     <div class="section-header"><h2>사전 예약 체크리스트</h2><span class="count">우선순위 순</span></div>
 
     <!-- ══ 예매 사이트 링크 모음 ══ -->
@@ -1384,7 +1555,7 @@
           headerBg: 'linear-gradient(135deg,#0D3B5E,#1A6EA6)',
           items: [
             { id: 'eurostar', icon: '🚄', iconBg: '#003D6B', label: 'Eurostar (AMS→PAR)', sub: '8/17 · No.9344 · Coach 16', defaultUrl: 'https://www.eurostar.com/rw-en', status: 'done' },
-            { id: 'tgv',     icon: '🚄', iconBg: '#CE1126', label: 'SNCF (TGV) PAR→스위스', sub: '8/22 · 조기 예약 필수', defaultUrl: 'https://www.sncf-connect.com', status: 'need' },
+            { id: 'tgv',     icon: '🚄', iconBg: '#9B59B6', label: 'TGV Lyria PAR→바젤 SBB', sub: '8/22 · 10:22→13:26 · LKL82J · Coach 13', defaultUrl: 'https://www.sncf-connect.com', status: 'done' },
             { id: 'sbb',     icon: '🚄', iconBg: '#EB0000', label: 'SBB 취리히→밀라노', sub: '8/27 · 루가노 경유', defaultUrl: 'https://www.sbb.ch/en', status: 'need' },
             { id: 'tre-mfl', icon: '🚄', iconBg: '#009246', label: 'Trenitalia 밀라노→피렌체', sub: '8/28 · 고속열차', defaultUrl: 'https://www.trenitalia.com', status: 'need' },
             { id: 'tre-fro', icon: '🚄', iconBg: '#009246', label: 'Trenitalia 피렌체→로마', sub: '8/30 · 프레차로사', defaultUrl: 'https://www.trenitalia.com', status: 'need' }
@@ -1546,16 +1717,16 @@
       <div style="margin-top:16px;background:#fff;border-radius:12px;padding:14px 18px;box-shadow:0 2px 8px rgba(0,0,0,0.06);display:flex;align-items:center;gap:16px;flex-wrap:wrap">
         <div style="font-size:12px;font-weight:700;color:#1A1A2E">📊 예약 진행 현황</div>
         <div style="display:flex;gap:10px;flex-wrap:wrap">
-          <span style="display:flex;align-items:center;gap:5px;font-size:12px"><span style="background:#DCFCE7;color:#16A34A;padding:2px 8px;border-radius:6px;font-weight:700">✅ 완료 5건</span></span>
+          <span style="display:flex;align-items:center;gap:5px;font-size:12px"><span style="background:#DCFCE7;color:#16A34A;padding:2px 8px;border-radius:6px;font-weight:700">✅ 완료 6건</span></span>
           <span style="display:flex;align-items:center;gap:5px;font-size:12px"><span style="background:#FEF2F2;color:#DC2626;padding:2px 8px;border-radius:6px;font-weight:700">🚨 긴급 2건</span></span>
-          <span style="display:flex;align-items:center;gap:5px;font-size:12px"><span style="background:#FEF3C7;color:#D97706;padding:2px 8px;border-radius:6px;font-weight:700">⚡ 2달 전 3건</span></span>
+          <span style="display:flex;align-items:center;gap:5px;font-size:12px"><span style="background:#FEF3C7;color:#D97706;padding:2px 8px;border-radius:6px;font-weight:700">⚡ 2달 전 2건</span></span>
           <span style="display:flex;align-items:center;gap:5px;font-size:12px"><span style="background:#F3F4F6;color:#374151;padding:2px 8px;border-radius:6px;font-weight:700">📋 1달 전 5건</span></span>
         </div>
         <div style="margin-left:auto">
           <div style="height:8px;width:180px;background:#E5E7EB;border-radius:4px;overflow:hidden">
-            <div style="height:100%;width:33%;background:linear-gradient(90deg,#16A34A,#22C55E);border-radius:4px"></div>
+            <div style="height:100%;width:40%;background:linear-gradient(90deg,#16A34A,#22C55E);border-radius:4px"></div>
           </div>
-          <div style="font-size:10px;color:#9CA3AF;margin-top:3px;text-align:right">전체 15건 중 5건 완료 (33%)</div>
+          <div style="font-size:10px;color:#9CA3AF;margin-top:3px;text-align:right">전체 15건 중 6건 완료 (40%)</div>
         </div>
       </div>
     </div>
@@ -1611,8 +1782,8 @@
           <span class="priority p-med">2달 전</span>
         </div>
         <div class="check-item">
-          <input type="checkbox" id="c9"><label for="c9">파리 → 스위스 TGV Lyria (8/22)</label>
-          <span class="priority p-med">2달 전</span>
+          <input type="checkbox" id="c9" checked><label for="c9" style="text-decoration:line-through;color:#9CA3AF">파리 → 바젤 SBB TGV Lyria (8/22)</label>
+          <span class="priority p-low" style="background:#DCFCE7;color:#16A34A">✅ LKL82J</span>
         </div>
         <div class="check-item">
           <input type="checkbox" id="c10"><label for="c10">파리 숙소 (8/17~22, 5박)</label>
@@ -1669,11 +1840,11 @@
       </div>
 
     </div>
-  </div>
+  </div><!-- /bookings -->
 
-  <!-- ── 식사 추천 ── -->
-  <div id="food" class="section">
-    <div class="section-header"><h2>🍽 도시별 식사 추천</h2></div>
+  <!-- ── 현지 가이드 ── -->
+  <div id="guide" class="section">
+    <div class="section-header"><h2>🍽 식사 추천</h2></div>
     <div class="food-grid">
 
       <div class="food-card" style="border-top-color:var(--netherlands)">
@@ -1730,10 +1901,8 @@
       </div>
 
     </div>
-  </div>
 
-  <!-- ── 볼거리 ── -->
-  <div id="sights" class="section">
+    <div class="divider"></div>
     <div class="section-header"><h2>🗺 도시별 볼거리</h2></div>
     <div class="table-wrap">
       <table>
@@ -1768,7 +1937,7 @@
         </tbody>
       </table>
     </div>
-  </div>
+  </div><!-- /guide -->
 
   <!-- ── 예산 ── -->
   <div id="budget" class="section">
@@ -1832,39 +2001,6 @@
   </div>
 
 
-  <!-- ── 시간표 ── -->
-  <div id="schedule" class="section">
-    <div class="section-header"><h2>시간대별 일정표</h2></div>
-    <p style="font-size:12px;color:#6B7280;margin-bottom:14px">날짜 클릭 → 시간표 확인 · 블록 클릭 → 수정/삭제 · 시간대 클릭 → 일정 추가. 완성 후 HTML 내보내기로 저장하세요.</p>
-
-    <!-- 나라 탭 -->
-    <div id="sc-week-tabs" style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap"></div>
-
-    <!-- 주간 캘린더 -->
-    <div id="sc-week-cal" style="border:1px solid #E5E7EB;border-radius:12px;overflow:hidden;margin-bottom:14px"></div>
-
-    <!-- 툴바 -->
-    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px">
-      <div id="sc-day-label" style="font-size:14px;font-weight:700;color:#1A1A2E"></div>
-      <div style="display:flex;gap:6px">
-        <button onclick="scOpenAddForm()" style="display:flex;align-items:center;gap:5px;padding:6px 14px;background:#1A1A2E;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">＋ 일정 추가</button>
-        <button onclick="scExportHTML()" style="display:flex;align-items:center;gap:5px;padding:6px 14px;background:#F0FDF4;color:#166534;border:1px solid #BBF7D0;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">⬇ HTML 내보내기</button>
-      </div>
-    </div>
-
-    <!-- 시간표 -->
-    <div id="sc-timetable" style="border:1px solid #E5E7EB;border-radius:12px;overflow:hidden;margin-bottom:12px"></div>
-
-    <!-- 범례 -->
-    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:4px">
-      <span style="font-size:11px;color:#9CA3AF">클릭: 블록=수정·삭제 / 빈칸=일정추가</span>
-      <div style="display:flex;align-items:center;gap:4px;font-size:11px;color:#6B7280"><div style="width:8px;height:8px;border-radius:2px;background:#6D28D9"></div>스냅</div>
-      <div style="display:flex;align-items:center;gap:4px;font-size:11px;color:#6B7280"><div style="width:8px;height:8px;border-radius:2px;background:#16A34A"></div>자유</div>
-      <div style="display:flex;align-items:center;gap:4px;font-size:11px;color:#6B7280"><div style="width:8px;height:8px;border-radius:2px;background:#D97706"></div>투어</div>
-      <div style="display:flex;align-items:center;gap:4px;font-size:11px;color:#6B7280"><div style="width:8px;height:8px;border-radius:2px;background:#2563EB"></div>확정</div>
-      <div style="display:flex;align-items:center;gap:4px;font-size:11px;color:#6B7280"><div style="width:8px;height:8px;border-radius:2px;background:#9CA3AF"></div>이동</div>
-    </div>
-  </div>
 
 </div>
 
@@ -1993,8 +2129,8 @@ const SC_DAYS = [
     pills:[{t:'move',l:'🚄 스위스 이동'}],
     slots:[
       {h:'07–09',blocks:[]},
-      {h:'09–12',blocks:[{t:'move',l:'🏨 B&B 체크아웃 10:00'},{t:'move',l:'🚄 TGV 리옹역 출발',n:'파리→스위스 약 3~4시간'}]},
-      {h:'12–16',blocks:[{t:'move',l:'🚄 스위스 이동 중'}]},
+      {h:'09–12',blocks:[{t:'move',l:'🏨 B&B 체크아웃 10:00'},{t:'confirmed',l:'🚄 TGV Lyria 10:22 출발',n:'파리 리옹역 → 바젤 SBB · LKL82J · Coach 13 · 327/324석'}]},
+      {h:'12–16',blocks:[{t:'confirmed',l:'🚄 바젤 SBB 13:26 도착'},{t:'move',l:'🚄 바젤→인터라켄→그린델발트',n:'SBB 연결편 · 약 2h 30m'}]},
       {h:'16–18',blocks:[{t:'confirmed',l:'🏨 그린델발트 체크인',n:'아파트 · 호스트 Elisabeth · 15:00~'}]},
       {h:'18–21',blocks:[]},
       {h:'21–24',blocks:[]},
@@ -3143,6 +3279,9 @@ function showTab(id, el) {
   if (section) section.classList.add('active');
   if (el) el.classList.add('active');
   setTimeout(applyRates, 50);
+  if (id === 'dashboard') {
+    initDDay();
+  }
   if (id === 'schedule') {
     setTimeout(function() {
       renderScWeekTabs();
@@ -3151,6 +3290,44 @@ function showTab(id, el) {
     }, 10);
   }
 }
+
+function toggleSchedView(view) {
+  var tl = document.getElementById('view-timeline');
+  var tt = document.getElementById('view-timetable');
+  var btnTl = document.getElementById('btn-timeline');
+  var btnTt = document.getElementById('btn-timetable');
+  if (!tl || !tt) return;
+  var baseStyle = 'padding:7px 18px;border-radius:20px;border:none;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s';
+  if (view === 'timeline') {
+    tl.style.display = '';
+    tt.style.display = 'none';
+    btnTl.style.cssText = baseStyle + ';background:#1A1A2E;color:#fff';
+    btnTt.style.cssText = baseStyle + ';background:transparent;color:#6B7280;font-weight:600';
+  } else {
+    tl.style.display = 'none';
+    tt.style.display = '';
+    btnTl.style.cssText = baseStyle + ';background:transparent;color:#6B7280;font-weight:600';
+    btnTt.style.cssText = baseStyle + ';background:#1A1A2E;color:#fff';
+    setTimeout(function() {
+      renderScWeekTabs();
+      renderScWeekCal();
+      renderScTimetable();
+    }, 10);
+  }
+}
+
+function initDDay() {
+  var depart = new Date('2026-08-10T00:00:00');
+  var today = new Date();
+  today.setHours(0, 0, 0, 0);
+  var diff = Math.ceil((depart - today) / 86400000);
+  var el = document.getElementById('dday-count');
+  if (!el) return;
+  if (diff > 0) el.textContent = 'D-' + diff;
+  else if (diff === 0) el.textContent = 'D-Day!';
+  else el.textContent = 'D+' + Math.abs(diff);
+}
+initDDay();
 </script>
 
 <style>
