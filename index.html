@@ -2053,6 +2053,7 @@
       <input type="hidden" id="sc-edit-day">
       <input type="hidden" id="sc-edit-slot">
       <input type="hidden" id="sc-edit-block">
+      <input type="hidden" id="sc-edit-meal-type">
 
       <!-- 날짜 & 시간대 -->
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
@@ -2061,8 +2062,9 @@
           <select id="sc-f-day" style="width:100%;padding:8px 10px;border:1px solid #E5E7EB;border-radius:8px;font-size:13px;font-family:inherit;background:#fff"></select>
         </div>
         <div>
-          <div style="font-size:11px;font-weight:600;color:#374151;margin-bottom:5px">시간대</div>
+          <div id="sc-slot-label-div" style="font-size:11px;font-weight:600;color:#374151;margin-bottom:5px">시간대</div>
           <select id="sc-f-slot" style="width:100%;padding:8px 10px;border:1px solid #E5E7EB;border-radius:8px;font-size:13px;font-family:inherit;background:#fff"></select>
+          <div id="sc-meal-type-display" style="display:none;padding:8px 11px;background:#FFF7ED;border-radius:8px;font-size:13px;font-weight:700;color:#C2410C;border:1px solid #FED7AA"></div>
         </div>
       </div>
 
@@ -2075,6 +2077,7 @@
           <button class="sc-tbtn" data-t="tour"      onclick="scPickType(this)" style="padding:5px 11px;border-radius:6px;border:1.5px solid #FDE68A;background:#FFFBEB;color:#92400E;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">🗺 투어</button>
           <button class="sc-tbtn" data-t="confirmed" onclick="scPickType(this)" style="padding:5px 11px;border-radius:6px;border:1.5px solid #BFDBFE;background:#EFF6FF;color:#1E40AF;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">✅ 확정</button>
           <button class="sc-tbtn" data-t="move"      onclick="scPickType(this)" style="padding:5px 11px;border-radius:6px;border:1.5px solid #E5E7EB;background:#F9FAFB;color:#374151;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">🚄 이동</button>
+          <button class="sc-tbtn" data-t="meal"      onclick="scPickType(this)" style="padding:5px 11px;border-radius:6px;border:1.5px solid #FED7AA;background:#FFF7ED;color:#C2410C;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">🍽 식사</button>
         </div>
       </div>
 
@@ -2089,7 +2092,7 @@
       <!-- 메모 -->
       <div>
         <div style="font-size:11px;font-weight:600;color:#374151;margin-bottom:5px">메모 <span style="font-weight:400;color:#9CA3AF">(선택)</span></div>
-        <input id="sc-f-note" type="text" placeholder="예: €22 · 사전예약 완료" maxlength="60"
+        <input id="sc-f-note" type="text" placeholder="예: €22 · https://예약사이트.com" maxlength="300"
           style="width:100%;padding:9px 11px;border:1px solid #E5E7EB;border-radius:8px;font-size:13px;font-family:inherit;outline:none"
           onfocus="this.style.borderColor='#0F3460'" onblur="this.style.borderColor='#E5E7EB'">
       </div>
@@ -2318,11 +2321,19 @@ const SC_C = {
   tour:     {bg:'#FFFBEB',color:'#92400E',border:'#FDE68A'},
   confirmed:{bg:'#EFF6FF',color:'#1E40AF',border:'#BFDBFE'},
   move:     {bg:'#F9FAFB',color:'#374151',border:'#E5E7EB'},
+  meal:     {bg:'#FFF7ED',color:'#C2410C',border:'#FED7AA'},
 };
 
 let sc_week=0, sc_day=0;
 let sc_expanded={};
 let sc_selected_type='tour';
+let SC_MEALS={};
+
+/* ── 링크 변환 ── */
+function linkifyText(t){
+  if(!t) return '';
+  return t.replace(/(https?:\/\/[^\s<>"']+)/g,'<a href="$1" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="color:#2563EB;text-decoration:underline;word-break:break-all">$1</a>');
+}
 
 /* ── 렌더 유틸 ── */
 function scPill(t,l){
@@ -2332,8 +2343,66 @@ function scPill(t,l){
 
 function scBlock(t,l,n,di,si,bi){
   const c=SC_C[t]||SC_C.move;
-  const edit=di!==undefined?`onclick="scOpenEditForm(${di},${si},${bi})" style="cursor:pointer" title="클릭하여 수정"`:'' ;
-  return `<div ${edit} style="border-radius:6px;padding:6px 10px;font-size:12px;font-weight:500;background:${c.bg};color:${c.color};border-left:3px solid ${c.border};transition:opacity .15s" onmouseover="this.style.opacity='.75'" onmouseout="this.style.opacity='1'">${l}${n?`<div style="font-size:10px;color:#6B7280;margin-top:2px">${n}</div>`:''}</div>`;
+  const isDone=di!==undefined&&di>=0&&SC_DAYS[di]&&SC_DAYS[di].slots[si]&&SC_DAYS[di].slots[si].blocks[bi]?!!SC_DAYS[di].slots[si].blocks[bi].done:false;
+  const bg=isDone?'#ECFDF5':c.bg;
+  const bdr=isDone?'#16A34A':c.border;
+  const clr=isDone?'#166534':c.color;
+  const idAttr=di!==undefined?`id="sc-block-${di}-${si}-${bi}"`:'';
+  const edit=di!==undefined?`onclick="scOpenEditForm(${di},${si},${bi})" title="클릭하여 수정"`:'' ;
+  const cb=di!==undefined?`<input type="checkbox" ${isDone?'checked':''} onclick="event.stopPropagation();scToggleDone(${di},${si},${bi})" style="margin-right:5px;margin-top:2px;cursor:pointer;accent-color:#16A34A;flex-shrink:0;width:13px;height:13px">`:'';
+  return `<div ${idAttr} ${edit} style="border-radius:6px;padding:6px 10px;font-size:12px;font-weight:500;background:${bg};color:${clr};border-left:3px solid ${bdr};transition:all .15s;display:flex;align-items:flex-start;gap:4px;cursor:pointer" onmouseover="this.style.opacity='.75'" onmouseout="this.style.opacity='1'">${cb}<div style="flex:1">${l}${n?`<div style="font-size:10px;color:#6B7280;margin-top:2px">${linkifyText(n)}</div>`:''}</div></div>`;
+}
+
+function scToggleDone(di,si,bi){
+  const block=SC_DAYS[di].slots[si].blocks[bi];
+  block.done=!block.done;
+  const el=document.getElementById(`sc-block-${di}-${si}-${bi}`);
+  if(!el) return;
+  const c=SC_C[block.t]||SC_C.move;
+  el.style.background=block.done?'#ECFDF5':c.bg;
+  el.style.borderLeftColor=block.done?'#16A34A':c.border;
+  el.style.color=block.done?'#166534':c.color;
+  const cb=el.querySelector('input[type=checkbox]');
+  if(cb) cb.checked=block.done;
+}
+
+function scToggleMealDone(di,mealType,bi){
+  if(!SC_MEALS[di]||!SC_MEALS[di][mealType]) return;
+  var block=SC_MEALS[di][mealType][bi];
+  if(!block) return;
+  block.done=!block.done;
+  var el=document.getElementById('sc-meal-block-'+di+'-'+mealType+'-'+bi);
+  if(!el) return;
+  var c=SC_C[block.t]||SC_C.move;
+  el.style.background=block.done?'#ECFDF5':c.bg;
+  el.style.borderLeftColor=block.done?'#16A34A':c.border;
+  el.style.color=block.done?'#166534':c.color;
+  var cb=el.querySelector('input[type=checkbox]');
+  if(cb) cb.checked=block.done;
+}
+
+function scOpenMealForm(di,mealType,bi){
+  var isEdit=bi!==undefined&&bi>=0;
+  var mealEmoji=mealType==='아침'?'🌅':mealType==='점심'?'☀️':'🌙';
+  document.getElementById('sc-modal-title').textContent=mealEmoji+' '+mealType+' 식사 '+(isEdit?'수정':'추가');
+  document.getElementById('sc-edit-day').value=isEdit?di:'';
+  document.getElementById('sc-edit-meal-type').value=mealType;
+  document.getElementById('sc-edit-block').value=isEdit?bi:'';
+  document.getElementById('sc-edit-slot').value='';
+  var b=isEdit&&SC_MEALS[di]&&SC_MEALS[di][mealType]?SC_MEALS[di][mealType][bi]:null;
+  document.getElementById('sc-f-label').value=b?b.l:'';
+  document.getElementById('sc-f-note').value=b&&b.n?b.n:'';
+  document.getElementById('sc-del-btn').style.display=isEdit?'block':'none';
+  /* 슬롯 컬럼 → 식사구분 표시로 전환 */
+  document.getElementById('sc-slot-label-div').style.display='none';
+  document.getElementById('sc-f-slot').style.display='none';
+  document.getElementById('sc-meal-type-display').style.display='';
+  document.getElementById('sc-meal-type-display').textContent=mealEmoji+' '+mealType;
+  /* 날짜 셀렉트만 채움 */
+  var dayEl=document.getElementById('sc-f-day');
+  dayEl.innerHTML=SC_DAYS.map(function(d,i){return '<option value="'+i+'"'+(i===di?' selected':'')+'>'+d.date+' ('+d.dow+') '+d.country+'</option>';}).join('');
+  scSetType(b&&b.t?b.t:'meal');
+  scShowModal();
 }
 
 /* ── 주간 탭 ── */
@@ -2404,6 +2473,23 @@ function renderScFullView(){
   if(!el) return;
 
   var DOW=['월','화','수','목','금','토','일'];
+
+  var MEAL_AFTER_H={'07–09':'아침','09–12':'점심','14–18':'저녁'};
+  var MEAL_COLOR={
+    아침:{row:'#FFFDF5',bg:'#FFF7ED',border:'#FCD34D',label:'#B45309',icon:'🌅'},
+    점심:{row:'#F7FEF8',bg:'#F0FDF4',border:'#86EFAC',label:'#166534',icon:'☀️'},
+    저녁:{row:'#FDF4FF',bg:'#FAF5FF',border:'#D8B4FE',label:'#7E22CE',icon:'🌙'},
+  };
+
+  function renderMealBlock(di,mealLabel,b,bi){
+    var c=SC_C[b.t]||SC_C.move;
+    var isDone=!!b.done;
+    var bg=isDone?'#ECFDF5':c.bg;
+    var bdr=isDone?'#16A34A':c.border;
+    var clr=isDone?'#166534':c.color;
+    var note=b.n?'<div style="font-size:10px;color:#6B7280;margin-top:2px">'+linkifyText(b.n)+'</div>':'';
+    return '<div id="sc-meal-block-'+di+'-'+mealLabel+'-'+bi+'" onclick="scOpenMealForm('+di+',\''+mealLabel+'\','+bi+')" style="border-radius:6px;padding:6px 10px;font-size:12px;font-weight:500;background:'+bg+';color:'+clr+';border-left:3px solid '+bdr+';transition:all .15s;display:flex;align-items:flex-start;gap:4px;cursor:pointer" onmouseover="this.style.opacity=\'.75\'" onmouseout="this.style.opacity=\'1\'"><input type="checkbox" '+(isDone?'checked':'')+' onclick="event.stopPropagation();scToggleMealDone('+di+',\''+mealLabel+'\','+bi+')" style="margin-right:5px;margin-top:2px;cursor:pointer;accent-color:#16A34A;flex-shrink:0;width:13px;height:13px"><div style="flex:1">'+b.l+note+'</div></div>';
+  }
 
   function countryTheme(country){
     if(!country) return {bg:'#F9FAFB',text:'#9CA3AF',border:'#D1D5DB',headerBg:'#F3F4F6'};
@@ -2526,6 +2612,30 @@ function renderScFullView(){
           }
         });
         html+='</div>';
+
+        /* ── 식사 행 삽입 (해당 시간대 다음) ── */
+        var mealLabel=MEAL_AFTER_H[slotLabel];
+        if(mealLabel){
+          var mc=MEAL_COLOR[mealLabel];
+          html+='<div style="display:grid;grid-template-columns:48px repeat(7,minmax(0,1fr));border-top:2px dashed '+mc.border+';min-height:34px;background:'+mc.row+'">';
+          html+='<div style="padding:5px 2px;text-align:center;border-right:1px solid #E5E7EB;background:'+mc.row+';display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px">';
+          html+='<div style="font-size:13px">'+mc.icon+'</div>';
+          html+='<div style="font-size:9px;font-weight:700;color:'+mc.label+'">'+mealLabel+'</div>';
+          html+='</div>';
+          var mealLabelCopy=mealLabel;
+          var mcCopy=mc;
+          weekGrid.forEach(function(wd){
+            if(wd){
+              var mealBlocks=(SC_MEALS[wd.di]&&SC_MEALS[wd.di][mealLabelCopy])?SC_MEALS[wd.di][mealLabelCopy]:[];
+              var content=mealBlocks.map(function(b,bi){return renderMealBlock(wd.di,mealLabelCopy,b,bi);}).join('');
+              content+='<div onclick="scOpenMealForm('+wd.di+',\''+mealLabelCopy+'\')" style="font-size:13px;color:#EAEAEA;cursor:pointer;min-height:24px;display:flex;align-items:center;justify-content:center;border-radius:4px" onmouseover="this.style.color=\''+mcCopy.border+'\';this.style.background=\''+mcCopy.bg+'\'" onmouseout="this.style.color=\'#EAEAEA\';this.style.background=\'transparent\'">＋</div>';
+              html+='<div style="padding:4px 5px;border-left:1px solid '+mcCopy.border+';display:flex;flex-direction:column;gap:3px">'+content+'</div>';
+            } else {
+              html+='<div style="border-left:1px solid '+mcCopy.border+';background:'+mcCopy.row+'"></div>';
+            }
+          });
+          html+='</div>';
+        }
       }
 
       html+='</div></div>';
@@ -2629,6 +2739,12 @@ function scSetType(t){
 }
 
 /* ── 추가 폼 열기 ── */
+function scResetMealMode(){
+  document.getElementById('sc-edit-meal-type').value='';
+  document.getElementById('sc-slot-label-div').style.display='';
+  document.getElementById('sc-f-slot').style.display='';
+  document.getElementById('sc-meal-type-display').style.display='none';
+}
 function scOpenAddForm(di,si){
   const d=di!==undefined?di:sc_day;
   const s=si!==undefined?si:0;
@@ -2639,6 +2755,7 @@ function scOpenAddForm(di,si){
   document.getElementById('sc-f-label').value='';
   document.getElementById('sc-f-note').value='';
   document.getElementById('sc-del-btn').style.display='none';
+  scResetMealMode();
   scFillSelects(d,s);
   scSetType('tour');
   scShowModal();
@@ -2654,6 +2771,7 @@ function scOpenEditForm(di,si,bi){
   document.getElementById('sc-f-label').value=b.l||'';
   document.getElementById('sc-f-note').value=b.n||'';
   document.getElementById('sc-del-btn').style.display='block';
+  scResetMealMode();
   scFillSelects(di,si);
   scSetType(b.t||'tour');
   scShowModal();
@@ -2665,21 +2783,34 @@ function scSaveBlock(){
   if(!label){ document.getElementById('sc-f-label').style.borderColor='#DC2626'; return; }
   document.getElementById('sc-f-label').style.borderColor='#E5E7EB';
   const note=document.getElementById('sc-f-note').value.trim();
-  const di=parseInt(document.getElementById('sc-f-day').value);
-  const si=parseInt(document.getElementById('sc-f-slot').value);
+  const mealType=document.getElementById('sc-edit-meal-type').value;
   const editDay=document.getElementById('sc-edit-day').value;
-  const editSlot=document.getElementById('sc-edit-slot').value;
   const editBlock=document.getElementById('sc-edit-block').value;
   const newBlock={t:sc_selected_type,l:label,n:note||undefined};
 
-  if(editDay!==''){
-    /* 수정 — 원래 위치에서 제거 후 새 위치에 삽입 */
-    const odi=parseInt(editDay), osi=parseInt(editSlot), obi=parseInt(editBlock);
-    SC_DAYS[odi].slots[osi].blocks.splice(obi,1);
-    syncPills(odi);
+  if(mealType){
+    /* 식사 블록 저장 */
+    const newDi=parseInt(document.getElementById('sc-f-day').value);
+    if(editDay!==''&&editBlock!==''){
+      const odi=parseInt(editDay), obi=parseInt(editBlock);
+      if(SC_MEALS[odi]&&SC_MEALS[odi][mealType]) SC_MEALS[odi][mealType].splice(obi,1);
+    }
+    if(!SC_MEALS[newDi]) SC_MEALS[newDi]={};
+    if(!SC_MEALS[newDi][mealType]) SC_MEALS[newDi][mealType]=[];
+    SC_MEALS[newDi][mealType].push(newBlock);
+  } else {
+    /* 일반 슬롯 블록 저장 */
+    const di=parseInt(document.getElementById('sc-f-day').value);
+    const si=parseInt(document.getElementById('sc-f-slot').value);
+    const editSlot=document.getElementById('sc-edit-slot').value;
+    if(editDay!==''){
+      const odi=parseInt(editDay), osi=parseInt(editSlot), obi=parseInt(editBlock);
+      SC_DAYS[odi].slots[osi].blocks.splice(obi,1);
+      syncPills(odi);
+    }
+    SC_DAYS[di].slots[si].blocks.push(newBlock);
+    syncPills(di);
   }
-  SC_DAYS[di].slots[si].blocks.push(newBlock);
-  syncPills(di);
 
   document.getElementById('sc-modal-overlay').style.display='none';
   renderScFullView();
@@ -2688,11 +2819,16 @@ function scSaveBlock(){
 
 /* ── 삭제 ── */
 function scDeleteBlock(){
+  const mealType=document.getElementById('sc-edit-meal-type').value;
   const di=parseInt(document.getElementById('sc-edit-day').value);
-  const si=parseInt(document.getElementById('sc-edit-slot').value);
   const bi=parseInt(document.getElementById('sc-edit-block').value);
-  SC_DAYS[di].slots[si].blocks.splice(bi,1);
-  syncPills(di);
+  if(mealType){
+    if(SC_MEALS[di]&&SC_MEALS[di][mealType]) SC_MEALS[di][mealType].splice(bi,1);
+  } else {
+    const si=parseInt(document.getElementById('sc-edit-slot').value);
+    SC_DAYS[di].slots[si].blocks.splice(bi,1);
+    syncPills(di);
+  }
   document.getElementById('sc-modal-overlay').style.display='none';
   renderScFullView();
   scShowToast('일정이 삭제됐어요 🗑');
