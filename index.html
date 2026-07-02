@@ -284,6 +284,7 @@
 <div class="tab-bar">
   <div class="tab active" onclick="showTab('dashboard', this)">🏠 대시보드</div>
   <div class="tab" onclick="showTab('schedule', this)">🗓 일정</div>
+  <div class="tab" onclick="showTab('timetable', this)">⏱ 시간표</div>
   <div class="tab" onclick="showTab('bookings', this)">🎫 예약 현황</div>
   <div class="tab" onclick="showTab('guide', this)">🗺 현지 가이드</div>
   <div class="tab" onclick="showTab('budget', this)">💶 예산</div>
@@ -317,15 +318,15 @@
     <div style="background:#fff;border-radius:14px;padding:16px 18px;box-shadow:0 2px 12px rgba(0,0,0,0.07);margin-bottom:16px">
       <div style="font-size:13px;font-weight:700;color:#1A1A2E;margin-bottom:12px">📊 예약 진행 현황</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
-        <span style="background:#DCFCE7;color:#16A34A;padding:4px 12px;border-radius:8px;font-size:12px;font-weight:700">✅ 완료 8건</span>
-        <span style="background:#FEF2F2;color:#DC2626;padding:4px 12px;border-radius:8px;font-size:12px;font-weight:700">🚨 긴급 4건</span>
-        <span style="background:#FEF3C7;color:#D97706;padding:4px 12px;border-radius:8px;font-size:12px;font-weight:700">⚡ 2달 전 2건</span>
+        <span style="background:#DCFCE7;color:#16A34A;padding:4px 12px;border-radius:8px;font-size:12px;font-weight:700">✅ 완료 10건</span>
+        <span style="background:#FEF2F2;color:#DC2626;padding:4px 12px;border-radius:8px;font-size:12px;font-weight:700">🚨 긴급 3건</span>
+        <span style="background:#FEF3C7;color:#D97706;padding:4px 12px;border-radius:8px;font-size:12px;font-weight:700">⚡ 2달 전 1건</span>
         <span style="background:#F3F4F6;color:#374151;padding:4px 12px;border-radius:8px;font-size:12px;font-weight:700">📋 1달 전 5건</span>
       </div>
       <div style="height:10px;background:#E5E7EB;border-radius:5px;overflow:hidden;margin-bottom:6px">
-        <div style="height:100%;width:42%;background:linear-gradient(90deg,#16A34A,#22C55E);border-radius:5px"></div>
+        <div style="height:100%;width:53%;background:linear-gradient(90deg,#16A34A,#22C55E);border-radius:5px"></div>
       </div>
-      <div style="font-size:11px;color:#9CA3AF;text-align:right">전체 19건 중 8건 완료 (42%)</div>
+      <div style="font-size:11px;color:#9CA3AF;text-align:right">전체 19건 중 10건 완료 (53%)</div>
     </div>
 
     <!-- 확정 예약 요약 -->
@@ -343,6 +344,12 @@
         </div>
         <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#F0FDF4;border-radius:8px;font-size:12px">
           <span>🏛</span><span style="font-weight:600">루브르 바이블 투어 (8/19 14:00)</span><span style="margin-left:auto;color:#16A34A;font-weight:700;font-size:11px">확정</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#F0FDF4;border-radius:8px;font-size:12px">
+          <span>🏰</span><span style="font-weight:600">몽생미셸 당일 투어 (8/21) — 마이리얼트립</span><span style="margin-left:auto;color:#16A34A;font-weight:700;font-size:11px">EXP-00011990</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#F0FDF4;border-radius:8px;font-size:12px">
+          <span>🏨</span><span style="font-weight:600">Hotel Casa Amsterdam (8/10~17)</span><span style="margin-left:auto;color:#16A34A;font-weight:700;font-size:11px">514293</span>
         </div>
         <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#F0FDF4;border-radius:8px;font-size:12px">
           <span>🏨</span><span style="font-weight:600">파리 이시-레-물리노 B&B (8/17~22)</span><span style="margin-left:auto;color:#16A34A;font-weight:700;font-size:11px">완료</span>
@@ -364,16 +371,10 @@
       <div style="font-size:13px;font-weight:700;color:#DC2626;margin-bottom:10px">🚨 즉시 해야 할 일</div>
       <div style="display:flex;flex-direction:column;gap:6px">
         <div style="display:flex;align-items:flex-start;gap:8px;padding:8px 10px;background:#FEF2F2;border-radius:8px;font-size:12px;border-left:3px solid #DC2626">
-          <span>⚠️</span><div><b>암스테르담 대회 기간 숙소 (8/14~17)</b><br><span style="color:#6B7280;font-size:11px">국제대회 기간 → 숙박비 급등. 즉시 예약 필수!</span></div>
-        </div>
-        <div style="display:flex;align-items:flex-start;gap:8px;padding:8px 10px;background:#FEF2F2;border-radius:8px;font-size:12px;border-left:3px solid #DC2626">
           <span>⚠️</span><div><b>피렌체 숙소 (8/28~30, 2박)</b><br><span style="color:#6B7280;font-size:11px">성수기 → 지금 바로 예약하세요</span></div>
         </div>
         <div style="display:flex;align-items:flex-start;gap:8px;padding:8px 10px;background:#FEF2F2;border-radius:8px;font-size:12px;border-left:3px solid #DC2626">
           <span>⚠️</span><div><b>최후의 만찬 (밀라노, 8/27) — vivaticket.com</b><br><span style="color:#6B7280;font-size:11px">2~3개월 전 예약 필수. 지금 이미 빡빡해요!</span></div>
-        </div>
-        <div style="display:flex;align-items:flex-start;gap:8px;padding:8px 10px;background:#FEF3C7;border-radius:8px;font-size:12px;border-left:3px solid #D97706">
-          <span>⚡</span><div><b>몽생미셸 당일 투어 (8/21) 예약</b><br><span style="color:#6B7280;font-size:11px">파리 출발 투어 버스 — 7~8월 성수기 매진 주의</span></div>
         </div>
       </div>
     </div>
@@ -383,13 +384,6 @@
   <!-- ── 일정 (타임라인 + 시간표) ── -->
   <div id="schedule" class="section">
 
-    <!-- 뷰 토글 -->
-    <div style="display:flex;gap:8px;margin-bottom:16px;padding:4px;background:#F3F4F6;border-radius:24px;width:fit-content">
-      <button id="btn-timeline" onclick="toggleSchedView('timeline')" style="padding:7px 18px;border-radius:20px;border:none;background:#1A1A2E;color:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .15s">📋 타임라인</button>
-      <button id="btn-timetable" onclick="toggleSchedView('timetable')" style="padding:7px 18px;border-radius:20px;border:none;background:transparent;color:#6B7280;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s">⏱ 시간표</button>
-    </div>
-
-    <div id="view-timeline">
       <div class="section-header"><h2>전체 여행 일정</h2></div>
       <div class="timeline">
 
@@ -856,14 +850,23 @@
       <div class="tl-item">
         <div class="tl-date" style="color:var(--france);font-weight:800">8/21<br>금</div>
         <div class="tl-card" style="border-left-color:var(--france)">
-          <h3>🏰 몽생미셸 당일 투어</h3>
-          <p>파리 출발 당일치기 투어. 파리 → 몽생미셸 약 4시간 (버스/기차+버스). 섬 내부 수도원 관람 후 저녁 귀환.</p>
-          <div style="background:#FEF3C7;border-radius:8px;padding:10px 12px;font-size:12px;color:#92400E;margin-top:8px">
-            💡 <b>투어 방법:</b> ① 파리 출발 당일치기 투어 버스 예약 (약 €60~90) ② TGV로 렌(Rennes)까지 이동 후 셔틀버스 이용
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <h3 style="margin:0">🏰 몽생미셸 당일 투어</h3>
+            <span style="margin-left:auto;background:#16A34A;color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;white-space:nowrap">✅ 예약완료</span>
+          </div>
+          <div style="background:#F0FDF4;border-radius:8px;padding:10px 12px;font-size:12px;color:#166534;margin-bottom:8px;line-height:1.7">
+            📋 <b>마이리얼트립</b> · 예약번호: <b>EXP-20260702-00011990</b><br>
+            🕕 미팅: 트로카데로광장 에펠탑 앞 <b>06:30</b> (코스별 상이)<br>
+            📍 4 Av. Georges Mandel — 63번 버스 정류장 · 지하철 6·9호선 Trocadéro 4번 출구<br>
+            ⏱ 소요: 12시간 30분 · 한국어 가이드 · 최소 5인 출발
+          </div>
+          <div style="background:#F9FAFB;border-radius:8px;padding:9px 12px;font-size:11px;color:#374151;margin-bottom:8px;line-height:1.6">
+            ✅ <b>포함:</b> 전문 가이드비·차량비·수신기<br>
+            ❌ <b>불포함:</b> 수도원 입장료(€13)+공인가이드비·식사(€20~35)·개인경비
           </div>
           <div class="tl-meta" style="margin-top:8px">
-            <span class="badge urgent">⚠️ 투어 사전 예약 필요!</span>
-            <span class="badge">입장료 별도 (€13)</span>
+            <span class="badge ok">✅ 예약완료</span>
+            <span class="badge">수도원 입장료 현장 결제</span>
           </div>
         </div>
       </div>
@@ -1073,10 +1076,10 @@
       </div>
 
     </div>
-    </div><!-- /view-timeline -->
+  </div><!-- /schedule -->
 
-    <!-- 시간표 뷰 -->
-    <div id="view-timetable" style="display:none">
+  <!-- ── 시간표 ── -->
+  <div id="timetable" class="section">
       <div class="section-header"><h2>시간대별 일정표</h2></div>
       <p style="font-size:12px;color:#6B7280;margin-bottom:14px">날짜 클릭 → 시간표 확인 · 블록 클릭 → 수정/삭제 · 시간대 클릭 → 일정 추가. 완성 후 HTML 내보내기로 저장하세요.</p>
       <div id="sc-week-tabs" style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap"></div>
@@ -1097,9 +1100,7 @@
         <div style="display:flex;align-items:center;gap:4px;font-size:11px;color:#6B7280"><div style="width:8px;height:8px;border-radius:2px;background:#2563EB"></div>확정</div>
         <div style="display:flex;align-items:center;gap:4px;font-size:11px;color:#6B7280"><div style="width:8px;height:8px;border-radius:2px;background:#9CA3AF"></div>이동</div>
       </div>
-    </div><!-- /view-timetable -->
-
-  </div><!-- /schedule -->
+  </div><!-- /timetable -->
 
   <!-- ── 예약 현황 ── -->
   <div id="bookings" class="section">
@@ -1247,10 +1248,55 @@
     <div style="margin-bottom:10px;display:flex;align-items:center;gap:8px">
       <span style="font-size:15px">✅</span>
       <span style="font-size:14px;font-weight:700;color:#1A1A2E">예약 완료된 숙소</span>
-      <span style="background:#16A34A;color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px">4건</span>
+      <span style="background:#16A34A;color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px">5건</span>
     </div>
 
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;margin-bottom:28px">
+
+      <!-- 카드 0: Hotel Casa Amsterdam -->
+      <div style="background:#fff;border-radius:16px;box-shadow:0 2px 16px rgba(0,0,0,0.09);overflow:hidden;border:2px solid #BBF7D0;position:relative;">
+        <div style="background:linear-gradient(135deg,#0077B6,#00B4D8);padding:14px 18px;color:#fff;display:flex;align-items:center;gap:10px">
+          <span style="font-size:22px">🇳🇱</span>
+          <div>
+            <div style="font-size:14px;font-weight:700">Hotel Casa Amsterdam</div>
+            <div style="font-size:11px;opacity:0.85">암스테르담 · 호텔</div>
+          </div>
+          <span style="margin-left:auto;background:rgba(255,255,255,0.25);padding:3px 10px;border-radius:10px;font-size:11px;font-weight:700">✅ 예약완료</span>
+        </div>
+        <div style="padding:16px 18px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
+            <div>
+              <div style="font-size:10px;color:#9CA3AF;font-weight:600;margin-bottom:2px">체크인</div>
+              <div style="font-size:14px;font-weight:700;color:#1A1A2E">8월 10일 (월)</div>
+              <div style="font-size:12px;color:#6B7280">여행 첫날</div>
+            </div>
+            <div>
+              <div style="font-size:10px;color:#9CA3AF;font-weight:600;margin-bottom:2px">체크아웃</div>
+              <div style="font-size:14px;font-weight:700;color:#1A1A2E">8월 17일 (월)</div>
+              <div style="font-size:12px;color:#6B7280">Eurostar 탑승일</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+            <div style="background:#F9FAFB;border-radius:8px;padding:7px 12px;flex:1;min-width:100px">
+              <div style="font-size:10px;color:#9CA3AF;font-weight:600">예약번호</div>
+              <div style="font-size:13px;font-weight:600;color:#1A1A2E">514293</div>
+            </div>
+            <div style="background:#F9FAFB;border-radius:8px;padding:7px 12px;flex:1;min-width:100px">
+              <div style="font-size:10px;color:#9CA3AF;font-weight:600">숙박 기간</div>
+              <div style="font-size:13px;font-weight:600;color:#1A1A2E">7박 8일</div>
+            </div>
+          </div>
+          <div style="background:#E0F7FF;border-radius:8px;padding:9px 12px;font-size:12px;color:#004D80;line-height:1.6;margin-bottom:10px">
+            🛏 Comfort Twin · 성인 2명<br>
+            🍳 조식 포함 (€10/인) · 도시세 12.5% 포함<br>
+            💳 총 금액: <b>€1,323.14</b>
+          </div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap">
+            <div style="background:#DCFCE7;color:#16A34A;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:600">여호와 증인 특별 요금 (2026)</div>
+            <a href="https://hotelcasa.nl/" target="_blank" style="background:#EFF6FF;color:#2563EB;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:600;text-decoration:none">🌐 hotelcasa.nl</a>
+          </div>
+        </div>
+      </div>
 
       <!-- 카드 1: 이시-레-물리노 B&B -->
       <div style="
@@ -1451,23 +1497,14 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr style="background:#F0FDF4">
             <td><span class="country-dot" style="background:var(--netherlands)"></span><b>암스테르담</b></td>
-            <td>8/10~14</td>
-            <td>4박</td>
-            <td>담 광장 / 요르단 지구</td>
-            <td>€80~150</td>
-            <td><span class="badge urgent">즉시 예약</span></td>
-            <td>국제대회 기간 숙박비 급등</td>
-          </tr>
-          <tr>
-            <td><span class="country-dot" style="background:var(--conference)"></span><b>암스테르담 (대회)</b></td>
-            <td>8/14~17</td>
-            <td>3박</td>
-            <td>대회장 인근</td>
-            <td>€100~200</td>
-            <td><span class="badge urgent">즉시 예약</span></td>
-            <td>대회 공식 숙소 확인 우선</td>
+            <td>8/10~17</td>
+            <td>7박</td>
+            <td>Hotel Casa Amsterdam</td>
+            <td>€1,323.14</td>
+            <td><span class="badge ok">✅ 예약완료</span></td>
+            <td>예약번호: 514293 · Comfort Twin · 조식 포함 · <a href="https://hotelcasa.nl/" target="_blank" style="color:#2563EB">hotelcasa.nl</a></td>
           </tr>
           <tr style="background:#F0FDF4">
             <td><span class="country-dot" style="background:var(--france)"></span><b>파리 (이시-레-물리노)</b></td>
@@ -1567,7 +1604,7 @@
           items: [
             { id: 'h-paris', icon: '🏠', iconBg: '#FF5A5F', label: 'Airbnb — 이시-레-물리노 B&B', sub: '파리 8/17~22 · 호스트: Pierre', defaultUrl: 'https://www.airbnb.co.kr/', status: 'done' },
             { id: 'h-grin',  icon: '🏠', iconBg: '#FF5A5F', label: 'Airbnb — 그린델발트 아파트', sub: '스위스 8/22~27 · 호스트: Elisabeth', defaultUrl: 'https://www.airbnb.co.kr/', status: 'done' },
-            { id: 'h-ams',   icon: '🏨', iconBg: '#FF5A5F', label: '암스테르담 숙소 (8/10~17)', sub: '성수기 + 국제대회 기간 → 즉시 예약!', defaultUrl: '', status: 'urgent' },
+            { id: 'h-ams',   icon: '🏨', iconBg: '#0077B6', label: 'Hotel Casa Amsterdam (8/10~17)', sub: '예약번호: 514293 · Comfort Twin · 조식 포함 · €1,323.14', defaultUrl: 'https://hotelcasa.nl/', status: 'done' },
             { id: 'h-milan', icon: '🏨', iconBg: '#003580', label: '밀라노 숙소 (8/27~28)', sub: '예약번호: 1742338358 · 무료취소 8/25까지', defaultUrl: 'https://www.booking.com', status: 'done' },
             { id: 'h-flor',  icon: '🏨', iconBg: '#003580', label: '피렌체 숙소 (8/28~30)', sub: '2박 · 즉시 예약 필요!', defaultUrl: '', status: 'urgent' },
             { id: 'h-rome',  icon: '🏨', iconBg: '#003580', label: '로마 숙소 (8/30~9/3)', sub: '예약번호: 1742335909 · 무료취소 8/26까지', defaultUrl: 'https://www.booking.com', status: 'done' }
@@ -1577,6 +1614,7 @@
           id: 'ticket', icon: '🎟', label: '명소 입장권',
           headerBg: 'linear-gradient(135deg,#7C3AED,#A855F7)',
           items: [
+            { id: 'msm',     icon: '🏰', iconBg: '#1A5276', label: '몽생미셸 당일 투어 (8/21)', sub: '마이리얼트립 · EXP-20260702-00011990 · 06:30 트로카데로', defaultUrl: 'https://www.myrealtrip.com/', status: 'done' },
             { id: 'louvre',  icon: '🏛', iconBg: '#704214', label: '루브르 박물관', sub: 'ticketlouvre.fr · 8/19 14:00', defaultUrl: 'https://www.ticketlouvre.fr', status: 'done' },
             { id: 'lc',      icon: '🖼', iconBg: '#1B4F72', label: '최후의 만찬 (밀라노)', sub: 'vivaticket.com · 2~3달 전 마감 주의!', defaultUrl: 'https://www.vivaticket.com', status: 'urgent' },
             { id: 'vatican', icon: '⛪', iconBg: '#FFD700', label: '바티칸 박물관', sub: 'museivaticani.va · 로마', defaultUrl: 'https://www.museivaticani.va', status: 'warn' },
@@ -1742,8 +1780,8 @@
           <span class="priority p-low" style="background:#DCFCE7;color:#16A34A">✅ 84R5VJ</span>
         </div>
         <div class="check-item">
-          <input type="checkbox" id="c-msm"><label for="c-msm">몽생미셸 당일 투어 예약 (8/21) — 파리 출발 투어 버스</label>
-          <span class="priority p-high">긴급</span>
+          <input type="checkbox" id="c-msm" checked><label for="c-msm" style="text-decoration:line-through;color:#9CA3AF">몽생미셸 당일 투어 예약 (8/21) — 마이리얼트립 · 한국어 투어 버스</label>
+          <span class="priority p-low" style="background:#DCFCE7;color:#16A34A">✅ EXP-00011990</span>
         </div>
         <div class="check-item">
           <input type="checkbox" id="c2"><label for="c2">최후의 만찬 (밀라노) — vivaticket.com<br><small style="color:#9CA3AF">8/27 방문 예정 → 최소 6월 중 예약</small></label>
@@ -3282,7 +3320,7 @@ function showTab(id, el) {
   if (id === 'dashboard') {
     initDDay();
   }
-  if (id === 'schedule') {
+  if (id === 'timetable') {
     setTimeout(function() {
       renderScWeekTabs();
       renderScWeekCal();
