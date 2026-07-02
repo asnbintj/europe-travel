@@ -282,9 +282,9 @@
 </div>
 
 <div class="tab-bar">
-  <div class="tab active" onclick="showTab('dashboard', this)">🏠 대시보드</div>
+  <div class="tab" onclick="showTab('dashboard', this)">🏠 대시보드</div>
   <div class="tab" onclick="showTab('schedule', this)">🗓 일정</div>
-  <div class="tab" onclick="showTab('timetable', this)">⏱ 시간표</div>
+  <div class="tab active" onclick="showTab('timetable', this)">⏱ 시간표</div>
   <div class="tab" onclick="showTab('bookings', this)">🎫 예약 현황</div>
   <div class="tab" onclick="showTab('guide', this)">🗺 현지 가이드</div>
   <div class="tab" onclick="showTab('budget', this)">💶 예산</div>
@@ -293,7 +293,7 @@
 <div class="content">
 
   <!-- ── 대시보드 ── -->
-  <div id="dashboard" class="section active">
+  <div id="dashboard" class="section">
 
     <!-- D-Day 카운터 -->
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:20px">
@@ -1079,8 +1079,8 @@
   </div><!-- /schedule -->
 
   <!-- ── 시간표 ── -->
-  <div id="timetable" class="section">
-      <div class="section-header"><h2>시간대별 일정표</h2></div>
+  <div id="timetable" class="section active">
+      <div class="section-header" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px"><h2>시간대별 일정표</h2><span id="sc-save-status" style="font-size:11px;font-weight:600;opacity:0;transition:opacity .5s"></span></div>
       <p style="font-size:12px;color:#6B7280;margin-bottom:14px">주별 카드의 ▼ 펼치기를 누르면 시간대별 가로 일정표가 열려요 · 블록 클릭 → 수정/삭제 · ＋ → 일정 추가. 완성 후 HTML 내보내기로 저장하세요.</p>
       <div id="sc-week-tabs" style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap"></div>
       <div id="sc-week-cal" style="border:1px solid #E5E7EB;border-radius:12px;overflow:hidden;margin-bottom:14px"></div>
@@ -2315,6 +2315,11 @@ const SC_WEEKS = [
   {label:'3주차', idx:[14,15,16,17]},
 ];
 
+/* ── Supabase 설정 ── */
+const SUPABASE_URL = 'https://ygzvacxikyaptpahfahc.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlnenZhY3hpa3lhcHRwYWhmYWhjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMwMDE1OTEsImV4cCI6MjA5ODU3NzU5MX0.I2h7qdDaDrbtelrXu8MLRDqnuNvv_HLzXvbl07Cpc7U';
+const TRIP_KEY = 'europe_2025';
+
 const SC_C = {
   snap:     {bg:'#F5F3FF',color:'#6D28D9',border:'#DDD6FE'},
   free:     {bg:'#F0FDF4',color:'#166534',border:'#BBF7D0'},
@@ -2328,6 +2333,68 @@ let sc_week=0, sc_day=0;
 let sc_expanded={};
 let sc_selected_type='tour';
 let SC_MEALS={};
+
+/* ── Supabase 저장/불러오기 ── */
+function scIsSupabaseConfigured(){
+  return SUPABASE_URL && !SUPABASE_URL.includes('YOUR_') && SUPABASE_ANON_KEY && !SUPABASE_ANON_KEY.includes('YOUR_');
+}
+
+function scShowSaveStatus(ok){
+  var el=document.getElementById('sc-save-status');
+  if(!el) return;
+  el.textContent=ok?'☁ 저장됨':'⚠ 저장 실패';
+  el.style.color=ok?'#16A34A':'#DC2626';
+  el.style.opacity='1';
+  clearTimeout(el._timer);
+  el._timer=setTimeout(function(){ el.style.opacity='0'; },2500);
+}
+
+async function scSaveToServer(){
+  if(!scIsSupabaseConfigured()) return;
+  var days_blocks=SC_DAYS.map(function(day){
+    return {slots:day.slots.map(function(slot){ return {blocks:slot.blocks}; })};
+  });
+  var payload={meals:SC_MEALS,days_blocks:days_blocks};
+  try{
+    var res=await fetch(SUPABASE_URL+'/rest/v1/trip_data',{
+      method:'POST',
+      headers:{
+        'apikey':SUPABASE_ANON_KEY,
+        'Authorization':'Bearer '+SUPABASE_ANON_KEY,
+        'Content-Type':'application/json',
+        'Prefer':'resolution=merge-duplicates'
+      },
+      body:JSON.stringify({key:TRIP_KEY,data:payload,updated_at:new Date().toISOString()})
+    });
+    scShowSaveStatus(res.ok);
+  } catch(e){ scShowSaveStatus(false); console.error('Supabase save error',e); }
+}
+
+async function scLoadFromServer(){
+  if(!scIsSupabaseConfigured()) return;
+  try{
+    var res=await fetch(SUPABASE_URL+'/rest/v1/trip_data?key=eq.'+TRIP_KEY+'&select=data',{
+      headers:{
+        'apikey':SUPABASE_ANON_KEY,
+        'Authorization':'Bearer '+SUPABASE_ANON_KEY
+      }
+    });
+    if(!res.ok) return;
+    var rows=await res.json();
+    if(!rows.length) return;
+    var d=rows[0].data;
+    if(d.meals) SC_MEALS=d.meals;
+    if(d.days_blocks){
+      d.days_blocks.forEach(function(day,di){
+        if(!SC_DAYS[di]) return;
+        day.slots.forEach(function(slot,si){
+          if(!SC_DAYS[di].slots[si]) return;
+          SC_DAYS[di].slots[si].blocks=slot.blocks;
+        });
+      });
+    }
+  } catch(e){ console.error('Supabase load error',e); }
+}
 
 /* ── 링크 변환 ── */
 function linkifyText(t){
@@ -2364,6 +2431,7 @@ function scToggleDone(di,si,bi){
   el.style.color=block.done?'#166534':c.color;
   const cb=el.querySelector('input[type=checkbox]');
   if(cb) cb.checked=block.done;
+  scSaveToServer();
 }
 
 function scToggleMealDone(di,mealType,bi){
@@ -2379,6 +2447,7 @@ function scToggleMealDone(di,mealType,bi){
   el.style.color=block.done?'#166534':c.color;
   var cb=el.querySelector('input[type=checkbox]');
   if(cb) cb.checked=block.done;
+  scSaveToServer();
 }
 
 function scOpenMealForm(di,mealType,bi){
@@ -2474,7 +2543,7 @@ function renderScFullView(){
 
   var DOW=['월','화','수','목','금','토','일'];
 
-  var MEAL_AFTER_H={'07–09':'아침','09–12':'점심','14–18':'저녁'};
+  var MEAL_AFTER_H={'07–09':'아침','09–12':'점심','09–14':'점심','14–18':'저녁'};
   var MEAL_COLOR={
     아침:{row:'#FFFDF5',bg:'#FFF7ED',border:'#FCD34D',label:'#B45309',icon:'🌅'},
     점심:{row:'#F7FEF8',bg:'#F0FDF4',border:'#86EFAC',label:'#166534',icon:'☀️'},
@@ -2601,10 +2670,15 @@ function renderScFullView(){
             var th=countryTheme(wd.d.country);
             var slot=wd.d.slots[siCopy];
             var content='';
-            if(slot&&slot.blocks.length){
-              content=slot.blocks.map(function(b,bi){return scBlock(b.t,b.l,b.n,wd.di,siCopy,bi);}).join('');
+            var addBtn='<div onclick="event.stopPropagation();scOpenAddForm('+wd.di+','+siCopy+')" style="flex-shrink:0;font-size:11px;color:#D1D5DB;cursor:pointer;width:16px;height:16px;display:flex;align-items:center;justify-content:center;border-radius:3px;transition:all .15s" onmouseover="this.style.color=\''+th.border+'\';this.style.background=\''+th.bg+'\'" onmouseout="this.style.color=\'#D1D5DB\';this.style.background=\'transparent\'">＋</div>';
+            if(!slot||slot.blocks.length===0){
+              content='<div style="display:flex;justify-content:flex-end;align-items:center;min-height:22px">'+addBtn+'</div>';
+            } else if(slot.blocks.length===1){
+              var b0=slot.blocks[0];
+              content='<div style="display:flex;align-items:flex-start;gap:3px"><div style="flex:1">'+scBlock(b0.t,b0.l,b0.n,wd.di,siCopy,0)+'</div>'+addBtn+'</div>';
             } else {
-              content='<div onclick="scOpenAddForm('+wd.di+','+siCopy+')" style="font-size:13px;color:#EAEAEA;cursor:pointer;height:100%;min-height:30px;display:flex;align-items:center;justify-content:center;border-radius:4px" onmouseover="this.style.color=\''+th.border+'\';this.style.background=\''+th.bg+'\'" onmouseout="this.style.color=\'#EAEAEA\';this.style.background=\'transparent\'">＋</div>';
+              content=slot.blocks.map(function(b,bi){return scBlock(b.t,b.l,b.n,wd.di,siCopy,bi);}).join('');
+              content+='<div style="display:flex;justify-content:flex-end">'+addBtn+'</div>';
             }
             html+='<div style="padding:4px 5px;border-left:1px solid #F3F4F6;display:flex;flex-direction:column;gap:3px">'+content+'</div>';
           } else {
@@ -2627,8 +2701,16 @@ function renderScFullView(){
           weekGrid.forEach(function(wd){
             if(wd){
               var mealBlocks=(SC_MEALS[wd.di]&&SC_MEALS[wd.di][mealLabelCopy])?SC_MEALS[wd.di][mealLabelCopy]:[];
-              var content=mealBlocks.map(function(b,bi){return renderMealBlock(wd.di,mealLabelCopy,b,bi);}).join('');
-              content+='<div onclick="scOpenMealForm('+wd.di+',\''+mealLabelCopy+'\')" style="font-size:13px;color:#EAEAEA;cursor:pointer;min-height:24px;display:flex;align-items:center;justify-content:center;border-radius:4px" onmouseover="this.style.color=\''+mcCopy.border+'\';this.style.background=\''+mcCopy.bg+'\'" onmouseout="this.style.color=\'#EAEAEA\';this.style.background=\'transparent\'">＋</div>';
+              var mealAddBtn='<div onclick="event.stopPropagation();scOpenMealForm('+wd.di+',\''+mealLabelCopy+'\')" style="flex-shrink:0;font-size:11px;color:#D1D5DB;cursor:pointer;width:16px;height:16px;display:flex;align-items:center;justify-content:center;border-radius:3px;transition:all .15s" onmouseover="this.style.color=\''+mcCopy.border+'\';this.style.background=\''+mcCopy.bg+'\'" onmouseout="this.style.color=\'#D1D5DB\';this.style.background=\'transparent\'">＋</div>';
+              var content='';
+              if(mealBlocks.length===0){
+                content='<div style="display:flex;justify-content:flex-end;align-items:center;min-height:22px">'+mealAddBtn+'</div>';
+              } else if(mealBlocks.length===1){
+                content='<div style="display:flex;align-items:flex-start;gap:3px"><div style="flex:1">'+renderMealBlock(wd.di,mealLabelCopy,mealBlocks[0],0)+'</div>'+mealAddBtn+'</div>';
+              } else {
+                content=mealBlocks.map(function(b,bi){return renderMealBlock(wd.di,mealLabelCopy,b,bi);}).join('');
+                content+='<div style="display:flex;justify-content:flex-end">'+mealAddBtn+'</div>';
+              }
               html+='<div style="padding:4px 5px;border-left:1px solid '+mcCopy.border+';display:flex;flex-direction:column;gap:3px">'+content+'</div>';
             } else {
               html+='<div style="border-left:1px solid '+mcCopy.border+';background:'+mcCopy.row+'"></div>';
@@ -2815,6 +2897,7 @@ function scSaveBlock(){
   document.getElementById('sc-modal-overlay').style.display='none';
   renderScFullView();
   scShowToast('일정이 저장됐어요 ✅');
+  scSaveToServer();
 }
 
 /* ── 삭제 ── */
@@ -2832,6 +2915,7 @@ function scDeleteBlock(){
   document.getElementById('sc-modal-overlay').style.display='none';
   renderScFullView();
   scShowToast('일정이 삭제됐어요 🗑');
+  scSaveToServer();
 }
 
 /* ── HTML 내보내기 ── */
@@ -3682,6 +3766,7 @@ function initDDay() {
   else el.textContent = 'D+' + Math.abs(diff);
 }
 initDDay();
+scLoadFromServer().then(function(){ renderScFullView(); });
 </script>
 
 <style>
