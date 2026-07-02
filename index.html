@@ -2356,16 +2356,20 @@ async function scSaveToServer(){
   });
   var payload={meals:SC_MEALS,days_blocks:days_blocks};
   try{
-    var res=await fetch(SUPABASE_URL+'/rest/v1/trip_data',{
+    var res=await fetch(SUPABASE_URL+'/rest/v1/trip_data?on_conflict=key',{
       method:'POST',
       headers:{
         'apikey':SUPABASE_ANON_KEY,
         'Authorization':'Bearer '+SUPABASE_ANON_KEY,
         'Content-Type':'application/json',
-        'Prefer':'resolution=merge-duplicates'
+        'Prefer':'resolution=merge-duplicates,return=minimal'
       },
       body:JSON.stringify({key:TRIP_KEY,data:payload,updated_at:new Date().toISOString()})
     });
+    if(!res.ok){
+      var errText=await res.text();
+      console.error('Supabase save failed: HTTP '+res.status, errText);
+    }
     scShowSaveStatus(res.ok);
   } catch(e){ scShowSaveStatus(false); console.error('Supabase save error',e); }
 }
