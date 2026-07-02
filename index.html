@@ -2405,6 +2405,21 @@ function renderScFullView(){
 
   var DOW=['월','화','수','목','금','토','일'];
 
+  function countryTheme(country){
+    if(!country) return {bg:'#F9FAFB',text:'#9CA3AF',border:'#D1D5DB',headerBg:'#F3F4F6'};
+    if(country.indexOf('🇫🇷')>-1) return {bg:'#FFF3EF',text:'#C2410C',border:'#F05A28',headerBg:'#FFEDE6'};
+    if(country.indexOf('🇨🇭')>-1) return {bg:'#F5F3FF',text:'#5B21B6',border:'#9B59B6',headerBg:'#EDE9FE'};
+    if(country.indexOf('🇮🇹')>-1) return {bg:'#ECFDF5',text:'#065F46',border:'#27AE60',headerBg:'#D1FAE5'};
+    return {bg:'#F0F9FF',text:'#1E40AF',border:'#6B7280',headerBg:'#E0F2FE'};
+  }
+
+  function countryLabel(country){
+    if(!country) return '';
+    /* 이동일: "🇨🇭→🇮🇹 이동" → "🇨🇭→🇮🇹" */
+    if(country.indexOf('→')>-1) return country.replace(/\s*이동\s*$/,'').trim();
+    return country;
+  }
+
   function dayColor(country){
     if(!country) return '#6B7280';
     if(country.indexOf('🇫🇷')>-1) return '#F05A28';
@@ -2415,7 +2430,6 @@ function renderScFullView(){
 
   var html='';
   SC_WEEKS.forEach(function(w,wi){
-    /* 요일 인덱스(0=월~6=일)로 7칸 배열 구성, 여행 날이 아니면 null */
     var weekGrid=[null,null,null,null,null,null,null];
     w.idx.forEach(function(di){
       var d=SC_DAYS[di];
@@ -2426,18 +2440,15 @@ function renderScFullView(){
     var firstD=SC_DAYS[w.idx[0]];
     var lastD=SC_DAYS[w.idx[w.idx.length-1]];
     var isExp=!!sc_expanded[wi];
-
-    /* 이 주에 포함된 날들의 최대 슬롯 수 */
     var maxSlots=0;
     w.idx.forEach(function(di){ maxSlots=Math.max(maxSlots,SC_DAYS[di].slots.length); });
 
     html+='<div style="border:1px solid #E5E7EB;border-radius:12px;overflow:hidden;margin-bottom:12px">';
 
-    /* 주 헤더 */
+    /* 주 헤더 (검은 배경) */
     html+='<div onclick="scToggleWeek('+wi+')" style="background:#1A1A2E;padding:11px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none">';
     html+='<span style="font-size:14px;font-weight:800;color:#fff">'+w.label+'</span>';
     html+='<span style="font-size:11px;color:rgba(255,255,255,0.6)">'+firstD.date+' ('+firstD.dow+') ~ '+lastD.date+' ('+lastD.dow+')</span>';
-    /* 이 주의 나라 색 점 */
     var seenColors={};
     w.idx.forEach(function(di){
       var clr=dayColor(SC_DAYS[di].country);
@@ -2450,35 +2461,48 @@ function renderScFullView(){
     html+='</div>';
 
     if(isExp){
-      /* 펼쳐진 상태: 7열 시간표 그리드 */
       html+='<div style="overflow-x:auto"><div style="min-width:560px">';
 
-      /* 날짜 헤더 행 */
-      html+='<div style="display:grid;grid-template-columns:48px repeat(7,minmax(0,1fr));background:#FAFAFA;border-top:1px solid #E5E7EB">';
-      html+='<div style="padding:8px 4px;font-size:10px;color:#C4C9D4;text-align:center;border-right:1px solid #E5E7EB">시간</div>';
-      weekGrid.forEach(function(wd,dowi){
+      /* ── 국가/도시 행 (검은 헤더 바로 아래) ── */
+      html+='<div style="display:grid;grid-template-columns:48px repeat(7,minmax(0,1fr));border-top:1px solid #2D2D4E">';
+      html+='<div style="background:#242442;border-right:1px solid #2D2D4E"></div>';
+      weekGrid.forEach(function(wd){
         if(wd){
-          var bc=dayColor(wd.d.country);
-          html+='<div style="padding:7px 5px 5px;text-align:center;border-left:1px solid #E5E7EB;border-top:3px solid '+bc+'">';
-          html+='<div style="font-size:10px;color:#9CA3AF">'+wd.d.dow+'</div>';
-          html+='<div style="font-size:12px;font-weight:800;color:#1A1A2E;margin:1px 0">'+wd.d.date+'</div>';
-          if((wd.d.pills||[]).length){
-            html+='<div style="display:flex;flex-wrap:wrap;gap:2px;justify-content:center;margin-top:2px">';
-            (wd.d.pills||[]).forEach(function(p){html+=scPill(p.t,p.l);});
-            html+='</div>';
-          }
-          html+='<button onclick="event.stopPropagation();scOpenAddForm('+wd.di+',0)" style="margin-top:4px;font-size:9px;color:#9CA3AF;background:none;border:1px solid #E5E7EB;border-radius:4px;cursor:pointer;padding:1px 4px;font-family:inherit">＋</button>';
+          var th=countryTheme(wd.d.country);
+          html+='<div style="padding:5px 3px;text-align:center;background:'+th.headerBg+';border-left:1px solid rgba(0,0,0,0.08)">';
+          html+='<span style="font-size:9px;font-weight:700;color:'+th.text+';white-space:nowrap;display:block;overflow:hidden;text-overflow:ellipsis">'+countryLabel(wd.d.country)+'</span>';
           html+='</div>';
         } else {
-          html+='<div style="padding:7px 5px;text-align:center;border-left:1px solid #E5E7EB;background:#F9FAFB">';
-          html+='<div style="font-size:11px;color:#E5E7EB;padding-top:4px">'+DOW[dowi]+'</div></div>';
+          html+='<div style="background:#242442;border-left:1px solid #2D2D4E"></div>';
         }
       });
       html+='</div>';
 
-      /* 시간대 행 */
+      /* ── 날짜 헤더 행 ── */
+      html+='<div style="display:grid;grid-template-columns:48px repeat(7,minmax(0,1fr))">';
+      html+='<div style="padding:8px 4px;font-size:10px;color:#C4C9D4;text-align:center;border-right:1px solid #E5E7EB;border-top:1px solid #E5E7EB;background:#FAFAFA">시간</div>';
+      weekGrid.forEach(function(wd,dowi){
+        if(wd){
+          var th=countryTheme(wd.d.country);
+          html+='<div style="padding:7px 5px 5px;text-align:center;border-left:1px solid #E5E7EB;border-top:1px solid '+th.border+';background:'+th.bg+'">';
+          html+='<div style="font-size:10px;color:'+th.text+';font-weight:600">'+wd.d.dow+'요일</div>';
+          html+='<div style="font-size:13px;font-weight:800;color:#1A1A2E;margin:2px 0">'+wd.d.date+'</div>';
+          if((wd.d.pills||[]).length){
+            html+='<div style="display:flex;flex-wrap:wrap;gap:2px;justify-content:center;margin-top:3px">';
+            (wd.d.pills||[]).forEach(function(p){html+=scPill(p.t,p.l);});
+            html+='</div>';
+          }
+          html+='<button onclick="event.stopPropagation();scOpenAddForm('+wd.di+',0)" style="margin-top:4px;font-size:9px;color:'+th.text+';background:none;border:1px solid '+th.border+';border-radius:4px;cursor:pointer;padding:1px 5px;font-family:inherit">＋ 추가</button>';
+          html+='</div>';
+        } else {
+          html+='<div style="padding:7px 5px;text-align:center;border-left:1px solid #E5E7EB;border-top:1px solid #E5E7EB;background:#F9FAFB">';
+          html+='<div style="font-size:10px;color:#E5E7EB;padding-top:4px">'+DOW[dowi]+'</div></div>';
+        }
+      });
+      html+='</div>';
+
+      /* ── 시간대 행 ── */
       for(var si=0;si<maxSlots;si++){
-        /* 이 행의 시간 레이블: 유효한 첫 번째 날에서 가져오기 */
         var slotLabel='';
         for(var j=0;j<7;j++){
           if(weekGrid[j]&&weekGrid[j].d.slots[si]){slotLabel=weekGrid[j].d.slots[si].h;break;}
@@ -2488,12 +2512,13 @@ function renderScFullView(){
         html+='<div style="padding:8px 5px 8px 2px;font-size:10px;color:#9CA3AF;text-align:right;border-right:1px solid #E5E7EB;line-height:1.3;background:#FAFAFA">'+slotLabel+'</div>';
         weekGrid.forEach(function(wd){
           if(wd){
+            var th=countryTheme(wd.d.country);
             var slot=wd.d.slots[siCopy];
             var content='';
             if(slot&&slot.blocks.length){
               content=slot.blocks.map(function(b,bi){return scBlock(b.t,b.l,b.n,wd.di,siCopy,bi);}).join('');
             } else {
-              content='<div onclick="scOpenAddForm('+wd.di+','+siCopy+')" style="font-size:13px;color:#EAEAEA;cursor:pointer;height:100%;min-height:30px;display:flex;align-items:center;justify-content:center;border-radius:4px" onmouseover="this.style.color=\'#2563EB\';this.style.background=\'#EFF6FF\'" onmouseout="this.style.color=\'#EAEAEA\';this.style.background=\'transparent\'">＋</div>';
+              content='<div onclick="scOpenAddForm('+wd.di+','+siCopy+')" style="font-size:13px;color:#EAEAEA;cursor:pointer;height:100%;min-height:30px;display:flex;align-items:center;justify-content:center;border-radius:4px" onmouseover="this.style.color=\''+th.border+'\';this.style.background=\''+th.bg+'\'" onmouseout="this.style.color=\'#EAEAEA\';this.style.background=\'transparent\'">＋</div>';
             }
             html+='<div style="padding:4px 5px;border-left:1px solid #F3F4F6;display:flex;flex-direction:column;gap:3px">'+content+'</div>';
           } else {
@@ -2503,38 +2528,47 @@ function renderScFullView(){
         html+='</div>';
       }
 
-      html+='</div></div>'; /* close min-width + overflow-x */
+      html+='</div></div>';
 
     } else {
-      /* 닫힌 상태: 요일 카드 7개 가로 나열 */
+      /* 닫힌 상태: 7열 카드 (국가 색 헤더 포함) */
       html+='<div style="display:grid;grid-template-columns:repeat(7,1fr);border-top:1px solid #E5E7EB">';
       weekGrid.forEach(function(wd,dowi){
         if(wd){
-          var bc=dayColor(wd.d.country);
+          var th=countryTheme(wd.d.country);
           var hasB=wd.d.slots.some(function(s){return s.blocks.length>0;});
-          html+='<div onclick="scToggleWeek('+wi+')" style="padding:8px 4px;text-align:center;cursor:pointer;border-left:1px solid #E5E7EB;border-top:3px solid '+bc+';background:#fff;transition:background .15s" onmouseover="this.style.background=\'#F9FAFB\'" onmouseout="this.style.background=\'#fff\'">';
+          html+='<div onclick="scToggleWeek('+wi+')" style="border-left:1px solid #E5E7EB;cursor:pointer;overflow:hidden" onmouseover="this.style.opacity=\'0.82\'" onmouseout="this.style.opacity=\'1\'">';
+          /* 국가 색 띠 */
+          html+='<div style="padding:4px 3px;background:'+th.headerBg+';border-top:3px solid '+th.border+';text-align:center">';
+          html+='<span style="font-size:8px;font-weight:700;color:'+th.text+';white-space:nowrap;display:block;overflow:hidden;text-overflow:ellipsis">'+countryLabel(wd.d.country)+'</span>';
+          html+='</div>';
+          /* 날짜 */
+          html+='<div style="padding:6px 4px;text-align:center;background:'+th.bg+'">';
           html+='<div style="font-size:9px;color:#9CA3AF">'+DOW[dowi]+'</div>';
-          html+='<div style="font-size:12px;font-weight:800;color:#1A1A2E;margin:2px 0">'+wd.d.date+'</div>';
+          html+='<div style="font-size:12px;font-weight:800;color:#1A1A2E;margin:1px 0">'+wd.d.date+'</div>';
           if(hasB){
             html+='<div style="display:flex;flex-direction:column;gap:2px;align-items:center">';
             (wd.d.pills||[]).slice(0,1).forEach(function(p){html+=scPill(p.t,p.l);});
-            if((wd.d.pills||[]).length>1) html+='<div style="font-size:9px;color:#9CA3AF">+'+((wd.d.pills||[]).length-1)+'</div>';
+            if((wd.d.pills||[]).length>1) html+='<div style="font-size:9px;color:'+th.text+'">+'+((wd.d.pills||[]).length-1)+'</div>';
             html+='</div>';
           } else {
-            html+='<div style="font-size:9px;color:#D1D5DB;margin-top:3px">자유</div>';
+            html+='<div style="font-size:9px;color:#D1D5DB;margin-top:2px">자유</div>';
           }
           html+='</div>';
-        } else {
-          html+='<div style="padding:8px 4px;text-align:center;border-left:1px solid #E5E7EB;background:#FAFAFA">';
-          html+='<div style="font-size:9px;color:#E5E7EB">'+DOW[dowi]+'</div>';
-          html+='<div style="font-size:12px;color:#E5E7EB;margin:2px 0">—</div>';
           html+='</div>';
+        } else {
+          html+='<div style="border-left:1px solid #E5E7EB;background:#FAFAFA">';
+          html+='<div style="padding:4px 3px;background:#F0F0F0;border-top:3px solid #E5E7EB;text-align:center"><span style="font-size:8px;color:#D1D5DB">—</span></div>';
+          html+='<div style="padding:6px 4px;text-align:center">';
+          html+='<div style="font-size:9px;color:#E5E7EB">'+DOW[dowi]+'</div>';
+          html+='<div style="font-size:12px;color:#E5E7EB;margin:1px 0">—</div>';
+          html+='</div></div>';
         }
       });
       html+='</div>';
     }
 
-    html+='</div>'; /* close 주 카드 */
+    html+='</div>';
   });
   el.innerHTML=html;
 }
