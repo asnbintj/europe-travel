@@ -1081,7 +1081,7 @@
   <!-- ── 시간표 ── -->
   <div id="timetable" class="section">
       <div class="section-header"><h2>시간대별 일정표</h2></div>
-      <p style="font-size:12px;color:#6B7280;margin-bottom:14px">날짜 클릭 → 시간표 확인 · 블록 클릭 → 수정/삭제 · 시간대 클릭 → 일정 추가. 완성 후 HTML 내보내기로 저장하세요.</p>
+      <p style="font-size:12px;color:#6B7280;margin-bottom:14px">주별 카드의 ▼ 펼치기를 누르면 시간대별 가로 일정표가 열려요 · 블록 클릭 → 수정/삭제 · ＋ → 일정 추가. 완성 후 HTML 내보내기로 저장하세요.</p>
       <div id="sc-week-tabs" style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap"></div>
       <div id="sc-week-cal" style="border:1px solid #E5E7EB;border-radius:12px;overflow:hidden;margin-bottom:14px"></div>
       <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px">
@@ -2206,25 +2206,25 @@ const SC_DAYS = [
       {h:'21–24',blocks:[]},
     ]
   },
-  { date:'8/26', dow:'수', country:'🇨🇭 루체른',
-    pills:[{t:'free',l:'🏙 루체른 당일치기'}],
+  { date:'8/26', dow:'수', country:'🇨🇭→🇮🇹 이동',
+    pills:[{t:'move',l:'🚄 밀라노 이동'},{t:'confirmed',l:'🏨 체크인'}],
     slots:[
-      {h:'07–09',blocks:[]},
-      {h:'09–12',blocks:[{t:'free',l:'🏙 루체른 당일치기',n:'기차 약 2시간'},{t:'free',l:'🌉 카펠교 · 구시가지'}]},
-      {h:'12–14',blocks:[]},
-      {h:'14–18',blocks:[{t:'free',l:'⛰ 필라투스산',n:'CHF 90 · 케이블카'}]},
-      {h:'18–21',blocks:[{t:'move',l:'🚆 그린델발트 귀환'}]},
+      {h:'07–09',blocks:[{t:'move',l:'🏨 그린델발트 체크아웃'}]},
+      {h:'09–12',blocks:[{t:'move',l:'🚄 그린델발트→취리히→밀라노',n:'SBB 연결편 · 약 3.5시간'}]},
+      {h:'12–14',blocks:[{t:'confirmed',l:'🏨 밀라노 체크인',n:'예약번호 1742338358'}]},
+      {h:'14–18',blocks:[{t:'tour',l:'⛪ 두오모 · 옥상 테라스',n:'€8~20'}]},
+      {h:'18–21',blocks:[{t:'tour',l:'🎨 브레라 미술관 or 갤러리아 비토리오'}]},
       {h:'21–24',blocks:[]},
     ]
   },
   { date:'8/27', dow:'목', country:'🇮🇹 밀라노',
-    pills:[{t:'move',l:'🚄 밀라노 이동'},{t:'tour',l:'⛪ 두오모'}],
+    pills:[{t:'free',l:'밀라노 자유일'}],
     slots:[
-      {h:'07–09',blocks:[{t:'move',l:'🏨 그린델발트 체크아웃'}]},
-      {h:'09–12',blocks:[{t:'move',l:'🚄 취리히→밀라노',n:'SBB · 약 3.5시간'}]},
-      {h:'12–14',blocks:[{t:'confirmed',l:'🏨 밀라노 체크인',n:'예약번호 1742338358'}]},
-      {h:'14–18',blocks:[{t:'tour',l:'⛪ 두오모 · 옥상 테라스',n:'€8~20'}]},
-      {h:'18–21',blocks:[{t:'tour',l:'🎨 브레라 미술관 or 갤러리아 비토리오'}]},
+      {h:'07–09',blocks:[]},
+      {h:'09–12',blocks:[{t:'free',l:'🖼 레오나르도 다빈치 박물관',n:'€3 · 최후의 만찬 예약 별도'}]},
+      {h:'12–14',blocks:[]},
+      {h:'14–18',blocks:[{t:'free',l:'🏰 스포르체스코 성 · 셈피오네 공원'}]},
+      {h:'18–21',blocks:[{t:'free',l:'🛍 나빌리 운하 · 아페리티보',n:'밀라노식 해피아워'}]},
       {h:'21–24',blocks:[]},
     ]
   },
@@ -2307,9 +2307,9 @@ const SC_DAYS = [
 ];
 
 const SC_WEEKS = [
-  {label:'🇫🇷 파리', idx:[0,1,2,3,4,5]},
-  {label:'🇨🇭 스위스', idx:[5,6,7,8,9,10]},
-  {label:'🇮🇹 이탈리아', idx:[10,11,12,13,14,15,16,17]},
+  {label:'1주차', idx:[0,1,2,3,4,5,6]},
+  {label:'2주차', idx:[7,8,9,10,11,12,13]},
+  {label:'3주차', idx:[14,15,16,17]},
 ];
 
 const SC_C = {
@@ -2321,6 +2321,7 @@ const SC_C = {
 };
 
 let sc_week=0, sc_day=0;
+let sc_expanded={};
 let sc_selected_type='tour';
 
 /* ── 렌더 유틸 ── */
@@ -2389,6 +2390,158 @@ function renderScTimetable(){
       <div style="font-size:13px;font-weight:700;color:#1A1A2E">${d.date} (${d.dow}요일)</div>
       <div style="font-size:11px;color:#6B7280">${d.country}</div>
     </div>${rows}`;
+}
+
+/* ── 전체 보기 (7일 캘린더 그리드) ── */
+function renderScFullView(){
+  var wt=document.getElementById('sc-week-tabs');
+  var wc=document.getElementById('sc-week-cal');
+  if(wt){wt.innerHTML='';wt.style.display='none';}
+  if(wc){wc.innerHTML='';wc.style.display='none';}
+  var lbl=document.getElementById('sc-day-label');
+  if(lbl) lbl.textContent='전체 일정표 · 8/17~9/3';
+  var el=document.getElementById('sc-timetable');
+  if(!el) return;
+
+  var DOW=['월','화','수','목','금','토','일'];
+
+  function dayColor(country){
+    if(!country) return '#6B7280';
+    if(country.indexOf('🇫🇷')>-1) return '#F05A28';
+    if(country.indexOf('🇨🇭')>-1) return '#9B59B6';
+    if(country.indexOf('🇮🇹')>-1) return '#27AE60';
+    return '#6B7280';
+  }
+
+  var html='';
+  SC_WEEKS.forEach(function(w,wi){
+    /* 요일 인덱스(0=월~6=일)로 7칸 배열 구성, 여행 날이 아니면 null */
+    var weekGrid=[null,null,null,null,null,null,null];
+    w.idx.forEach(function(di){
+      var d=SC_DAYS[di];
+      var dowi=DOW.indexOf(d.dow);
+      if(dowi>=0) weekGrid[dowi]={d:d,di:di};
+    });
+
+    var firstD=SC_DAYS[w.idx[0]];
+    var lastD=SC_DAYS[w.idx[w.idx.length-1]];
+    var isExp=!!sc_expanded[wi];
+
+    /* 이 주에 포함된 날들의 최대 슬롯 수 */
+    var maxSlots=0;
+    w.idx.forEach(function(di){ maxSlots=Math.max(maxSlots,SC_DAYS[di].slots.length); });
+
+    html+='<div style="border:1px solid #E5E7EB;border-radius:12px;overflow:hidden;margin-bottom:12px">';
+
+    /* 주 헤더 */
+    html+='<div onclick="scToggleWeek('+wi+')" style="background:#1A1A2E;padding:11px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none">';
+    html+='<span style="font-size:14px;font-weight:800;color:#fff">'+w.label+'</span>';
+    html+='<span style="font-size:11px;color:rgba(255,255,255,0.6)">'+firstD.date+' ('+firstD.dow+') ~ '+lastD.date+' ('+lastD.dow+')</span>';
+    /* 이 주의 나라 색 점 */
+    var seenColors={};
+    w.idx.forEach(function(di){
+      var clr=dayColor(SC_DAYS[di].country);
+      if(!seenColors[clr]) seenColors[clr]=true;
+    });
+    Object.keys(seenColors).forEach(function(clr){
+      html+='<span style="width:8px;height:8px;border-radius:50%;background:'+clr+';display:inline-block"></span>';
+    });
+    html+='<span style="margin-left:auto;font-size:11px;color:rgba(255,255,255,0.85);font-weight:600;background:rgba(255,255,255,0.15);padding:3px 10px;border-radius:6px">'+(isExp?'▲ 닫기':'▼ 펼치기')+'</span>';
+    html+='</div>';
+
+    if(isExp){
+      /* 펼쳐진 상태: 7열 시간표 그리드 */
+      html+='<div style="overflow-x:auto"><div style="min-width:560px">';
+
+      /* 날짜 헤더 행 */
+      html+='<div style="display:grid;grid-template-columns:48px repeat(7,minmax(0,1fr));background:#FAFAFA;border-top:1px solid #E5E7EB">';
+      html+='<div style="padding:8px 4px;font-size:10px;color:#C4C9D4;text-align:center;border-right:1px solid #E5E7EB">시간</div>';
+      weekGrid.forEach(function(wd,dowi){
+        if(wd){
+          var bc=dayColor(wd.d.country);
+          html+='<div style="padding:7px 5px 5px;text-align:center;border-left:1px solid #E5E7EB;border-top:3px solid '+bc+'">';
+          html+='<div style="font-size:10px;color:#9CA3AF">'+wd.d.dow+'</div>';
+          html+='<div style="font-size:12px;font-weight:800;color:#1A1A2E;margin:1px 0">'+wd.d.date+'</div>';
+          if((wd.d.pills||[]).length){
+            html+='<div style="display:flex;flex-wrap:wrap;gap:2px;justify-content:center;margin-top:2px">';
+            (wd.d.pills||[]).forEach(function(p){html+=scPill(p.t,p.l);});
+            html+='</div>';
+          }
+          html+='<button onclick="event.stopPropagation();scOpenAddForm('+wd.di+',0)" style="margin-top:4px;font-size:9px;color:#9CA3AF;background:none;border:1px solid #E5E7EB;border-radius:4px;cursor:pointer;padding:1px 4px;font-family:inherit">＋</button>';
+          html+='</div>';
+        } else {
+          html+='<div style="padding:7px 5px;text-align:center;border-left:1px solid #E5E7EB;background:#F9FAFB">';
+          html+='<div style="font-size:11px;color:#E5E7EB;padding-top:4px">'+DOW[dowi]+'</div></div>';
+        }
+      });
+      html+='</div>';
+
+      /* 시간대 행 */
+      for(var si=0;si<maxSlots;si++){
+        /* 이 행의 시간 레이블: 유효한 첫 번째 날에서 가져오기 */
+        var slotLabel='';
+        for(var j=0;j<7;j++){
+          if(weekGrid[j]&&weekGrid[j].d.slots[si]){slotLabel=weekGrid[j].d.slots[si].h;break;}
+        }
+        var siCopy=si;
+        html+='<div style="display:grid;grid-template-columns:48px repeat(7,minmax(0,1fr));border-top:1px solid #F3F4F6;min-height:42px">';
+        html+='<div style="padding:8px 5px 8px 2px;font-size:10px;color:#9CA3AF;text-align:right;border-right:1px solid #E5E7EB;line-height:1.3;background:#FAFAFA">'+slotLabel+'</div>';
+        weekGrid.forEach(function(wd){
+          if(wd){
+            var slot=wd.d.slots[siCopy];
+            var content='';
+            if(slot&&slot.blocks.length){
+              content=slot.blocks.map(function(b,bi){return scBlock(b.t,b.l,b.n,wd.di,siCopy,bi);}).join('');
+            } else {
+              content='<div onclick="scOpenAddForm('+wd.di+','+siCopy+')" style="font-size:13px;color:#EAEAEA;cursor:pointer;height:100%;min-height:30px;display:flex;align-items:center;justify-content:center;border-radius:4px" onmouseover="this.style.color=\'#2563EB\';this.style.background=\'#EFF6FF\'" onmouseout="this.style.color=\'#EAEAEA\';this.style.background=\'transparent\'">＋</div>';
+            }
+            html+='<div style="padding:4px 5px;border-left:1px solid #F3F4F6;display:flex;flex-direction:column;gap:3px">'+content+'</div>';
+          } else {
+            html+='<div style="border-left:1px solid #F3F4F6;background:#FAFAFA"></div>';
+          }
+        });
+        html+='</div>';
+      }
+
+      html+='</div></div>'; /* close min-width + overflow-x */
+
+    } else {
+      /* 닫힌 상태: 요일 카드 7개 가로 나열 */
+      html+='<div style="display:grid;grid-template-columns:repeat(7,1fr);border-top:1px solid #E5E7EB">';
+      weekGrid.forEach(function(wd,dowi){
+        if(wd){
+          var bc=dayColor(wd.d.country);
+          var hasB=wd.d.slots.some(function(s){return s.blocks.length>0;});
+          html+='<div onclick="scToggleWeek('+wi+')" style="padding:8px 4px;text-align:center;cursor:pointer;border-left:1px solid #E5E7EB;border-top:3px solid '+bc+';background:#fff;transition:background .15s" onmouseover="this.style.background=\'#F9FAFB\'" onmouseout="this.style.background=\'#fff\'">';
+          html+='<div style="font-size:9px;color:#9CA3AF">'+DOW[dowi]+'</div>';
+          html+='<div style="font-size:12px;font-weight:800;color:#1A1A2E;margin:2px 0">'+wd.d.date+'</div>';
+          if(hasB){
+            html+='<div style="display:flex;flex-direction:column;gap:2px;align-items:center">';
+            (wd.d.pills||[]).slice(0,1).forEach(function(p){html+=scPill(p.t,p.l);});
+            if((wd.d.pills||[]).length>1) html+='<div style="font-size:9px;color:#9CA3AF">+'+((wd.d.pills||[]).length-1)+'</div>';
+            html+='</div>';
+          } else {
+            html+='<div style="font-size:9px;color:#D1D5DB;margin-top:3px">자유</div>';
+          }
+          html+='</div>';
+        } else {
+          html+='<div style="padding:8px 4px;text-align:center;border-left:1px solid #E5E7EB;background:#FAFAFA">';
+          html+='<div style="font-size:9px;color:#E5E7EB">'+DOW[dowi]+'</div>';
+          html+='<div style="font-size:12px;color:#E5E7EB;margin:2px 0">—</div>';
+          html+='</div>';
+        }
+      });
+      html+='</div>';
+    }
+
+    html+='</div>'; /* close 주 카드 */
+  });
+  el.innerHTML=html;
+}
+
+function scToggleWeek(wi){
+  sc_expanded[wi]=!sc_expanded[wi];
+  renderScFullView();
 }
 
 /* ── pills 동기화 ── */
@@ -2495,10 +2648,7 @@ function scSaveBlock(){
   syncPills(di);
 
   document.getElementById('sc-modal-overlay').style.display='none';
-  sc_day=di;
-  const w=SC_WEEKS.findIndex(w=>w.idx.includes(di));
-  if(w!==-1&&w!==sc_week){ sc_week=w; renderScWeekTabs(); }
-  renderScWeekCal(); renderScTimetable();
+  renderScFullView();
   scShowToast('일정이 저장됐어요 ✅');
 }
 
@@ -2510,7 +2660,7 @@ function scDeleteBlock(){
   SC_DAYS[di].slots[si].blocks.splice(bi,1);
   syncPills(di);
   document.getElementById('sc-modal-overlay').style.display='none';
-  renderScWeekCal(); renderScTimetable();
+  renderScFullView();
   scShowToast('일정이 삭제됐어요 🗑');
 }
 
@@ -3322,9 +3472,7 @@ function showTab(id, el) {
   }
   if (id === 'timetable') {
     setTimeout(function() {
-      renderScWeekTabs();
-      renderScWeekCal();
-      renderScTimetable();
+      renderScFullView();
     }, 10);
   }
 }
@@ -3347,9 +3495,7 @@ function toggleSchedView(view) {
     btnTl.style.cssText = baseStyle + ';background:transparent;color:#6B7280;font-weight:600';
     btnTt.style.cssText = baseStyle + ';background:#1A1A2E;color:#fff';
     setTimeout(function() {
-      renderScWeekTabs();
-      renderScWeekCal();
-      renderScTimetable();
+      renderScFullView();
     }, 10);
   }
 }
