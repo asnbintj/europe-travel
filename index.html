@@ -1081,7 +1081,8 @@
   <!-- ── 시간표 ── -->
   <div id="timetable" class="section active">
       <div class="section-header" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px"><h2>시간대별 일정표</h2><span id="sc-save-status" style="font-size:11px;font-weight:600;opacity:0;transition:opacity .5s"></span></div>
-      <p style="font-size:12px;color:#6B7280;margin-bottom:14px">주별 카드의 ▼ 펼치기를 누르면 시간대별 가로 일정표가 열려요 · 블록 클릭 → 수정/삭제 · ＋ → 일정 추가. 완성 후 HTML 내보내기로 저장하세요.</p>
+      <div id="sc-budget-summary" style="margin-bottom:14px"></div>
+      <p style="font-size:12px;color:#6B7280;margin-bottom:14px">주별 카드의 ▼ 펼치기를 누르면 시간대별 가로 일정표가 열려요 · 블록 클릭 → 수정/삭제 · ＋ → 일정 추가 · 비용/결제상태도 함께 입력할 수 있어요. 완성 후 HTML 내보내기로 저장하세요.</p>
       <div id="sc-week-tabs" style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap"></div>
       <div id="sc-week-cal" style="border:1px solid #E5E7EB;border-radius:12px;overflow:hidden;margin-bottom:14px"></div>
       <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px">
@@ -2097,6 +2098,24 @@
           onfocus="this.style.borderColor='#0F3460'" onblur="this.style.borderColor='#E5E7EB'">
       </div>
 
+      <!-- 비용 & 결제상태 -->
+      <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:10px">
+        <div>
+          <div style="font-size:11px;font-weight:600;color:#374151;margin-bottom:5px">💰 비용 (원) <span style="font-weight:400;color:#9CA3AF">(선택)</span></div>
+          <input id="sc-f-cost" type="number" min="0" step="1000" placeholder="예: 50000"
+            style="width:100%;padding:9px 11px;border:1px solid #E5E7EB;border-radius:8px;font-size:13px;font-family:inherit;outline:none"
+            onfocus="this.style.borderColor='#0F3460'" onblur="this.style.borderColor='#E5E7EB'">
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:600;color:#374151;margin-bottom:5px">결제 상태</div>
+          <div style="display:flex;gap:5px" id="sc-pay-btns">
+            <button type="button" class="sc-pbtn" data-p="paid" onclick="scPickPay(this)" style="flex:1;padding:7px 4px;border-radius:6px;border:1.5px solid #BBF7D0;background:#F0FDF4;color:#16A34A;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit">✅ 완료</button>
+            <button type="button" class="sc-pbtn" data-p="partial" onclick="scPickPay(this)" style="flex:1;padding:7px 4px;border-radius:6px;border:1.5px solid #FDE68A;background:#FFFBEB;color:#D97706;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit">🟡 부분</button>
+            <button type="button" class="sc-pbtn" data-p="unpaid" onclick="scPickPay(this)" style="flex:1;padding:7px 4px;border-radius:6px;border:1.5px solid #FECACA;background:#FEF2F2;color:#DC2626;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit">⭕ 미결</button>
+          </div>
+        </div>
+      </div>
+
       <!-- 버튼 -->
       <div style="display:flex;gap:8px;margin-top:4px">
         <button onclick="scSaveBlock()" style="flex:1;padding:10px;background:#1A1A2E;color:#fff;border:none;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">저장</button>
@@ -2332,7 +2351,59 @@ const SC_C = {
 let sc_week=0, sc_day=0;
 let sc_expanded={};
 let sc_selected_type='tour';
+let sc_selected_pay='unpaid';
 let SC_MEALS={};
+
+/* ── 결제상태 표시 유틸 ── */
+const SC_PAY_META={
+  paid:    {bg:'#ECFDF5',color:'#16A34A',border:'#BBF7D0',label:'결제완료',short:'완료'},
+  partial: {bg:'#FFFBEB',color:'#D97706',border:'#FDE68A',label:'부분결제',short:'부분'},
+  unpaid:  {bg:'#FEF2F2',color:'#DC2626',border:'#FECACA',label:'미결제', short:'미결'},
+};
+function scPayMeta(p){ return SC_PAY_META[p]||SC_PAY_META.unpaid; }
+function scFormatWon(n){ return '₩'+Number(n||0).toLocaleString(); }
+function scCostBadge(b){
+  if(!b || !b.cost) return '';
+  const pm=scPayMeta(b.pay);
+  return `<div style="margin-top:3px;display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;color:${pm.color};background:${pm.bg};border:1px solid ${pm.border};border-radius:4px;padding:1px 6px;white-space:nowrap">${scFormatWon(b.cost)} · ${pm.short}</div>`;
+}
+
+/* ── 전체 비용 합산 ── */
+function scCalcBudget(){
+  const totals={paid:0,partial:0,unpaid:0,all:0};
+  function add(b){
+    if(!b || !b.cost) return;
+    const amt=Number(b.cost)||0;
+    totals.all+=amt;
+    const p=b.pay||'unpaid';
+    if(totals[p]===undefined) totals[p]=0;
+    totals[p]+=amt;
+  }
+  SC_DAYS.forEach(d=>d.slots.forEach(s=>s.blocks.forEach(add)));
+  Object.keys(SC_MEALS).forEach(di=>{
+    const meals=SC_MEALS[di];
+    Object.keys(meals).forEach(mt=>{ (meals[mt]||[]).forEach(add); });
+  });
+  return totals;
+}
+
+function scRenderBudgetSummary(){
+  const el=document.getElementById('sc-budget-summary');
+  if(!el) return;
+  const t=scCalcBudget();
+  const card=(label,amount,color,bg,border)=>`
+    <div style="flex:1;min-width:110px;padding:10px 12px;background:${bg};border:1px solid ${border};border-radius:10px">
+      <div style="font-size:10px;font-weight:600;color:${color};opacity:.85">${label}</div>
+      <div style="font-size:15px;font-weight:800;color:${color};margin-top:2px">${scFormatWon(amount)}</div>
+    </div>`;
+  el.innerHTML=`
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      ${card('💰 총 합계', t.all, '#1A1A2E', '#F3F4F6', '#E5E7EB')}
+      ${card('✅ 결제완료', t.paid, SC_PAY_META.paid.color, SC_PAY_META.paid.bg, SC_PAY_META.paid.border)}
+      ${card('🟡 부분결제', t.partial, SC_PAY_META.partial.color, SC_PAY_META.partial.bg, SC_PAY_META.partial.border)}
+      ${card('⭕ 미결제', t.unpaid, SC_PAY_META.unpaid.color, SC_PAY_META.unpaid.bg, SC_PAY_META.unpaid.border)}
+    </div>`;
+}
 
 /* ── Supabase 저장/불러오기 ── */
 function scIsSupabaseConfigured(){
@@ -2414,7 +2485,8 @@ function scPill(t,l){
 
 function scBlock(t,l,n,di,si,bi){
   const c=SC_C[t]||SC_C.move;
-  const isDone=di!==undefined&&di>=0&&SC_DAYS[di]&&SC_DAYS[di].slots[si]&&SC_DAYS[di].slots[si].blocks[bi]?!!SC_DAYS[di].slots[si].blocks[bi].done:false;
+  const blk=di!==undefined&&di>=0&&SC_DAYS[di]&&SC_DAYS[di].slots[si]&&SC_DAYS[di].slots[si].blocks[bi]?SC_DAYS[di].slots[si].blocks[bi]:null;
+  const isDone=!!(blk&&blk.done);
   const bg=isDone?'#ECFDF5':c.bg;
   const bdr=isDone?'#16A34A':c.border;
   const clr=isDone?'#166534':c.color;
@@ -2422,7 +2494,7 @@ function scBlock(t,l,n,di,si,bi){
   const edit=di!==undefined?`onclick="scOpenEditForm(${di},${si},${bi})" title="클릭하여 수정 · 드래그하여 이동"`:'' ;
   const drag=di!==undefined?`draggable="true" ondragstart="scDragStart(event,${di},${si},${bi})" ondragend="scDragEnd(event)"`:'';
   const cb=di!==undefined?`<input type="checkbox" ${isDone?'checked':''} onclick="event.stopPropagation();scToggleDone(${di},${si},${bi})" style="margin-right:5px;margin-top:2px;cursor:pointer;accent-color:#16A34A;flex-shrink:0;width:13px;height:13px">`:'';
-  return `<div ${idAttr} ${edit} ${drag} style="border-radius:6px;padding:6px 10px;font-size:12px;font-weight:500;background:${bg};color:${clr};border-left:3px solid ${bdr};transition:all .15s;display:flex;align-items:flex-start;gap:4px;cursor:grab" onmouseover="this.style.opacity='.75'" onmouseout="this.style.opacity='1'">${cb}<div style="flex:1">${l}${n?`<div style="font-size:10px;color:#6B7280;margin-top:2px">${linkifyText(n)}</div>`:''}</div></div>`;
+  return `<div ${idAttr} ${edit} ${drag} style="border-radius:6px;padding:6px 10px;font-size:12px;font-weight:500;background:${bg};color:${clr};border-left:3px solid ${bdr};transition:all .15s;display:flex;align-items:flex-start;gap:4px;cursor:grab" onmouseover="this.style.opacity='.75'" onmouseout="this.style.opacity='1'">${cb}<div style="flex:1">${l}${n?`<div style="font-size:10px;color:#6B7280;margin-top:2px">${linkifyText(n)}</div>`:''}${scCostBadge(blk)}</div></div>`;
 }
 
 /* ── 드래그 & 드롭 (일반 일정 블록 이동) ── */
@@ -2495,6 +2567,7 @@ function scOpenMealForm(di,mealType,bi){
   var b=isEdit&&SC_MEALS[di]&&SC_MEALS[di][mealType]?SC_MEALS[di][mealType][bi]:null;
   document.getElementById('sc-f-label').value=b?b.l:'';
   document.getElementById('sc-f-note').value=b&&b.n?b.n:'';
+  document.getElementById('sc-f-cost').value=b&&b.cost?b.cost:'';
   document.getElementById('sc-del-btn').style.display=isEdit?'block':'none';
   /* 슬롯 컬럼 → 식사구분 표시로 전환 */
   document.getElementById('sc-slot-label-div').style.display='none';
@@ -2505,6 +2578,7 @@ function scOpenMealForm(di,mealType,bi){
   var dayEl=document.getElementById('sc-f-day');
   dayEl.innerHTML=SC_DAYS.map(function(d,i){return '<option value="'+i+'"'+(i===di?' selected':'')+'>'+d.date+' ('+d.dow+') '+d.country+'</option>';}).join('');
   scSetType(b&&b.t?b.t:'meal');
+  scSetPay(b&&b.pay?b.pay:'unpaid');
   scShowModal();
 }
 
@@ -2566,6 +2640,7 @@ function renderScTimetable(){
 
 /* ── 전체 보기 (7일 캘린더 그리드) ── */
 function renderScFullView(){
+  scRenderBudgetSummary();
   var wt=document.getElementById('sc-week-tabs');
   var wc=document.getElementById('sc-week-cal');
   if(wt){wt.innerHTML='';wt.style.display='none';}
@@ -2591,7 +2666,8 @@ function renderScFullView(){
     var bdr=isDone?'#16A34A':c.border;
     var clr=isDone?'#166534':c.color;
     var note=b.n?'<div style="font-size:10px;color:#6B7280;margin-top:2px">'+linkifyText(b.n)+'</div>':'';
-    return '<div id="sc-meal-block-'+di+'-'+mealLabel+'-'+bi+'" onclick="scOpenMealForm('+di+',\''+mealLabel+'\','+bi+')" style="border-radius:6px;padding:6px 10px;font-size:12px;font-weight:500;background:'+bg+';color:'+clr+';border-left:3px solid '+bdr+';transition:all .15s;display:flex;align-items:flex-start;gap:4px;cursor:pointer" onmouseover="this.style.opacity=\'.75\'" onmouseout="this.style.opacity=\'1\'"><input type="checkbox" '+(isDone?'checked':'')+' onclick="event.stopPropagation();scToggleMealDone('+di+',\''+mealLabel+'\','+bi+')" style="margin-right:5px;margin-top:2px;cursor:pointer;accent-color:#16A34A;flex-shrink:0;width:13px;height:13px"><div style="flex:1">'+b.l+note+'</div></div>';
+    var costBadge=scCostBadge(b);
+    return '<div id="sc-meal-block-'+di+'-'+mealLabel+'-'+bi+'" onclick="scOpenMealForm('+di+',\''+mealLabel+'\','+bi+')" style="border-radius:6px;padding:6px 10px;font-size:12px;font-weight:500;background:'+bg+';color:'+clr+';border-left:3px solid '+bdr+';transition:all .15s;display:flex;align-items:flex-start;gap:4px;cursor:pointer" onmouseover="this.style.opacity=\'.75\'" onmouseout="this.style.opacity=\'1\'"><input type="checkbox" '+(isDone?'checked':'')+' onclick="event.stopPropagation();scToggleMealDone('+di+',\''+mealLabel+'\','+bi+')" style="margin-right:5px;margin-top:2px;cursor:pointer;accent-color:#16A34A;flex-shrink:0;width:13px;height:13px"><div style="flex:1">'+b.l+note+costBadge+'</div></div>';
   }
 
   function countryTheme(country){
@@ -2854,6 +2930,19 @@ function scSetType(t){
   });
 }
 
+/* ── 결제상태 선택 ── */
+function scPickPay(btn){
+  document.querySelectorAll('.sc-pbtn').forEach(b=>b.style.outline='none');
+  btn.style.outline='2px solid #1A1A2E';
+  sc_selected_pay=btn.dataset.p;
+}
+function scSetPay(p){
+  sc_selected_pay=p||'unpaid';
+  document.querySelectorAll('.sc-pbtn').forEach(b=>{
+    b.style.outline=b.dataset.p===sc_selected_pay?'2px solid #1A1A2E':'none';
+  });
+}
+
 /* ── 추가 폼 열기 ── */
 function scResetMealMode(){
   document.getElementById('sc-edit-meal-type').value='';
@@ -2870,10 +2959,12 @@ function scOpenAddForm(di,si){
   document.getElementById('sc-edit-block').value='';
   document.getElementById('sc-f-label').value='';
   document.getElementById('sc-f-note').value='';
+  document.getElementById('sc-f-cost').value='';
   document.getElementById('sc-del-btn').style.display='none';
   scResetMealMode();
   scFillSelects(d,s);
   scSetType('tour');
+  scSetPay('unpaid');
   scShowModal();
 }
 
@@ -2886,10 +2977,12 @@ function scOpenEditForm(di,si,bi){
   document.getElementById('sc-edit-block').value=bi;
   document.getElementById('sc-f-label').value=b.l||'';
   document.getElementById('sc-f-note').value=b.n||'';
+  document.getElementById('sc-f-cost').value=b.cost||'';
   document.getElementById('sc-del-btn').style.display='block';
   scResetMealMode();
   scFillSelects(di,si);
   scSetType(b.t||'tour');
+  scSetPay(b.pay||'unpaid');
   scShowModal();
 }
 
@@ -2899,10 +2992,12 @@ function scSaveBlock(){
   if(!label){ document.getElementById('sc-f-label').style.borderColor='#DC2626'; return; }
   document.getElementById('sc-f-label').style.borderColor='#E5E7EB';
   const note=document.getElementById('sc-f-note').value.trim();
+  const costVal=parseInt(document.getElementById('sc-f-cost').value,10);
+  const cost=isNaN(costVal)?0:costVal;
   const mealType=document.getElementById('sc-edit-meal-type').value;
   const editDay=document.getElementById('sc-edit-day').value;
   const editBlock=document.getElementById('sc-edit-block').value;
-  const newBlock={t:sc_selected_type,l:label,n:note||undefined};
+  const newBlock={t:sc_selected_type,l:label,n:note||undefined,cost:cost||undefined,pay:cost>0?sc_selected_pay:undefined};
 
   if(mealType){
     /* 식사 블록 저장 */
