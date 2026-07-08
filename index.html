@@ -2134,6 +2134,17 @@
    시간표 데이터 & 렌더링
 ══════════════════════════════════════ */
 const SC_DAYS = [
+  { date:'8/10', dow:'월', country:'🇰🇷→🇳🇱 이동',
+    pills:[{t:'move',l:'✈ 인천→암스테르담'}],
+    slots:[
+      {h:'07–09',blocks:[]},
+      {h:'09–12',blocks:[{t:'move',l:'✈ 인천공항 출국 수속',n:'12:20 ICN 출발 예정'}]},
+      {h:'12–14',blocks:[{t:'move',l:'✈ LH713 ICN 12:20 출발',n:'A350-900 · FRA행'}]},
+      {h:'14–18',blocks:[{t:'move',l:'✈ FRA 18:40 도착',n:'환승 대기 2시간 20분'}]},
+      {h:'18–21',blocks:[{t:'move',l:'✈ LH1002 FRA 21:00 출발',n:'A320 · AMS행'}]},
+      {h:'21–24',blocks:[{t:'confirmed',l:'🏨 AMS 22:10 도착 · 호텔 체크인',n:'Hotel Casa Amsterdam'}]},
+    ]
+  },
   { date:'8/11', dow:'화', country:'🇳🇱 네덜란드',
     pills:[{t:'confirmed',l:'🚶 야외 봉사'}],
     slots:[
@@ -2398,10 +2409,10 @@ const SC_DAYS = [
 ];
 
 const SC_WEEKS = [
-  {label:'1주차', idx:[0,1,2,3,4,5]},
-  {label:'2주차', idx:[6,7,8,9,10,11,12]},
-  {label:'3주차', idx:[13,14,15,16,17,18,19]},
-  {label:'4주차', idx:[20,21,22,23]},
+  {label:'1주차', idx:[0,1,2,3,4,5,6]},
+  {label:'2주차', idx:[7,8,9,10,11,12,13]},
+  {label:'3주차', idx:[14,15,16,17,18,19,20]},
+  {label:'4주차', idx:[21,22,23,24]},
 ];
 
 /* ── Supabase 설정 ── */
@@ -2422,14 +2433,18 @@ let sc_week=0, sc_day=0;
 let sc_expanded={};
 let sc_selected_type='tour';
 let sc_selected_pay='unpaid';
+/* SC_MEALS는 배열 인덱스가 아닌 '날짜 문자열'을 키로 사용합니다.
+   (인덱스로 저장하면 앞에 새 날짜가 추가될 때마다 다른 날의 식사로 밀려버리는 문제가 있었음) */
 let SC_MEALS={
-  '0':{ '아침':[{l:'🏨 호텔 까사 조식',t:'meal',done:true}], '점심':[{l:'🥪 봉사 중 도시락 · 근처 식당',t:'meal'}], '저녁':[{l:'🍽 숙소 근처 저녁 식사',t:'meal'}] },
-  '1':{ '아침':[{l:'🏨 호텔 까사 조식',t:'meal',done:true}], '점심':[{l:'🍽 베델 식당 (제공 여부 확인)',t:'meal'}], '저녁':[{l:'🍽 암스테르담 시내 저녁',t:'meal'}] },
-  '2':{ '아침':[{l:'🏨 호텔 까사 조식',t:'meal',done:true}], '점심':[{l:'🥪 개더링 전 간단 식사',t:'meal'}], '저녁':[{l:'🍽 개더링 후 저녁 식사',t:'meal'}] },
-  '3':{ '아침':[{l:'🏨 호텔 까사 조식',t:'meal',done:true}], '점심':[{l:'🥪 대회장 매점 · 도시락',t:'meal'}], '저녁':[{l:'🍽 숙소 근처 저녁 식사',t:'meal'}] },
-  '4':{ '아침':[{l:'🏨 호텔 까사 조식',t:'meal',done:true}], '점심':[{l:'🥪 대회장 매점 · 도시락',t:'meal'}], '저녁':[{l:'🍽 숙소 근처 저녁 식사',t:'meal'}] },
-  '5':{ '아침':[{l:'🏨 호텔 까사 조식',t:'meal',done:true}], '점심':[{l:'🥪 대회장 매점 · 도시락',t:'meal'}], '저녁':[{l:'🍽 숙소 근처 저녁 식사',t:'meal'}] },
+  '8/10':{ '아침':[{l:'🏠 출국 전 집에서 아침',t:'meal'}], '점심':[{l:'🍽 기내식 (ICN→FRA)',t:'meal',done:true}], '저녁':[{l:'🥤 기내식 (FRA→AMS)',t:'meal',done:true}] },
+  '8/11':{ '아침':[{l:'🏨 호텔 까사 조식',t:'meal',done:true}], '점심':[{l:'🥪 봉사 중 도시락 · 근처 식당',t:'meal'}], '저녁':[{l:'🍽 숙소 근처 저녁 식사',t:'meal'}] },
+  '8/12':{ '아침':[{l:'🏨 호텔 까사 조식',t:'meal',done:true}], '점심':[{l:'🍽 베델 식당 (제공 여부 확인)',t:'meal'}], '저녁':[{l:'🍽 암스테르담 시내 저녁',t:'meal'}] },
+  '8/13':{ '아침':[{l:'🏨 호텔 까사 조식',t:'meal',done:true}], '점심':[{l:'🥪 개더링 전 간단 식사',t:'meal'}], '저녁':[{l:'🍽 개더링 후 저녁 식사',t:'meal'}] },
+  '8/14':{ '아침':[{l:'🏨 호텔 까사 조식',t:'meal',done:true}], '점심':[{l:'🥪 대회장 매점 · 도시락',t:'meal'}], '저녁':[{l:'🍽 숙소 근처 저녁 식사',t:'meal'}] },
+  '8/15':{ '아침':[{l:'🏨 호텔 까사 조식',t:'meal',done:true}], '점심':[{l:'🥪 대회장 매점 · 도시락',t:'meal'}], '저녁':[{l:'🍽 숙소 근처 저녁 식사',t:'meal'}] },
+  '8/16':{ '아침':[{l:'🏨 호텔 까사 조식',t:'meal',done:true}], '점심':[{l:'🥪 대회장 매점 · 도시락',t:'meal'}], '저녁':[{l:'🍽 숙소 근처 저녁 식사',t:'meal'}] },
 };
+function scMealKey(di){ return (SC_DAYS[di]&&SC_DAYS[di].date)!=null ? SC_DAYS[di].date : di; }
 
 /* ── 결제상태 표시 유틸 ── */
 const SC_PAY_META={
@@ -2644,17 +2659,22 @@ async function scLoadFromServer(){
     var rows=await res.json();
     if(!rows.length) return;
     var d=rows[0].data;
-    // 8/11~8/16 추가 전에 저장된 기존 데이터는 date가 없어 인덱스 기준이었음 → +6 보정
-    var LEGACY_OFFSET=6;
+    // 8/10~8/16 추가 전에 저장된 기존 데이터는 date가 없어 인덱스 기준이었음 → +7 보정
+    var LEGACY_OFFSET=7;
     var isLegacy = !!(d.days_blocks && d.days_blocks.length && d.days_blocks[0].date==null);
     if(d.meals){
-      // 하드코딩된 기본 식사 항목(예: 8/11~8/16)이 서버 데이터로 덮어써지지 않도록 키 단위로 병합
+      // meals는 과거엔 배열 인덱스로 저장되어 있었음(날짜 아님) → 저장 당시의 날짜 배치를 복원해 date 키로 변환
+      // GEN_A: 8/11~8/16 추가 전(8/17 시작, 18일) / GEN_B: 8/10 추가 전(8/11 시작, 24일)
+      var GEN_A_DATES=['8/17','8/18','8/19','8/20','8/21','8/22','8/23','8/24','8/25','8/26','8/27','8/28','8/29','8/30','8/31','9/1','9/2','9/3'];
+      var GEN_B_DATES=['8/11','8/12','8/13','8/14','8/15','8/16','8/17','8/18','8/19','8/20','8/21','8/22','8/23','8/24','8/25','8/26','8/27','8/28','8/29','8/30','8/31','9/1','9/2','9/3'];
+      var legacyDates = isLegacy ? GEN_A_DATES : GEN_B_DATES;
       var loadedMeals={};
-      if(isLegacy){
-        Object.keys(d.meals).forEach(function(k){ loadedMeals[(parseInt(k,10)+LEGACY_OFFSET)]=d.meals[k]; });
-      } else {
-        loadedMeals=d.meals;
-      }
+      Object.keys(d.meals).forEach(function(k){
+        if(k.indexOf('/')>-1){ loadedMeals[k]=d.meals[k]; return; } // 이미 날짜 키(마이그레이션 완료된 데이터)
+        var date=legacyDates[parseInt(k,10)];
+        if(date!=null) loadedMeals[date]=d.meals[k];
+      });
+      // 하드코딩된 기본 식사 항목이 서버 데이터로 덮어써지지 않도록 키 단위로 병합
       Object.keys(loadedMeals).forEach(function(k){ SC_MEALS[k]=loadedMeals[k]; });
     }
     if(d.days_blocks){
@@ -2740,8 +2760,9 @@ function scToggleDone(di,si,bi){
 }
 
 function scToggleMealDone(di,mealType,bi){
-  if(!SC_MEALS[di]||!SC_MEALS[di][mealType]) return;
-  var block=SC_MEALS[di][mealType][bi];
+  var mk=scMealKey(di);
+  if(!SC_MEALS[mk]||!SC_MEALS[mk][mealType]) return;
+  var block=SC_MEALS[mk][mealType][bi];
   if(!block) return;
   block.done=!block.done;
   var el=document.getElementById('sc-meal-block-'+di+'-'+mealType+'-'+bi);
@@ -2763,7 +2784,8 @@ function scOpenMealForm(di,mealType,bi){
   document.getElementById('sc-edit-meal-type').value=mealType;
   document.getElementById('sc-edit-block').value=isEdit?bi:'';
   document.getElementById('sc-edit-slot').value='';
-  var b=isEdit&&SC_MEALS[di]&&SC_MEALS[di][mealType]?SC_MEALS[di][mealType][bi]:null;
+  var mk=scMealKey(di);
+  var b=isEdit&&SC_MEALS[mk]&&SC_MEALS[mk][mealType]?SC_MEALS[mk][mealType][bi]:null;
   document.getElementById('sc-f-label').value=b?b.l:'';
   document.getElementById('sc-f-note').value=b&&b.n?b.n:'';
   document.getElementById('sc-f-cost').value=b&&b.cost?b.cost:'';
@@ -3014,7 +3036,8 @@ function renderScFullView(){
           var mcCopy=mc;
           weekGrid.forEach(function(wd){
             if(wd){
-              var mealBlocks=(SC_MEALS[wd.di]&&SC_MEALS[wd.di][mealLabelCopy])?SC_MEALS[wd.di][mealLabelCopy]:[];
+              var wdMk=scMealKey(wd.di);
+              var mealBlocks=(SC_MEALS[wdMk]&&SC_MEALS[wdMk][mealLabelCopy])?SC_MEALS[wdMk][mealLabelCopy]:[];
               var mealAddBtn='<div onclick="event.stopPropagation();scOpenMealForm('+wd.di+',\''+mealLabelCopy+'\')" style="flex-shrink:0;font-size:11px;color:#D1D5DB;cursor:pointer;width:16px;height:16px;display:flex;align-items:center;justify-content:center;border-radius:3px;transition:all .15s" onmouseover="this.style.color=\''+mcCopy.border+'\';this.style.background=\''+mcCopy.bg+'\'" onmouseout="this.style.color=\'#D1D5DB\';this.style.background=\'transparent\'">＋</div>';
               var content='';
               if(mealBlocks.length===0){
@@ -3206,13 +3229,15 @@ function scSaveBlock(){
   if(mealType){
     /* 식사 블록 저장 */
     const newDi=parseInt(document.getElementById('sc-f-day').value);
+    const newMk=scMealKey(newDi);
     if(editDay!==''&&editBlock!==''){
       const odi=parseInt(editDay), obi=parseInt(editBlock);
-      if(SC_MEALS[odi]&&SC_MEALS[odi][mealType]) SC_MEALS[odi][mealType].splice(obi,1);
+      const oMk=scMealKey(odi);
+      if(SC_MEALS[oMk]&&SC_MEALS[oMk][mealType]) SC_MEALS[oMk][mealType].splice(obi,1);
     }
-    if(!SC_MEALS[newDi]) SC_MEALS[newDi]={};
-    if(!SC_MEALS[newDi][mealType]) SC_MEALS[newDi][mealType]=[];
-    SC_MEALS[newDi][mealType].push(newBlock);
+    if(!SC_MEALS[newMk]) SC_MEALS[newMk]={};
+    if(!SC_MEALS[newMk][mealType]) SC_MEALS[newMk][mealType]=[];
+    SC_MEALS[newMk][mealType].push(newBlock);
   } else {
     /* 일반 슬롯 블록 저장 */
     const di=parseInt(document.getElementById('sc-f-day').value);
@@ -3239,7 +3264,8 @@ function scDeleteBlock(){
   const di=parseInt(document.getElementById('sc-edit-day').value);
   const bi=parseInt(document.getElementById('sc-edit-block').value);
   if(mealType){
-    if(SC_MEALS[di]&&SC_MEALS[di][mealType]) SC_MEALS[di][mealType].splice(bi,1);
+    const mk=scMealKey(di);
+    if(SC_MEALS[mk]&&SC_MEALS[mk][mealType]) SC_MEALS[mk][mealType].splice(bi,1);
   } else {
     const si=parseInt(document.getElementById('sc-edit-slot').value);
     SC_DAYS[di].slots[si].blocks.splice(bi,1);
