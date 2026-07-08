@@ -2105,8 +2105,9 @@
       <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:10px">
         <div>
           <div style="font-size:11px;font-weight:600;color:#374151;margin-bottom:5px">💰 비용 (원) <span style="font-weight:400;color:#9CA3AF">(선택)</span></div>
-          <input id="sc-f-cost" type="number" min="0" step="1000" placeholder="예: 50000"
+          <input id="sc-f-cost" type="text" inputmode="numeric" placeholder="예: 50,000"
             style="width:100%;padding:9px 11px;border:1px solid #E5E7EB;border-radius:8px;font-size:13px;font-family:inherit;outline:none"
+            oninput="scFormatCostInput(this)"
             onfocus="this.style.borderColor='#0F3460'" onblur="this.style.borderColor='#E5E7EB'">
         </div>
         <div>
@@ -2454,6 +2455,15 @@ const SC_PAY_META={
 };
 function scPayMeta(p){ return SC_PAY_META[p]||SC_PAY_META.unpaid; }
 function scFormatWon(n){ return '₩'+Number(n||0).toLocaleString(); }
+/* 숫자만 남기고 3자리마다 콤마를 넣어 입력창에 실시간으로 반영 */
+function scFormatCostInput(el){
+  var raw=String(el.value||'').replace(/[^\d]/g,'');
+  el.value = raw ? Number(raw).toLocaleString('en-US') : '';
+}
+function scParseCostInput(v){
+  var n=parseInt(String(v||'').replace(/[^\d]/g,''),10);
+  return isNaN(n) ? 0 : n;
+}
 function scCostBadge(b){
   if(!b || !b.cost) return '';
   const pm=scPayMeta(b.pay);
@@ -2502,7 +2512,7 @@ function scGetTotalBudget(){
   return v>0 ? v : 8400000; // 기본값: 예상 예산표의 '적정' 합계(₩840만)
 }
 function scSetTotalBudget(v){
-  localStorage.setItem(SC_BUDGET_KEY, String(Number(v)||0));
+  localStorage.setItem(SC_BUDGET_KEY, String(scParseCostInput(v)));
   scRenderActualBudgetTab();
 }
 
@@ -2565,9 +2575,9 @@ function scRenderActualBudgetTab(){
     <div style="background:#fff;border-radius:14px;padding:18px 20px;box-shadow:0 2px 12px rgba(0,0,0,0.07)">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap">
         <label style="font-size:12px;font-weight:600;color:#374151">💰 전체 여행 예산</label>
-        <input id="budget-total-input" type="number" min="0" step="10000" value="${budget}"
+        <input id="budget-total-input" type="text" inputmode="numeric" value="${budget.toLocaleString('en-US')}"
           style="width:150px;padding:6px 10px;border:1px solid #E5E7EB;border-radius:8px;font-size:13px;font-family:inherit;outline:none"
-          onchange="scSetTotalBudget(this.value)">
+          oninput="scFormatCostInput(this)" onchange="scSetTotalBudget(this.value)">
         <span style="font-size:11px;color:#9CA3AF">원 (수정하면 자동 저장됩니다)</span>
       </div>
       <div style="display:flex;gap:24px;flex-wrap:wrap">
@@ -2788,7 +2798,7 @@ function scOpenMealForm(di,mealType,bi){
   var b=isEdit&&SC_MEALS[mk]&&SC_MEALS[mk][mealType]?SC_MEALS[mk][mealType][bi]:null;
   document.getElementById('sc-f-label').value=b?b.l:'';
   document.getElementById('sc-f-note').value=b&&b.n?b.n:'';
-  document.getElementById('sc-f-cost').value=b&&b.cost?b.cost:'';
+  document.getElementById('sc-f-cost').value=b&&b.cost?Number(b.cost).toLocaleString('en-US'):'';
   document.getElementById('sc-del-btn').style.display=isEdit?'block':'none';
   /* 슬롯 컬럼 → 식사구분 표시로 전환 */
   document.getElementById('sc-slot-label-div').style.display='none';
@@ -3204,7 +3214,7 @@ function scOpenEditForm(di,si,bi){
   document.getElementById('sc-edit-block').value=bi;
   document.getElementById('sc-f-label').value=b.l||'';
   document.getElementById('sc-f-note').value=b.n||'';
-  document.getElementById('sc-f-cost').value=b.cost||'';
+  document.getElementById('sc-f-cost').value=b.cost?Number(b.cost).toLocaleString('en-US'):'';
   document.getElementById('sc-del-btn').style.display='block';
   scResetMealMode();
   scFillSelects(di,si);
@@ -3219,8 +3229,7 @@ function scSaveBlock(){
   if(!label){ document.getElementById('sc-f-label').style.borderColor='#DC2626'; return; }
   document.getElementById('sc-f-label').style.borderColor='#E5E7EB';
   const note=document.getElementById('sc-f-note').value.trim();
-  const costVal=parseInt(document.getElementById('sc-f-cost').value,10);
-  const cost=isNaN(costVal)?0:costVal;
+  const cost=scParseCostInput(document.getElementById('sc-f-cost').value);
   const mealType=document.getElementById('sc-edit-meal-type').value;
   const editDay=document.getElementById('sc-edit-day').value;
   const editBlock=document.getElementById('sc-edit-block').value;
