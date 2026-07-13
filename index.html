@@ -269,8 +269,8 @@
     <span class="chip" style="background:var(--netherlands)">🇳🇱 네덜란드 8/10–17</span>
     <span class="chip" style="background:var(--conference)">🏛 국제대회 8/14–16</span>
     <span class="chip" style="background:var(--france)">🇫🇷 프랑스 8/17–22</span>
-    <span class="chip" style="background:var(--switzerland)">🇨🇭 스위스 8/22–27</span>
-    <span class="chip" style="background:var(--italy-north)">🇮🇹 이탈리아 8/27–9/3</span>
+    <span class="chip" style="background:var(--switzerland)">🇨🇭 스위스 8/22–26</span>
+    <span class="chip" style="background:var(--italy-north)">🇮🇹 이탈리아 8/26–9/3</span>
   </div>
 
   <div class="rate-banner">
@@ -318,15 +318,15 @@
     <div style="background:#fff;border-radius:14px;padding:16px 18px;box-shadow:0 2px 12px rgba(0,0,0,0.07);margin-bottom:16px">
       <div style="font-size:13px;font-weight:700;color:#1A1A2E;margin-bottom:12px">📊 예약 진행 현황</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
-        <span style="background:#DCFCE7;color:#16A34A;padding:4px 12px;border-radius:8px;font-size:12px;font-weight:700">✅ 완료 10건</span>
-        <span style="background:#FEF2F2;color:#DC2626;padding:4px 12px;border-radius:8px;font-size:12px;font-weight:700">🚨 긴급 3건</span>
+        <span style="background:#DCFCE7;color:#16A34A;padding:4px 12px;border-radius:8px;font-size:12px;font-weight:700">✅ 완료 11건</span>
+        <span style="background:#FEF2F2;color:#DC2626;padding:4px 12px;border-radius:8px;font-size:12px;font-weight:700">🚨 긴급 1건</span>
         <span style="background:#FEF3C7;color:#D97706;padding:4px 12px;border-radius:8px;font-size:12px;font-weight:700">⚡ 2달 전 1건</span>
         <span style="background:#F3F4F6;color:#374151;padding:4px 12px;border-radius:8px;font-size:12px;font-weight:700">📋 1달 전 5건</span>
       </div>
       <div style="height:10px;background:#E5E7EB;border-radius:5px;overflow:hidden;margin-bottom:6px">
-        <div style="height:100%;width:53%;background:linear-gradient(90deg,#16A34A,#22C55E);border-radius:5px"></div>
+        <div style="height:100%;width:61%;background:linear-gradient(90deg,#16A34A,#22C55E);border-radius:5px"></div>
       </div>
-      <div style="font-size:11px;color:#9CA3AF;text-align:right">전체 19건 중 10건 완료 (53%)</div>
+      <div style="font-size:11px;color:#9CA3AF;text-align:right">전체 18건 중 11건 완료 (61%)</div>
     </div>
 
     <!-- 확정 예약 요약 -->
@@ -348,35 +348,14 @@
         <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#F0FDF4;border-radius:8px;font-size:12px">
           <span>🏰</span><span style="font-weight:600">몽생미셸 당일 투어 (8/21) — 마이리얼트립</span><span style="margin-left:auto;color:#16A34A;font-weight:700;font-size:11px">EXP-00011990</span>
         </div>
-        <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#F0FDF4;border-radius:8px;font-size:12px">
-          <span>🏨</span><span style="font-weight:600">Hotel Casa Amsterdam (8/10~17)</span><span style="margin-left:auto;color:#16A34A;font-weight:700;font-size:11px">514293</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#F0FDF4;border-radius:8px;font-size:12px">
-          <span>🏨</span><span style="font-weight:600">파리 Westside Arc de Triomphe Hotel (8/17~22)</span><span style="margin-left:auto;color:#16A34A;font-weight:700;font-size:11px">완료</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#F0FDF4;border-radius:8px;font-size:12px">
-          <span>🏨</span><span style="font-weight:600">그린델발트 아파트 (8/22~27)</span><span style="margin-left:auto;color:#16A34A;font-weight:700;font-size:11px">완료</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#F0FDF4;border-radius:8px;font-size:12px">
-          <span>🏨</span><span style="font-weight:600">밀라노 숙소 (8/27~28)</span><span style="margin-left:auto;color:#16A34A;font-weight:700;font-size:11px">1742338358</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#F0FDF4;border-radius:8px;font-size:12px">
-          <span>🏨</span><span style="font-weight:600">로마 숙소 (8/30~9/3)</span><span style="margin-left:auto;color:#16A34A;font-weight:700;font-size:11px">1742335909</span>
-        </div>
+        <div id="dash-hotel-list" style="display:contents"></div>
       </div>
     </div>
 
     <!-- 긴급 할 일 -->
     <div style="background:#fff;border-radius:14px;padding:16px 18px;box-shadow:0 2px 12px rgba(0,0,0,0.07)">
       <div style="font-size:13px;font-weight:700;color:#DC2626;margin-bottom:10px">🚨 즉시 해야 할 일</div>
-      <div style="display:flex;flex-direction:column;gap:6px">
-        <div style="display:flex;align-items:flex-start;gap:8px;padding:8px 10px;background:#FEF2F2;border-radius:8px;font-size:12px;border-left:3px solid #DC2626">
-          <span>⚠️</span><div><b>피렌체 숙소 (8/28~30, 2박)</b><br><span style="color:#6B7280;font-size:11px">성수기 → 지금 바로 예약하세요</span></div>
-        </div>
-        <div style="display:flex;align-items:flex-start;gap:8px;padding:8px 10px;background:#FEF2F2;border-radius:8px;font-size:12px;border-left:3px solid #DC2626">
-          <span>⚠️</span><div><b>최후의 만찬 (밀라노, 8/27) — vivaticket.com</b><br><span style="color:#6B7280;font-size:11px">2~3개월 전 예약 필수. 지금 이미 빡빡해요!</span></div>
-        </div>
-      </div>
+      <div id="dash-urgent-list" style="display:flex;flex-direction:column;gap:6px"></div>
     </div>
 
   </div>
@@ -949,10 +928,10 @@
       </div>
 
       <div class="tl-item">
-        <div class="tl-date">8/22–27</div>
+        <div class="tl-date">8/22–26</div>
         <div class="tl-card" style="border-left-color:var(--switzerland)">
-          <h3>🇨🇭 스위스 (5일) · 그린델발트 숙박</h3>
-          <p>그린델발트 아파트 (호스트: Elisabeth) · 8/22 오후 3시 체크인 ~ 8/27 오전 체크아웃. 융프라우요흐, 아이거 트레일, 인터라켄 당일치기 최적 거점.</p>
+          <h3>🇨🇭 스위스 (4일) · 그린델발트 숙박</h3>
+          <p>그린델발트 아파트 (호스트: Elisabeth) · 8/22 오후 3시 체크인 ~ 8/26 오전 체크아웃. 융프라우요흐, 아이거 트레일, 인터라켄 당일치기 최적 거점.</p>
           <div class="tl-meta">
             <span class="badge ok">✅ 숙소 예약완료 (에어비앤비)</span>
             <span class="badge urgent">융프라우요흐 티켓 예약</span>
@@ -962,25 +941,26 @@
       </div>
 
       <div class="tl-item">
-        <div class="tl-date">8/27<br>목</div>
+        <div class="tl-date">8/26<br>수</div>
         <div class="tl-card" style="border-left-color:var(--italy-north)">
           <h3>🇮🇹 이탈리아 입국 — 밀라노 (1박)</h3>
-          <p>스위스 → 밀라노 기차 (취리히발 약 3.5시간 / 루가노발 약 1시간). 두오모 저녁 방문 후 밀라노 1박.</p>
+          <p>스위스 → 밀라노 기차 (취리히발 약 3.5시간 / 루가노발 약 1시간). 호텔 파라디소 체크인(14:00) · 두오모 저녁 방문 후 밀라노 1박.</p>
           <div class="tl-meta">
-            <span class="badge urgent">최후의 만찬 2~3개월 전 예약!</span>
-            <span class="badge urgent">밀라노 숙소 예약 필요</span>
+            <span class="badge ok">✅ 숙소 예약완료 (아고다 · 호텔 파라디소 · 1742338358)</span>
           </div>
         </div>
       </div>
 
       <div class="tl-item">
-        <div class="tl-date">8/28–29</div>
+        <div class="tl-date">8/27–29</div>
         <div class="tl-card" style="border-left-color:var(--italy-north)">
-          <h3>🇮🇹 피렌체 (2박)</h3>
+          <h3>🇮🇹 피렌체 (2박) — Designer Apartments</h3>
           <p>밀라노 → 피렌체 기차 (약 2시간). 두오모 쿠폴라, 우피치, 폰테 베키오.</p>
           <div class="tl-meta">
+            <span class="badge ok">✅ 숙소 예약완료 (아고다 · 1746295046)</span>
             <span class="badge urgent">우피치 미술관 사전 예약</span>
             <span class="badge urgent">두오모 쿠폴라 사전 예약</span>
+            <span class="badge urgent">⚠️ 체크아웃 8/29, 로마 체크인 8/30 — 8/29 밤 숙소 미정</span>
           </div>
         </div>
       </div>
@@ -1262,252 +1242,10 @@
     <div style="margin-bottom:10px;display:flex;align-items:center;gap:8px">
       <span style="font-size:15px">✅</span>
       <span style="font-size:14px;font-weight:700;color:#1A1A2E">예약 완료된 숙소</span>
-      <span style="background:#16A34A;color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px">5건</span>
+      <span style="background:#16A34A;color:#fff;font-size:11px;font-weight:700;padding:2px 9px;border-radius:10px">6건</span>
     </div>
 
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;margin-bottom:28px">
-
-      <!-- 카드 0: Hotel Casa Amsterdam -->
-      <div style="background:#fff;border-radius:16px;box-shadow:0 2px 16px rgba(0,0,0,0.09);overflow:hidden;border:2px solid #BBF7D0;position:relative;">
-        <div style="background:linear-gradient(135deg,#0077B6,#00B4D8);padding:14px 18px;color:#fff;display:flex;align-items:center;gap:10px">
-          <span style="font-size:22px">🇳🇱</span>
-          <div>
-            <div style="font-size:14px;font-weight:700">Hotel Casa Amsterdam</div>
-            <div style="font-size:11px;opacity:0.85">암스테르담 · 호텔</div>
-          </div>
-          <span style="margin-left:auto;background:rgba(255,255,255,0.25);padding:3px 10px;border-radius:10px;font-size:11px;font-weight:700">✅ 예약완료</span>
-        </div>
-        <div style="padding:16px 18px">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
-            <div>
-              <div style="font-size:10px;color:#9CA3AF;font-weight:600;margin-bottom:2px">체크인</div>
-              <div style="font-size:14px;font-weight:700;color:#1A1A2E">8월 10일 (월)</div>
-              <div style="font-size:12px;color:#6B7280">여행 첫날</div>
-            </div>
-            <div>
-              <div style="font-size:10px;color:#9CA3AF;font-weight:600;margin-bottom:2px">체크아웃</div>
-              <div style="font-size:14px;font-weight:700;color:#1A1A2E">8월 17일 (월)</div>
-              <div style="font-size:12px;color:#6B7280">Eurostar 탑승일</div>
-            </div>
-          </div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
-            <div style="background:#F9FAFB;border-radius:8px;padding:7px 12px;flex:1;min-width:100px">
-              <div style="font-size:10px;color:#9CA3AF;font-weight:600">예약번호</div>
-              <div style="font-size:13px;font-weight:600;color:#1A1A2E">514293</div>
-            </div>
-            <div style="background:#F9FAFB;border-radius:8px;padding:7px 12px;flex:1;min-width:100px">
-              <div style="font-size:10px;color:#9CA3AF;font-weight:600">숙박 기간</div>
-              <div style="font-size:13px;font-weight:600;color:#1A1A2E">7박 8일</div>
-            </div>
-          </div>
-          <div style="background:#E0F7FF;border-radius:8px;padding:9px 12px;font-size:12px;color:#004D80;line-height:1.6;margin-bottom:10px">
-            🛏 Comfort Twin · 성인 2명<br>
-            🍳 조식 포함 (€10/인) · 도시세 12.5% 포함<br>
-            💳 총 금액: <b>€1,323.14</b>
-          </div>
-          <div style="display:flex;gap:6px;flex-wrap:wrap">
-            <div style="background:#DCFCE7;color:#16A34A;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:600">여호와 증인 특별 요금 (2026)</div>
-            <a href="https://hotelcasa.nl/" target="_blank" style="background:#EFF6FF;color:#2563EB;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:600;text-decoration:none">🌐 hotelcasa.nl</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- 카드 1: Westside Arc de Triomphe Hotel -->
-      <div style="
-        background:#fff;border-radius:16px;
-        box-shadow:0 2px 16px rgba(0,0,0,0.09);
-        overflow:hidden;border:2px solid #BBF7D0;
-        position:relative;
-      ">
-        <div style="background:linear-gradient(135deg,#F05A28,#FF8C5A);padding:14px 18px;color:#fff;display:flex;align-items:center;gap:10px">
-          <span style="font-size:22px">🇫🇷</span>
-          <div>
-            <div style="font-size:14px;font-weight:700">Westside Arc de Triomphe Hotel ★★★★☆</div>
-            <div style="font-size:11px;opacity:0.85">파리 17구 (개선문 인근) · 아고다</div>
-          </div>
-          <span style="margin-left:auto;background:rgba(255,255,255,0.25);padding:3px 10px;border-radius:10px;font-size:11px;font-weight:700">✅ 예약완료</span>
-        </div>
-        <div style="padding:16px 18px">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
-            <div>
-              <div style="font-size:10px;color:#9CA3AF;font-weight:600;margin-bottom:2px">체크인</div>
-              <div style="font-size:14px;font-weight:700;color:#1A1A2E">8월 17일 (월)</div>
-              <div style="font-size:12px;color:#6B7280">오후 3:00 이후</div>
-            </div>
-            <div>
-              <div style="font-size:10px;color:#9CA3AF;font-weight:600;margin-bottom:2px">체크아웃</div>
-              <div style="font-size:14px;font-weight:700;color:#1A1A2E">8월 22일 (토)</div>
-              <div style="font-size:12px;color:#6B7280">낮 12:00 (정식 마감) · ⚠️ 10:22 열차 타려면 오전 중 조기 출발 필요</div>
-            </div>
-          </div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
-            <div style="background:#F9FAFB;border-radius:8px;padding:7px 12px;flex:1;min-width:100px">
-              <div style="font-size:10px;color:#9CA3AF;font-weight:600">객실</div>
-              <div style="font-size:13px;font-weight:600;color:#1A1A2E">클래식 더블 · 1개</div>
-            </div>
-            <div style="background:#F9FAFB;border-radius:8px;padding:7px 12px;flex:1;min-width:100px">
-              <div style="font-size:10px;color:#9CA3AF;font-weight:600">숙박 기간</div>
-              <div style="font-size:13px;font-weight:600;color:#1A1A2E">5박 6일</div>
-            </div>
-          </div>
-          <div style="background:#FFF7ED;border-radius:8px;padding:9px 12px;font-size:12px;color:#92400E;line-height:1.6;margin-bottom:10px">
-            📍 36 Rue Pierre Demours, 75017 Paris, France<br>
-            👤 대표 투숙객: OH JOOMYEONG · 성인 2명<br>
-            📞 +33 1 47 64 67 67 &nbsp;·&nbsp; ✉️ resa.arc@watparis.com
-          </div>
-          <div style="background:#F9FAFB;border-radius:8px;padding:9px 12px;font-size:12px;color:#374151;line-height:1.7;margin-bottom:10px">
-            💳 <b>결제 정보</b><br>
-            객실 1개 × 5박 ₩726,733 + 세금·봉사료 ₩72,662<br>
-            아고다 앱 5번째 예약 할인 −₩85,751<br>
-            <b>총 결제금액 ₩713,644</b> (결제완료)
-          </div>
-          <div style="display:flex;gap:6px;flex-wrap:wrap">
-            <div style="background:#DCFCE7;color:#16A34A;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:600">무료 Wi-Fi</div>
-            <div style="background:#DCFCE7;color:#16A34A;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:600">익스프레스 체크인</div>
-            <div style="background:#EFF6FF;color:#2563EB;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:600">금연룸 요청</div>
-            <div style="background:#EFF6FF;color:#2563EB;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:600">넓은 침대 요청</div>
-            <div style="background:#EFF6FF;color:#2563EB;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:600">조용한 방 요청</div>
-          </div>
-          <div style="font-size:10px;color:#9CA3AF;margin-top:8px">※ 특별 요청 사항 반영 여부는 체크인 시 숙소 여건에 따라 달라질 수 있어요</div>
-        </div>
-      </div>
-
-      <!-- 카드 2: 그린델발트 아파트 -->
-      <div style="
-        background:#fff;border-radius:16px;
-        box-shadow:0 2px 16px rgba(0,0,0,0.09);
-        overflow:hidden;border:2px solid #BBF7D0;
-        position:relative;
-      ">
-        <div style="background:linear-gradient(135deg,#9B59B6,#C27DE0);padding:14px 18px;color:#fff;display:flex;align-items:center;gap:10px">
-          <span style="font-size:22px">🇨🇭</span>
-          <div>
-            <div style="font-size:14px;font-weight:700">그린델발트의 아파트</div>
-            <div style="font-size:11px;opacity:0.85">스위스 그린델발트 · 에어비앤비</div>
-          </div>
-          <span style="margin-left:auto;background:rgba(255,255,255,0.25);padding:3px 10px;border-radius:10px;font-size:11px;font-weight:700">✅ 예약완료</span>
-        </div>
-        <div style="padding:16px 18px">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
-            <div>
-              <div style="font-size:10px;color:#9CA3AF;font-weight:600;margin-bottom:2px">체크인</div>
-              <div style="font-size:14px;font-weight:700;color:#1A1A2E">8월 22일 (토)</div>
-              <div style="font-size:12px;color:#6B7280">오후 3:00 이후</div>
-            </div>
-            <div>
-              <div style="font-size:10px;color:#9CA3AF;font-weight:600;margin-bottom:2px">체크아웃</div>
-              <div style="font-size:14px;font-weight:700;color:#1A1A2E">8월 27일 (목)</div>
-              <div style="font-size:12px;color:#6B7280">오전 10:00</div>
-            </div>
-          </div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
-            <div style="background:#F9FAFB;border-radius:8px;padding:7px 12px;flex:1;min-width:100px">
-              <div style="font-size:10px;color:#9CA3AF;font-weight:600">호스트</div>
-              <div style="font-size:13px;font-weight:600;color:#1A1A2E">🙋 Elisabeth 님</div>
-            </div>
-            <div style="background:#F9FAFB;border-radius:8px;padding:7px 12px;flex:1;min-width:100px">
-              <div style="font-size:10px;color:#9CA3AF;font-weight:600">숙박 기간</div>
-              <div style="font-size:13px;font-weight:600;color:#1A1A2E">5박 6일</div>
-            </div>
-          </div>
-          <div style="background:#F5F3FF;border-radius:8px;padding:9px 12px;font-size:12px;color:#5B21B6;line-height:1.5">
-            🏔 그린델발트는 융프라우 & 아이거 등산 베이스캠프. 인터라켄 동역에서 기차 약 35분. 고도 약 1,034m로 여름에도 서늘해요.
-          </div>
-          <div style="margin-top:10px">
-            <div style="background:#DCFCE7;color:#16A34A;display:inline-block;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:600">융프라우 당일치기 최적 위치 🏔</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 카드 3: 밀라노 숙소 -->
-      <div style="
-        background:#fff;border-radius:16px;
-        box-shadow:0 2px 16px rgba(0,0,0,0.09);
-        overflow:hidden;border:2px solid #BBF7D0;
-        position:relative;
-      ">
-        <div style="background:linear-gradient(135deg,#27AE60,#52C78A);padding:14px 18px;color:#fff;display:flex;align-items:center;gap:10px">
-          <span style="font-size:22px">🇮🇹</span>
-          <div>
-            <div style="font-size:14px;font-weight:700">밀라노 숙소</div>
-            <div style="font-size:11px;opacity:0.85">이탈리아 밀라노 · Booking.com</div>
-          </div>
-          <span style="margin-left:auto;background:rgba(255,255,255,0.25);padding:3px 10px;border-radius:10px;font-size:11px;font-weight:700">✅ 예약완료</span>
-        </div>
-        <div style="padding:16px 18px">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
-            <div>
-              <div style="font-size:10px;color:#9CA3AF;font-weight:600;margin-bottom:2px">체크인</div>
-              <div style="font-size:14px;font-weight:700;color:#1A1A2E">8월 27일 (목)</div>
-              <div style="font-size:12px;color:#6B7280">오후 2:00 이후</div>
-            </div>
-            <div>
-              <div style="font-size:10px;color:#9CA3AF;font-weight:600;margin-bottom:2px">체크아웃</div>
-              <div style="font-size:14px;font-weight:700;color:#1A1A2E">8월 28일 (금)</div>
-              <div style="font-size:12px;color:#6B7280"></div>
-            </div>
-          </div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
-            <div style="background:#F9FAFB;border-radius:8px;padding:7px 12px;flex:1;min-width:100px">
-              <div style="font-size:10px;color:#9CA3AF;font-weight:600">예약 번호</div>
-              <div style="font-size:13px;font-weight:700;color:#0F3460;letter-spacing:0.5px">1742338358</div>
-            </div>
-            <div style="background:#F9FAFB;border-radius:8px;padding:7px 12px;flex:1;min-width:100px">
-              <div style="font-size:10px;color:#9CA3AF;font-weight:600">숙박 기간</div>
-              <div style="font-size:13px;font-weight:600;color:#1A1A2E">1박 2일</div>
-            </div>
-          </div>
-          <div style="background:#F0FDF4;border-radius:8px;padding:9px 12px;font-size:12px;color:#166534;line-height:1.5">
-            💳 2026년 8월 24일 결제 예정 · 무료 취소: 밀라노 현지 시간 8월 25일 23:59까지
-          </div>
-        </div>
-      </div>
-
-      <!-- 카드 4: 로마 숙소 -->
-      <div style="
-        background:#fff;border-radius:16px;
-        box-shadow:0 2px 16px rgba(0,0,0,0.09);
-        overflow:hidden;border:2px solid #BBF7D0;
-        position:relative;
-      ">
-        <div style="background:linear-gradient(135deg,#E74C3C,#FF6B6B);padding:14px 18px;color:#fff;display:flex;align-items:center;gap:10px">
-          <span style="font-size:22px">🇮🇹</span>
-          <div>
-            <div style="font-size:14px;font-weight:700">로마 숙소</div>
-            <div style="font-size:11px;opacity:0.85">이탈리아 로마 · Booking.com</div>
-          </div>
-          <span style="margin-left:auto;background:rgba(255,255,255,0.25);padding:3px 10px;border-radius:10px;font-size:11px;font-weight:700">✅ 예약완료</span>
-        </div>
-        <div style="padding:16px 18px">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
-            <div>
-              <div style="font-size:10px;color:#9CA3AF;font-weight:600;margin-bottom:2px">체크인</div>
-              <div style="font-size:14px;font-weight:700;color:#1A1A2E">8월 30일 (일)</div>
-              <div style="font-size:12px;color:#6B7280">오후 2:00 이후</div>
-            </div>
-            <div>
-              <div style="font-size:10px;color:#9CA3AF;font-weight:600;margin-bottom:2px">체크아웃</div>
-              <div style="font-size:14px;font-weight:700;color:#1A1A2E">9월 3일 (목)</div>
-              <div style="font-size:12px;color:#6B7280"></div>
-            </div>
-          </div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
-            <div style="background:#F9FAFB;border-radius:8px;padding:7px 12px;flex:1;min-width:100px">
-              <div style="font-size:10px;color:#9CA3AF;font-weight:600">예약 번호</div>
-              <div style="font-size:13px;font-weight:700;color:#0F3460;letter-spacing:0.5px">1742335909</div>
-            </div>
-            <div style="background:#F9FAFB;border-radius:8px;padding:7px 12px;flex:1;min-width:100px">
-              <div style="font-size:10px;color:#9CA3AF;font-weight:600">숙박 기간</div>
-              <div style="font-size:13px;font-weight:600;color:#1A1A2E">4박 5일</div>
-            </div>
-          </div>
-          <div style="background:#F0FDF4;border-radius:8px;padding:9px 12px;font-size:12px;color:#166534;line-height:1.5">
-            💳 2026년 8월 25일 결제 예정 · 무료 취소: 로마 현지 시간 8월 26일 23:59까지
-          </div>
-        </div>
-      </div>
-
-    </div>
+    <div id="hotel-cards-container" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;margin-bottom:28px"></div>
 
     <!-- 예약 필요 숙소 -->
     <div style="margin-bottom:10px;display:flex;align-items:center;gap:8px">
@@ -1522,62 +1260,7 @@
             <th>국가/도시</th><th>기간</th><th>박수</th><th>추천 지역</th><th>예산/박</th><th>예약 시기</th><th>비고</th>
           </tr>
         </thead>
-        <tbody>
-          <tr style="background:#F0FDF4">
-            <td><span class="country-dot" style="background:var(--netherlands)"></span><b>암스테르담</b></td>
-            <td>8/10~17</td>
-            <td>7박</td>
-            <td>Hotel Casa Amsterdam</td>
-            <td>€1,323.14</td>
-            <td><span class="badge ok">✅ 예약완료</span></td>
-            <td>예약번호: 514293 · Comfort Twin · 조식 포함 · <a href="https://hotelcasa.nl/" target="_blank" style="color:#2563EB">hotelcasa.nl</a></td>
-          </tr>
-          <tr style="background:#F0FDF4">
-            <td><span class="country-dot" style="background:var(--france)"></span><b>파리 (개선문 인근)</b></td>
-            <td>8/17~22</td>
-            <td>5박</td>
-            <td>Westside Arc de Triomphe Hotel</td>
-            <td>₩713,644</td>
-            <td><span class="badge ok">✅ 예약완료</span></td>
-            <td>클래식 더블 · 성인 2명 · 아고다 · 체크아웃 낮 12:00</td>
-          </tr>
-          <tr style="background:#F0FDF4">
-            <td><span class="country-dot" style="background:var(--switzerland)"></span><b>그린델발트</b></td>
-            <td>8/22~27</td>
-            <td>5박</td>
-            <td>그린델발트 아파트</td>
-            <td>—</td>
-            <td><span class="badge ok">✅ 예약완료</span></td>
-            <td>호스트: Elisabeth · 에어비앤비 · 체크인 15:00 / 체크아웃 10:00</td>
-          </tr>
-          <tr style="background:#F0FDF4">
-            <td><span class="country-dot" style="background:var(--italy-north)"></span><b>밀라노</b></td>
-            <td>8/27~28</td>
-            <td>1박</td>
-            <td>중앙역 / 두오모 근처</td>
-            <td>—</td>
-            <td><span class="badge ok">✅ 예약완료</span></td>
-            <td>예약번호: 1742338358 · 무료취소 8/25까지</td>
-          </tr>
-          <tr>
-            <td><span class="country-dot" style="background:var(--italy-north)"></span><b>피렌체</b></td>
-            <td>8/28~30</td>
-            <td>2박</td>
-            <td>산타 마리아 노벨라역 근처</td>
-            <td>€80~140</td>
-            <td><span class="badge urgent">즉시 예약</span></td>
-            <td>두오모 도보권 선호</td>
-          </tr>
-          <tr style="background:#F0FDF4">
-            <td><span class="country-dot" style="background:var(--italy-north)"></span><b>로마</b></td>
-            <td>8/30~9/3</td>
-            <td>4박</td>
-            <td>테르미니역 / 나보나 광장 주변</td>
-            <td>—</td>
-            <td><span class="badge ok">✅ 예약완료</span></td>
-            <td>예약번호: 1742335909 · 무료취소 8/26까지</td>
-          </tr>
-        </tbody>
+        <tbody id="hotel-ref-tbody"></tbody>
       </table>
     </div>
 
@@ -1601,6 +1284,175 @@
 
       <script>
       /* ══════════════════════════════════════
+         숙소 데이터 (단일 소스) — 카드/참고테이블/대시보드/예약사이트목록이
+         전부 이 배열 하나에서 렌더링되어, 정보가 바뀌면 한 곳만 고치면 됨
+      ══════════════════════════════════════ */
+      const HOTELS = [
+        { id:'ams', flag:'🇳🇱', name:'Hotel Casa Amsterdam', subtitle:'암스테르담 · 호텔', grad:['#0077B6','#00B4D8'],
+          checkin:{date:'8월 10일 (월)', note:'여행 첫날'}, checkout:{date:'8월 17일 (월)', note:'Eurostar 탑승일'},
+          chips:[{label:'예약번호', value:'514293'},{label:'숙박 기간', value:'7박 8일'}],
+          boxes:[{bg:'#E0F7FF', color:'#004D80', html:'🛏 Comfort Twin · 성인 2명<br>🍳 조식 포함 (€10/인) · 도시세 12.5% 포함<br>💳 총 금액: <b>€1,323.14</b>'}],
+          tags:[{text:'여호와 증인 특별 요금 (2026)', bg:'#DCFCE7', color:'#16A34A'}],
+          link:{label:'🌐 hotelcasa.nl', url:'https://hotelcasa.nl/'},
+          ref:{city:'암스테르담', dates:'8/10~17', nights:'7박', place:'Hotel Casa Amsterdam', budget:'€1,323.14', status:'ok',
+               note:'예약번호: 514293 · Comfort Twin · 조식 포함 · <a href="https://hotelcasa.nl/" target="_blank" style="color:#2563EB">hotelcasa.nl</a>'},
+          dash:{label:'Hotel Casa Amsterdam (8/10~17)', code:'514293'},
+          bg:{label:'Hotel Casa Amsterdam (8/10~17)', sub:'예약번호: 514293 · Comfort Twin · 조식 포함 · €1,323.14', url:'https://hotelcasa.nl/', icon:'🏨', iconBg:'#0077B6'}
+        },
+        { id:'paris', flag:'🇫🇷', name:'Westside Arc de Triomphe Hotel ★★★★', subtitle:'파리 17구 (개선문 인근) · 아고다', grad:['#F05A28','#FF8C5A'],
+          checkin:{date:'8월 17일 (월)', note:'오후 3:00 이후'}, checkout:{date:'8월 22일 (토)', note:'낮 12:00 (정식 마감) · ⚠️ 10:22 열차 타려면 오전 중 조기 출발 필요'},
+          chips:[{label:'예약번호 / 참조코드', value:'1745952596 / 48139114'},{label:'객실 · 숙박 기간', value:'클래식 더블 · 5박 6일'}],
+          boxes:[
+            {bg:'#FFF7ED', color:'#92400E', html:'📍 36 Rue Pierre Demours, 75017 Paris, France<br>👤 대표 투숙객: OH JOOMYEONG · 성인 2명<br>📞 +33 1 47 64 67 67 &nbsp;·&nbsp; ✉️ resa.arc@watparis.com'},
+            {bg:'#F9FAFB', color:'#374151', html:'💳 <b>결제 정보</b> (전자지갑 결제 · AgodaCash 적립)<br>객실 1개 × 5박 ₩726,733 + 세금·봉사료 ₩72,662<br>아고다 앱 5번째 예약 할인 −₩85,751<br><b>총 결제금액 ₩713,644</b> (결제완료)'},
+            {bg:'#FEF2F2', color:'#DC2626', html:'🚫 <b>환불 불가 예약</b> — 수정·변경 불가, 노쇼 시 요금 100% 부과 (7/9 10:34 파리시간부터 적용)'}
+          ],
+          tags:[{text:'무료 Wi-Fi', bg:'#DCFCE7', color:'#16A34A'},{text:'익스프레스 체크인', bg:'#DCFCE7', color:'#16A34A'},{text:'금연룸 요청', bg:'#EFF6FF', color:'#2563EB'},{text:'넓은 침대 요청', bg:'#EFF6FF', color:'#2563EB'},{text:'조용한 방 요청', bg:'#EFF6FF', color:'#2563EB'}],
+          footnote:'※ 특별 요청 사항 반영 여부는 체크인 시 숙소 여건에 따라 달라질 수 있어요',
+          ref:{city:'파리 (개선문 인근)', dates:'8/17~22', nights:'5박', place:'Westside Arc de Triomphe Hotel', budget:'₩713,644', status:'ok',
+               note:'클래식 더블 · 성인 2명 · 아고다 · 체크아웃 낮 12:00'},
+          dash:{label:'파리 Westside Arc de Triomphe Hotel (8/17~22)', code:'완료'},
+          bg:{label:'Agoda — Westside Arc de Triomphe Hotel', sub:'파리 8/17~22 · 클래식 더블 · ₩713,644 결제완료', url:'https://www.agoda.com/', icon:'🏨', iconBg:'#5F259F'}
+        },
+        { id:'grin', flag:'🇨🇭', name:'그린델발트의 아파트', subtitle:'스위스 그린델발트 · 에어비앤비', grad:['#9B59B6','#C27DE0'],
+          checkin:{date:'8월 22일 (토)', note:'오후 3:00 이후'}, checkout:{date:'8월 26일 (수)', note:'오전 10:00'},
+          chips:[{label:'호스트', value:'🙋 Elisabeth 님'},{label:'숙박 기간', value:'4박 5일'}],
+          boxes:[{bg:'#F5F3FF', color:'#5B21B6', html:'🏔 그린델발트는 융프라우 & 아이거 등산 베이스캠프. 인터라켄 동역에서 기차 약 35분. 고도 약 1,034m로 여름에도 서늘해요.'}],
+          tags:[{text:'융프라우 당일치기 최적 위치 🏔', bg:'#DCFCE7', color:'#16A34A'}],
+          ref:{city:'그린델발트', dates:'8/22~26', nights:'4박', place:'그린델발트 아파트', budget:'—', status:'ok',
+               note:'호스트: Elisabeth · 에어비앤비 · 체크인 15:00 / 체크아웃 10:00'},
+          dash:{label:'그린델발트 아파트 (8/22~26)', code:'완료'},
+          bg:{label:'Airbnb — 그린델발트 아파트', sub:'스위스 8/22~26 · 호스트: Elisabeth', url:'https://www.airbnb.co.kr/', icon:'🏠', iconBg:'#FF5A5F'}
+        },
+        { id:'milan', flag:'🇮🇹', name:'호텔 파라디소 (Hotel Paradiso) ★★', subtitle:'이탈리아 밀라노 · 아고다', grad:['#27AE60','#52C78A'],
+          checkin:{date:'8월 26일 (수)', note:'오후 2:00 이후'}, checkout:{date:'8월 27일 (목)', note:''},
+          chips:[{label:'예약 번호', value:'1742338358'},{label:'숙박 기간', value:'1박 2일'}],
+          boxes:[
+            {bg:'#ECFDF5', color:'#166534', html:'📍 85 Via Benedetto Marcello, 밀라노/밀란, 이탈리아 20124<br>📞 +39 351 597 9982'},
+            {bg:'#F9FAFB', color:'#374151', html:'💳 <b>결제 정보</b> (자동결제 예정일 2026.8.21 · 후지불)<br>객실 1개 × 1박 €71.54 + 세금·봉사료 €7.15<br><b>현재 요금 €78.69</b> (도시세 별도 — 숙소에서 KRW 13,978 현장 결제)<br>결제일에 Bloomberg 환율 기준 5% 추가 포함 <b>약 €82.62</b> 청구 예정'},
+            {bg:'#F0FDF4', color:'#166534', html:'✅ <b>무료 취소:</b> 밀라노 현지 시간 8월 24일 23:59까지 · 신용카드 등록 불필요(후지불 예약)'}
+          ],
+          ref:{city:'밀라노', dates:'8/26~27', nights:'1박', place:'호텔 파라디소 (중앙역 근처)', budget:'€78.69', status:'ok',
+               note:'예약번호: 1742338358 · 아고다 · 무료취소 8/24까지'},
+          dash:{label:'호텔 파라디소 밀라노 (8/26~27) · 아고다', code:'1742338358'},
+          bg:{label:'Agoda — 호텔 파라디소 (Hotel Paradiso)', sub:'밀라노 8/26~27 · €78.69 · 자동결제 8/21 · 무료취소 8/24까지', url:'https://www.agoda.com/', icon:'🏨', iconBg:'#5F259F'}
+        },
+        { id:'flor', flag:'🇮🇹', name:'Designer Apartments in Florence ★★★☆ (3.5)', subtitle:'이탈리아 피렌체 역사 지구 · 아고다', grad:['#7C3AED','#A78BFA'],
+          checkin:{date:'8월 27일 (목)', note:''}, checkout:{date:'8월 29일 (토)', note:''},
+          chips:[{label:'예약번호', value:'1746295046'},{label:'객실 · 숙박 기간', value:'아파트먼트(퀸베드 2개) · 2박 3일'}],
+          boxes:[
+            {bg:'#F5F3FF', color:'#5B21B6', html:'📍 Via delle Porte Nuove, Firenze/Florence, Italia 50144<br>👤 대표 투숙객: JOOMYEONGOH · 성인 2명<br>🎁 혜택: 커피 &amp; 차, 무료 Wi-Fi'},
+            {bg:'#F9FAFB', color:'#374151', html:'💳 <b>결제 정보</b> (자동결제 예정일 2026.8.21)<br>객실 1개 × 2박 €130.64 + 세금·봉사료 €13.06 + 추가요금 €50.00<br><b>총 €193.70</b> — 2026년 8월 22일(토) 현지 환율로 KRW 자동 청구 예정'},
+            {bg:'#F0FDF4', color:'#166534', html:'✅ <b>무료 취소:</b> 피렌체 현지 시간 8월 23일 23:59까지 · 8월 24일부터 환불 불가 (체크인 3일 이내 취소 시 전체 숙박요금 부과)'}
+          ],
+          ref:{city:'피렌체', dates:'8/27~29', nights:'2박', place:'Designer Apartments in Florence', budget:'€193.70', status:'ok',
+               note:'예약번호: 1746295046'},
+          dash:{label:'피렌체 Designer Apartments (8/27~29)', code:'1746295046'},
+          bg:{label:'Agoda — Designer Apartments in Florence', sub:'피렌체 8/27~29 · €193.70 결제예정(8/21 자동)', url:'https://www.agoda.com/', icon:'🏨', iconBg:'#7C3AED'}
+        },
+        { id:'gap-flor-roma', gap:true,
+          ref:{city:'피렌체 or 인근', dates:'8/29~30', nights:'1박', place:'피렌체 시내 or 로마행 이동 경로상', budget:'미정', status:'urgent',
+               note:'피렌체 체크아웃(8/29)과 로마 체크인(8/30) 사이 하루 숙소가 비어있어요'}
+        },
+        { id:'roma', flag:'🇮🇹', name:'로마 숙소', subtitle:'이탈리아 로마 · Booking.com', grad:['#E74C3C','#FF6B6B'],
+          checkin:{date:'8월 30일 (일)', note:'오후 2:00 이후'}, checkout:{date:'9월 3일 (목)', note:''},
+          chips:[{label:'예약 번호', value:'1742335909'},{label:'숙박 기간', value:'4박 5일'}],
+          boxes:[{bg:'#F0FDF4', color:'#166534', html:'💳 2026년 8월 25일 결제 예정 · 무료 취소: 로마 현지 시간 8월 26일 23:59까지'}],
+          ref:{city:'로마', dates:'8/30~9/3', nights:'4박', place:'테르미니역 / 나보나 광장 주변', budget:'—', status:'ok',
+               note:'예약번호: 1742335909 · 무료취소 8/26까지'},
+          dash:{label:'로마 숙소 (8/30~9/3)', code:'1742335909'},
+          bg:{label:'로마 숙소 (8/30~9/3)', sub:'예약번호: 1742335909 · 무료취소 8/26까지', url:'https://www.booking.com', icon:'🏨', iconBg:'#003580'}
+        },
+      ];
+
+      /* 아직 해결 안 된 긴급 사항 — 대시보드 "즉시 해야 할 일" 카드와
+         체크리스트 탭 "즉시 예약 필수" 카드가 이 배열 하나를 공유함 */
+      const URGENT_ITEMS = [
+        { title:'피렌체~로마 사이 숙소 미정 (8/29~30, 1박)',
+          detail:'피렌체 체크아웃(8/29)과 로마 체크인(8/30) 사이 하루가 비어있어요. 숙소를 예약하거나 로마 체크인을 하루 앞당겨주세요',
+          checklistLabel:'피렌체~로마 사이 숙소 (8/29~30, 1박) — 현재 미정' }
+      ];
+
+      /* ── HOTELS 기반 렌더 함수들 ── */
+      function renderHotelCards(){
+        var el = document.getElementById('hotel-cards-container');
+        if(!el) return;
+        el.innerHTML = HOTELS.filter(function(h){ return !h.gap; }).map(function(h){
+          var chips = (h.chips||[]).map(function(c){
+            return '<div style="background:#F9FAFB;border-radius:8px;padding:7px 12px;flex:1;min-width:100px">'+
+                   '<div style="font-size:10px;color:#9CA3AF;font-weight:600">'+c.label+'</div>'+
+                   '<div style="font-size:13px;font-weight:600;color:#1A1A2E">'+c.value+'</div></div>';
+          }).join('');
+          var boxes = (h.boxes||[]).map(function(b){
+            return '<div style="background:'+b.bg+';border-radius:8px;padding:9px 12px;font-size:12px;color:'+b.color+';line-height:1.6;margin-bottom:10px">'+b.html+'</div>';
+          }).join('');
+          var tags = (h.tags||[]).map(function(t){
+            return '<div style="background:'+t.bg+';color:'+t.color+';padding:3px 10px;border-radius:8px;font-size:11px;font-weight:600">'+t.text+'</div>';
+          }).join('');
+          var link = h.link ? '<a href="'+h.link.url+'" target="_blank" style="background:#EFF6FF;color:#2563EB;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:600;text-decoration:none">'+h.link.label+'</a>' : '';
+          return '<div style="background:#fff;border-radius:16px;box-shadow:0 2px 16px rgba(0,0,0,0.09);overflow:hidden;border:2px solid #BBF7D0;position:relative;">'+
+            '<div style="background:linear-gradient(135deg,'+h.grad[0]+','+h.grad[1]+');padding:14px 18px;color:#fff;display:flex;align-items:center;gap:10px">'+
+              '<span style="font-size:22px">'+h.flag+'</span>'+
+              '<div><div style="font-size:14px;font-weight:700">'+h.name+'</div><div style="font-size:11px;opacity:0.85">'+h.subtitle+'</div></div>'+
+              '<span style="margin-left:auto;background:rgba(255,255,255,0.25);padding:3px 10px;border-radius:10px;font-size:11px;font-weight:700">✅ 예약완료</span>'+
+            '</div>'+
+            '<div style="padding:16px 18px">'+
+              '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">'+
+                '<div><div style="font-size:10px;color:#9CA3AF;font-weight:600;margin-bottom:2px">체크인</div><div style="font-size:14px;font-weight:700;color:#1A1A2E">'+h.checkin.date+'</div><div style="font-size:12px;color:#6B7280">'+h.checkin.note+'</div></div>'+
+                '<div><div style="font-size:10px;color:#9CA3AF;font-weight:600;margin-bottom:2px">체크아웃</div><div style="font-size:14px;font-weight:700;color:#1A1A2E">'+h.checkout.date+'</div><div style="font-size:12px;color:#6B7280">'+h.checkout.note+'</div></div>'+
+              '</div>'+
+              '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">'+chips+'</div>'+
+              boxes+
+              (tags?('<div style="display:flex;gap:6px;flex-wrap:wrap">'+tags+link+'</div>'):(link?('<div style="display:flex;gap:6px;flex-wrap:wrap">'+link+'</div>'):''))+
+              (h.footnote?('<div style="font-size:10px;color:#9CA3AF;margin-top:8px">'+h.footnote+'</div>'):'')+
+            '</div></div>';
+        }).join('');
+      }
+
+      function renderHotelRefRows(){
+        var el = document.getElementById('hotel-ref-tbody');
+        if(!el) return;
+        el.innerHTML = HOTELS.map(function(h){
+          var r = h.ref;
+          var badge = r.status==='ok' ? '<span class="badge ok">✅ 예약완료</span>' : '<span class="badge urgent">🚨 예약 필요</span>';
+          return '<tr'+(r.status==='ok'?' style="background:#F0FDF4"':'')+'>'+
+            '<td><span class="country-dot" style="background:var(--'+cssVarForCity(r.city)+')"></span><b>'+r.city+'</b></td>'+
+            '<td>'+r.dates+'</td><td>'+r.nights+'</td><td>'+r.place+'</td><td>'+r.budget+'</td><td>'+badge+'</td><td>'+r.note+'</td>'+
+          '</tr>';
+        }).join('');
+      }
+      function cssVarForCity(city){
+        if(city.indexOf('암스테르담')>-1) return 'netherlands';
+        if(city.indexOf('파리')>-1) return 'france';
+        if(city.indexOf('그린델발트')>-1) return 'switzerland';
+        return 'italy-north';
+      }
+
+      function renderDashboardHotels(){
+        var el = document.getElementById('dash-hotel-list');
+        if(!el) return;
+        el.innerHTML = HOTELS.filter(function(h){ return !h.gap; }).map(function(h){
+          return '<div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#F0FDF4;border-radius:8px;font-size:12px">'+
+            '<span>🏨</span><span style="font-weight:600">'+h.dash.label+'</span><span style="margin-left:auto;color:#16A34A;font-weight:700;font-size:11px">'+h.dash.code+'</span></div>';
+        }).join('');
+      }
+
+      function renderUrgentItems(){
+        var el = document.getElementById('dash-urgent-list');
+        if(el){
+          el.innerHTML = URGENT_ITEMS.map(function(u){
+            return '<div style="display:flex;align-items:flex-start;gap:8px;padding:8px 10px;background:#FEF2F2;border-radius:8px;font-size:12px;border-left:3px solid #DC2626">'+
+              '<span>⚠️</span><div><b>'+u.title+'</b><br><span style="color:#6B7280;font-size:11px">'+u.detail+'</span></div></div>';
+          }).join('');
+        }
+        var gapRow = document.getElementById('c-gap');
+        if(gapRow && URGENT_ITEMS[0]){
+          var lbl = gapRow.nextElementSibling;
+          if(lbl) lbl.textContent = URGENT_ITEMS[0].checklistLabel;
+        }
+      }
+
+      /* ══════════════════════════════════════
          예약 링크 데이터 & 렌더 엔진
       ══════════════════════════════════════ */
       const LINK_STORAGE_KEY = 'booking-links-v1';
@@ -1619,22 +1471,17 @@
           items: [
             { id: 'eurostar', icon: '🚄', iconBg: '#003D6B', label: 'Eurostar (AMS→PAR)', sub: '8/17 · No.9344 · Coach 16', defaultUrl: 'https://www.eurostar.com/rw-en', status: 'done' },
             { id: 'tgv',     icon: '🚄', iconBg: '#9B59B6', label: 'TGV Lyria PAR→바젤 SBB', sub: '8/22 · 10:22→13:26 · LKL82J · Coach 13', defaultUrl: 'https://www.sncf-connect.com', status: 'done' },
-            { id: 'sbb',     icon: '🚄', iconBg: '#EB0000', label: 'SBB 취리히→밀라노', sub: '8/27 · 루가노 경유', defaultUrl: 'https://www.sbb.ch/en', status: 'need' },
-            { id: 'tre-mfl', icon: '🚄', iconBg: '#009246', label: 'Trenitalia 밀라노→피렌체', sub: '8/28 · 고속열차', defaultUrl: 'https://www.trenitalia.com', status: 'need' },
+            { id: 'sbb',     icon: '🚄', iconBg: '#EB0000', label: 'SBB 취리히→밀라노', sub: '8/26 · 루가노 경유', defaultUrl: 'https://www.sbb.ch/en', status: 'need' },
+            { id: 'tre-mfl', icon: '🚄', iconBg: '#009246', label: 'Trenitalia 밀라노→피렌체', sub: '8/27 · 고속열차', defaultUrl: 'https://www.trenitalia.com', status: 'need' },
             { id: 'tre-fro', icon: '🚄', iconBg: '#009246', label: 'Trenitalia 피렌체→로마', sub: '8/30 · 프레차로사', defaultUrl: 'https://www.trenitalia.com', status: 'need' }
           ]
         },
         {
           id: 'hotel', icon: '🏨', label: '숙소',
           headerBg: 'linear-gradient(135deg,#FF5A5F,#E31C5F)',
-          items: [
-            { id: 'h-paris', icon: '🏨', iconBg: '#5F259F', label: 'Agoda — Westside Arc de Triomphe Hotel', sub: '파리 8/17~22 · 클래식 더블 · ₩713,644 결제완료', defaultUrl: 'https://www.agoda.com/', status: 'done' },
-            { id: 'h-grin',  icon: '🏠', iconBg: '#FF5A5F', label: 'Airbnb — 그린델발트 아파트', sub: '스위스 8/22~27 · 호스트: Elisabeth', defaultUrl: 'https://www.airbnb.co.kr/', status: 'done' },
-            { id: 'h-ams',   icon: '🏨', iconBg: '#0077B6', label: 'Hotel Casa Amsterdam (8/10~17)', sub: '예약번호: 514293 · Comfort Twin · 조식 포함 · €1,323.14', defaultUrl: 'https://hotelcasa.nl/', status: 'done' },
-            { id: 'h-milan', icon: '🏨', iconBg: '#003580', label: '밀라노 숙소 (8/27~28)', sub: '예약번호: 1742338358 · 무료취소 8/25까지', defaultUrl: 'https://www.booking.com', status: 'done' },
-            { id: 'h-flor',  icon: '🏨', iconBg: '#003580', label: '피렌체 숙소 (8/28~30)', sub: '2박 · 즉시 예약 필요!', defaultUrl: '', status: 'urgent' },
-            { id: 'h-rome',  icon: '🏨', iconBg: '#003580', label: '로마 숙소 (8/30~9/3)', sub: '예약번호: 1742335909 · 무료취소 8/26까지', defaultUrl: 'https://www.booking.com', status: 'done' }
-          ]
+          items: HOTELS.filter(function(h){ return !h.gap; }).map(function(h){
+            return { id:'h-'+h.id, icon:h.bg.icon, iconBg:h.bg.iconBg, label:h.bg.label, sub:h.bg.sub, defaultUrl:h.bg.url, status:'done' };
+          })
         },
         {
           id: 'ticket', icon: '🎟', label: '명소 입장권',
@@ -1642,7 +1489,6 @@
           items: [
             { id: 'msm',     icon: '🏰', iconBg: '#1A5276', label: '몽생미셸 당일 투어 (8/21)', sub: '마이리얼트립 · EXP-20260702-00011990 · 06:30 트로카데로', defaultUrl: 'https://www.myrealtrip.com/', status: 'done' },
             { id: 'louvre',  icon: '🏛', iconBg: '#704214', label: '루브르 박물관', sub: 'ticketlouvre.fr · 8/19 14:00', defaultUrl: 'https://www.ticketlouvre.fr', status: 'done' },
-            { id: 'lc',      icon: '🖼', iconBg: '#1B4F72', label: '최후의 만찬 (밀라노)', sub: 'vivaticket.com · 2~3달 전 마감 주의!', defaultUrl: 'https://www.vivaticket.com', status: 'urgent' },
             { id: 'vatican', icon: '⛪', iconBg: '#FFD700', label: '바티칸 박물관', sub: 'museivaticani.va · 로마', defaultUrl: 'https://www.museivaticani.va', status: 'warn' },
             { id: 'versail', icon: '🏰', iconBg: '#C9A84C', label: '베르사유 궁전', sub: 'chateauversailles.fr · 파리', defaultUrl: 'https://www.chateauversailles.fr', status: 'warn' },
             { id: 'colos',   icon: '🏟', iconBg: '#8B6914', label: '콜로세움 + 로마 포럼', sub: 'colosseo.it · 로마', defaultUrl: 'https://www.colosseo.it', status: 'normal' },
@@ -1782,15 +1628,15 @@
         <div style="font-size:12px;font-weight:700;color:#1A1A2E">📊 예약 진행 현황</div>
         <div style="display:flex;gap:10px;flex-wrap:wrap">
           <span style="display:flex;align-items:center;gap:5px;font-size:12px"><span style="background:#DCFCE7;color:#16A34A;padding:2px 8px;border-radius:6px;font-weight:700">✅ 완료 6건</span></span>
-          <span style="display:flex;align-items:center;gap:5px;font-size:12px"><span style="background:#FEF2F2;color:#DC2626;padding:2px 8px;border-radius:6px;font-weight:700">🚨 긴급 2건</span></span>
+          <span style="display:flex;align-items:center;gap:5px;font-size:12px"><span style="background:#FEF2F2;color:#DC2626;padding:2px 8px;border-radius:6px;font-weight:700">🚨 긴급 1건</span></span>
           <span style="display:flex;align-items:center;gap:5px;font-size:12px"><span style="background:#FEF3C7;color:#D97706;padding:2px 8px;border-radius:6px;font-weight:700">⚡ 2달 전 2건</span></span>
           <span style="display:flex;align-items:center;gap:5px;font-size:12px"><span style="background:#F3F4F6;color:#374151;padding:2px 8px;border-radius:6px;font-weight:700">📋 1달 전 5건</span></span>
         </div>
         <div style="margin-left:auto">
           <div style="height:8px;width:180px;background:#E5E7EB;border-radius:4px;overflow:hidden">
-            <div style="height:100%;width:40%;background:linear-gradient(90deg,#16A34A,#22C55E);border-radius:4px"></div>
+            <div style="height:100%;width:46%;background:linear-gradient(90deg,#16A34A,#22C55E);border-radius:4px"></div>
           </div>
-          <div style="font-size:10px;color:#9CA3AF;margin-top:3px;text-align:right">전체 15건 중 6건 완료 (40%)</div>
+          <div style="font-size:10px;color:#9CA3AF;margin-top:3px;text-align:right">전체 13건 중 6건 완료 (46%)</div>
         </div>
       </div>
     </div>
@@ -1810,20 +1656,16 @@
           <span class="priority p-low" style="background:#DCFCE7;color:#16A34A">✅ EXP-00011990</span>
         </div>
         <div class="check-item">
-          <input type="checkbox" id="c2"><label for="c2">최후의 만찬 (밀라노) — vivaticket.com<br><small style="color:#9CA3AF">8/27 방문 예정 → 최소 6월 중 예약</small></label>
+          <input type="checkbox" id="c-gap"><label for="c-gap">피렌체~로마 사이 숙소 (8/29~30, 1박) — 현재 미정</label>
           <span class="priority p-high">긴급</span>
         </div>
         <div class="check-item">
-          <input type="checkbox" id="c3"><label for="c3">국제대회 기간 암스테르담 숙소 (8/14~17)</label>
-          <span class="priority p-high">긴급</span>
-        </div>
-        <div class="check-item">
-          <input type="checkbox" id="c4" checked><label for="c4" style="text-decoration:line-through;color:#9CA3AF">밀라노 숙소 (8/27~28, 1박)</label>
+          <input type="checkbox" id="c4" checked><label for="c4" style="text-decoration:line-through;color:#9CA3AF">밀라노 숙소 (8/26~27, 1박) — 아고다</label>
           <span class="priority p-low" style="background:#DCFCE7;color:#16A34A">✅ 1742338358</span>
         </div>
         <div class="check-item">
-          <input type="checkbox" id="c4b"><label for="c4b">피렌체 숙소 (8/28~30, 2박)</label>
-          <span class="priority p-high">긴급</span>
+          <input type="checkbox" id="c4b" checked><label for="c4b" style="text-decoration:line-through;color:#9CA3AF">피렌체 숙소 (8/27~29, 2박)</label>
+          <span class="priority p-low" style="background:#DCFCE7;color:#16A34A">✅ 1746295046</span>
         </div>
         <div class="check-item">
           <input type="checkbox" id="c5" checked><label for="c5" style="text-decoration:line-through;color:#9CA3AF">암스테르담 → 파리 유로스타 (8/17)</label>
@@ -1988,8 +1830,7 @@
           <tr><td>인터라켄 파라글라이딩</td><td>액티비티</td><td>2h</td><td>CHF 170~</td><td><span class="badge">권장</span></td></tr>
           <tr><td>루체른 구시가지 & 카펠교</td><td>도시</td><td>반나절</td><td>무료</td><td>—</td></tr>
           <tr><td>필라투스산 (케이블카)</td><td>자연</td><td>반나절</td><td>CHF 90</td><td><span class="badge ok">현장 가능</span></td></tr>
-          <tr><td rowspan="3"><b>🇮🇹 밀라노</b></td><td>최후의 만찬 (다빈치)</td><td>미술</td><td>20분</td><td>€15</td><td><span class="badge urgent">2~3달 전!</span></td></tr>
-          <tr><td>두오모 + 옥상 테라스</td><td>성당</td><td>2h</td><td>€8~20</td><td><span class="badge">권장</span></td></tr>
+          <tr><td rowspan="2"><b>🇮🇹 밀라노</b></td><td>두오모 + 옥상 테라스</td><td>성당</td><td>2h</td><td>€8~20</td><td><span class="badge">권장</span></td></tr>
           <tr><td>브레라 미술관</td><td>미술관</td><td>2h</td><td>€15</td><td><span class="badge ok">현장 가능</span></td></tr>
           <tr><td rowspan="3"><b>🇮🇹 피렌체</b></td><td>우피치 미술관</td><td>미술관</td><td>3~4h</td><td>€20</td><td><span class="badge urgent">사전 예약</span></td></tr>
           <tr><td>두오모 쿠폴라 클라이밍</td><td>성당</td><td>2h</td><td>€30 (패스)</td><td><span class="badge urgent">사전 예약</span></td></tr>
@@ -2366,35 +2207,24 @@ const SC_DAYS = [
     slots:[
       {h:'07–09',blocks:[{t:'move',l:'🏨 그린델발트 체크아웃'}]},
       {h:'09–12',blocks:[{t:'move',l:'🚄 그린델발트→취리히→밀라노',n:'SBB 연결편 · 약 3.5시간'}]},
-      {h:'12–14',blocks:[{t:'confirmed',l:'🏨 밀라노 체크인',n:'예약번호 1742338358'}]},
+      {h:'12–14',blocks:[{t:'confirmed',l:'🏨 밀라노 체크인',n:'예약번호 1742338358 · 호텔 파라디소'}]},
       {h:'14–18',blocks:[{t:'tour',l:'⛪ 두오모 · 옥상 테라스',n:'€8~20'}]},
       {h:'18–21',blocks:[{t:'tour',l:'🎨 브레라 미술관 or 갤러리아 비토리오'}]},
-      {h:'21–24',blocks:[]},
+      {h:'21–24',blocks:[{t:'free',l:'🛍 나빌리 운하 · 아페리티보',n:'밀라노식 해피아워 (시간 되면)'}]},
     ]
   },
-  { date:'8/27', dow:'목', country:'🇮🇹 밀라노',
-    pills:[{t:'free',l:'밀라노 자유일'}],
-    slots:[
-      {h:'07–09',blocks:[]},
-      {h:'09–12',blocks:[{t:'free',l:'🖼 레오나르도 다빈치 박물관',n:'€3 · 최후의 만찬 예약 별도'}]},
-      {h:'12–14',blocks:[]},
-      {h:'14–18',blocks:[{t:'free',l:'🏰 스포르체스코 성 · 셈피오네 공원'}]},
-      {h:'18–21',blocks:[{t:'free',l:'🛍 나빌리 운하 · 아페리티보',n:'밀라노식 해피아워'}]},
-      {h:'21–24',blocks:[]},
-    ]
-  },
-  { date:'8/28', dow:'금', country:'🇮🇹 피렌체',
+  { date:'8/27', dow:'목', country:'🇮🇹 피렌체',
     pills:[{t:'move',l:'🚄 피렌체 이동'},{t:'tour',l:'🌉 폰테 베키오'}],
     slots:[
       {h:'07–09',blocks:[{t:'move',l:'🏨 밀라노 체크아웃'}]},
       {h:'09–12',blocks:[{t:'move',l:'🚄 밀라노→피렌체',n:'고속열차 약 2시간'}]},
-      {h:'12–14',blocks:[{t:'move',l:'🏨 피렌체 숙소 체크인',n:'산타 마리아 노벨라역 근처'}]},
+      {h:'12–14',blocks:[{t:'move',l:'🏨 피렌체 숙소 체크인',n:'Designer Apartments · 산타 마리아 노벨라역 근처'}]},
       {h:'14–18',blocks:[{t:'tour',l:'🌉 폰테 베키오 · 구시가지',n:'아르노강 산책'}]},
       {h:'18–21',blocks:[{t:'free',l:'🌅 피아잘레 미켈란젤로 일몰',n:'무료 · 뷰 최고'}]},
       {h:'21–24',blocks:[]},
     ]
   },
-  { date:'8/29', dow:'토', country:'🇮🇹 피렌체',
+  { date:'8/28', dow:'금', country:'🇮🇹 피렌체',
     pills:[{t:'tour',l:'🎨 우피치'},{t:'tour',l:'⛪ 두오모 쿠폴라'}],
     slots:[
       {h:'07–09',blocks:[]},
@@ -2405,10 +2235,21 @@ const SC_DAYS = [
       {h:'21–24',blocks:[]},
     ]
   },
+  { date:'8/29', dow:'토', country:'🇮🇹 피렌체',
+    pills:[{t:'free',l:'⚠️ 숙소 미정 자유일'}],
+    slots:[
+      {h:'07–09',blocks:[{t:'move',l:'🏨 피렌체 체크아웃',n:'로마 체크인은 다음날(8/30) — 이 밤 숙소가 아직 없어요'}]},
+      {h:'09–12',blocks:[{t:'free',l:'🎒 짐 보관 후 자유 시간',n:'역 근처 짐 보관소 이용'}]},
+      {h:'12–14',blocks:[]},
+      {h:'14–18',blocks:[{t:'free',l:'🛍 자유 시간'}]},
+      {h:'18–21',blocks:[]},
+      {h:'21–24',blocks:[]},
+    ]
+  },
   { date:'8/30', dow:'일', country:'🇮🇹 로마',
     pills:[{t:'move',l:'🚄 로마 이동'}],
     slots:[
-      {h:'07–09',blocks:[{t:'move',l:'🏨 피렌체 체크아웃'}]},
+      {h:'07–09',blocks:[]},
       {h:'09–12',blocks:[{t:'move',l:'🚄 피렌체→로마',n:'프레차로사 약 1.5시간'}]},
       {h:'12–14',blocks:[{t:'confirmed',l:'🏨 로마 체크인',n:'예약번호 1742335909'}]},
       {h:'14–18',blocks:[{t:'tour',l:'🏛 판테온 · 나보나 광장',n:'판테온 €5'}]},
@@ -2512,20 +2353,29 @@ function scFormatWon(n){ return '₩'+Math.round(Number(n||0)).toLocaleString();
 
 /* ── 환율(원/달러/유로) ── */
 const SC_FX_KEY='sc_fx_rates';
-const SC_FX_DEFAULT={USD:1380, EUR:1756}; // 기본값: 상단 배너의 오늘 환율 기준(2026.06.18)
+const SC_FX_DEFAULT={USD:1380, EUR:1756, CHF:1895}; // 기본값: 상단 배너의 오늘 환율 기준(2026.06.18)
+/* 참고정보 테이블(applyRates)과 시간표/예산 탭(scToKRW)이 전에는 환율을 따로 갖고 있었음 →
+   이제 이 함수 하나가 모든 곳의 원화 환산 기준이 됨. 환율을 바꾸면 어디서든 즉시 반영됨 */
 function scGetFxRates(){
-  try{
-    var saved=JSON.parse(localStorage.getItem(SC_FX_KEY)||'null');
-    if(saved && saved.USD>0 && saved.EUR>0) return saved;
-  }catch(e){}
-  return SC_FX_DEFAULT;
+  var saved=null;
+  try{ saved=JSON.parse(localStorage.getItem(SC_FX_KEY)||'null'); }catch(e){}
+  return {
+    USD: (saved&&saved.USD>0) ? saved.USD : SC_FX_DEFAULT.USD,
+    EUR: (saved&&saved.EUR>0) ? saved.EUR : SC_FX_DEFAULT.EUR,
+    CHF: (saved&&saved.CHF>0) ? saved.CHF : SC_FX_DEFAULT.CHF,
+  };
 }
-function scSetFxRates(usd,eur){
+function scSetFxRates(usd,eur,chf){
   var fx=scGetFxRates();
-  var u=scParseCostInput(usd), e=scParseCostInput(eur);
-  var next={USD: u>0?u:fx.USD, EUR: e>0?e:fx.EUR};
+  var u=scParseCostInput(usd), e=scParseCostInput(eur), c=chf!=null?scParseCostInput(chf):0;
+  var next={USD: u>0?u:fx.USD, EUR: e>0?e:fx.EUR, CHF: c>0?c:fx.CHF};
   localStorage.setItem(SC_FX_KEY, JSON.stringify(next));
   renderScFullView();
+  if(typeof applyRates==='function') applyRates();
+}
+function scSetFxRatesFromInputs(){
+  var u=document.getElementById('fx-usd-input'), e=document.getElementById('fx-eur-input'), c=document.getElementById('fx-chf-input');
+  scSetFxRates(u?u.value:null, e?e.value:null, c?c.value:null);
 }
 const SC_CCY_SYMBOL={KRW:'₩',USD:'$',EUR:'€'};
 /* 입력된 통화(ccy) 금액을 오늘 환율 기준 원화(KRW)로 환산 */
@@ -2690,13 +2540,17 @@ function scRenderActualBudgetTab(){
         <span style="font-size:11px;color:#6B7280">$1 =</span>
         <input id="fx-usd-input" type="text" inputmode="numeric" value="${Number(fx.USD).toLocaleString('en-US')}"
           style="width:80px;padding:5px 8px;border:1px solid #E5E7EB;border-radius:6px;font-size:12px;font-family:inherit;outline:none"
-          oninput="scFormatCostInput(this)" onchange="scSetFxRates(this.value, document.getElementById('fx-eur-input').value)">
+          oninput="scFormatCostInput(this)" onchange="scSetFxRatesFromInputs()">
         <span style="font-size:11px;color:#6B7280">원 &nbsp;·&nbsp; €1 =</span>
         <input id="fx-eur-input" type="text" inputmode="numeric" value="${Number(fx.EUR).toLocaleString('en-US')}"
           style="width:80px;padding:5px 8px;border:1px solid #E5E7EB;border-radius:6px;font-size:12px;font-family:inherit;outline:none"
-          oninput="scFormatCostInput(this)" onchange="scSetFxRates(document.getElementById('fx-usd-input').value, this.value)">
+          oninput="scFormatCostInput(this)" onchange="scSetFxRatesFromInputs()">
+        <span style="font-size:11px;color:#6B7280">원 &nbsp;·&nbsp; CHF 1 =</span>
+        <input id="fx-chf-input" type="text" inputmode="numeric" value="${Number(fx.CHF).toLocaleString('en-US')}"
+          style="width:80px;padding:5px 8px;border:1px solid #E5E7EB;border-radius:6px;font-size:12px;font-family:inherit;outline:none"
+          oninput="scFormatCostInput(this)" onchange="scSetFxRatesFromInputs()">
         <span style="font-size:11px;color:#6B7280">원</span>
-        <span style="font-size:10px;color:#9CA3AF">(환율을 바꾸면 달러·유로로 입력된 모든 비용이 자동으로 다시 계산돼요)</span>
+        <span style="font-size:10px;color:#9CA3AF">(환율을 바꾸면 참고정보 표·달러·유로로 입력된 모든 비용이 자동으로 다시 계산돼요)</span>
       </div>
       <div style="display:flex;gap:24px;flex-wrap:wrap">
         <div style="display:flex;align-items:center;gap:20px">
@@ -4210,7 +4064,7 @@ async function initBookings() {
         type: '🚄 고속열차',
         from: '밀라노',
         to: '피렌체',
-        depart: '2026-08-28',
+        depart: '2026-08-27',
         arrive: '',
         carrier: 'Trenitalia 프레차로사',
         flightno: '',
@@ -4246,22 +4100,26 @@ async function initBookings() {
   }
 
   renderAll();
+  renderHotelCards();
+  renderHotelRefRows();
+  renderDashboardHotels();
+  renderUrgentItems();
 }
 
 /* ══════════════════════════════
    환율 자동 변환
 ══════════════════════════════ */
-const RATES = {
-  EUR: 1756,   // 오늘 기준 EUR/KRW (2026.06.18)
-  CHF: 1895,   // 오늘 기준 CHF/KRW (2026.06.18)
-};
-
 function krwStr(amount) {
   if (amount >= 10000) return (amount/10000).toFixed(1)+'만원';
   return amount.toLocaleString()+'원';
 }
 
 function applyRates() {
+  // 예산/시간표 탭과 동일한 환율 소스(scGetFxRates)를 사용 — 전에는 이 표만 따로 고정 환율을 썼음.
+  // 환율이 바뀌어 다시 호출될 수 있으므로, 이전에 붙여둔 원화 환산 표시를 지우고 새로 계산함
+  const RATES = scGetFxRates();
+  document.querySelectorAll('.krw-tag').forEach(tag => tag.remove());
+  document.querySelectorAll('[data-converted]').forEach(el => { delete el.dataset.converted; });
   // 모든 td 셀 탐색해서 통화 패턴 찾기
   document.querySelectorAll('td, .info-cell .val, .budget-card .amount').forEach(el => {
     const text = el.innerHTML;
