@@ -2484,6 +2484,56 @@ function scCalcBudget(){
   return totals;
 }
 
+/* ── 매일 현지에서 결제해야 하는 불포함 비용(입장료 등) 자동 채움 ──
+   서버에 이미 저장된 예전 데이터에는 이 비용 필드가 없을 수 있어서,
+   페이지 로드 후(서버 데이터 병합 이후) 라벨이 일치하는 블록에만 비용을 채워 넣음.
+   이미 cost가 있는 블록(사용자가 직접 입력/수정한 것)은 건드리지 않음 */
+const LOCAL_COST_FILLINS=[
+  {match:'오르세 미술관', cost:16, ccy:'EUR'},
+  {match:'우피치 미술관', cost:20, ccy:'EUR'},
+  {match:'두오모 쿠폴라 클라이밍', cost:30, ccy:'EUR'},
+  {match:'판테온', cost:5, ccy:'EUR'},
+  {match:'트레비 분수', cost:2, ccy:'EUR'},
+  {match:'바티칸 박물관', cost:20, ccy:'EUR'},
+  {match:'콜로세움', cost:18, ccy:'EUR'},
+];
+function scFillKnownLocalCosts(){
+  var changed=false;
+  SC_DAYS.forEach(function(day){
+    day.slots.forEach(function(slot){
+      slot.blocks.forEach(function(b){
+        if(b.cost) return; // 이미 비용이 있으면 건드리지 않음
+        var hit=LOCAL_COST_FILLINS.find(function(f){ return b.l && b.l.indexOf(f.match)>-1; });
+        if(hit){ b.cost=hit.cost; b.ccy=hit.ccy; b.pay='unpaid'; changed=true; }
+      });
+    });
+  });
+  // 몽생미셸 수도원 입장료는 투어비(선결제)와 별개의 현장 결제 항목이라 블록을 새로 추가
+  var msm=SC_DAYS.find(function(d){ return d.date==='8/21'; });
+  if(msm){
+    var slot=msm.slots.find(function(s){ return s.h==='09–14'; });
+    if(slot && !slot.blocks.some(function(b){ return b.l && b.l.indexOf('수도원 입장료')>-1; })){
+      slot.blocks.push({t:'tour', l:'⛪ 몽생미셸 수도원 입장료', n:'현장 결제', cost:13, ccy:'EUR', pay:'unpaid'});
+      changed=true;
+    }
+  }
+  return changed;
+}
+/* 특정 날짜의 '미결제(현지 결제 예정)' 비용 합계를 원화로 반환 */
+function scDayLocalDue(day){
+  var total=0;
+  day.slots.forEach(function(s){
+    s.blocks.forEach(function(b){ if(b.cost && b.pay!=='paid') total+=scToKRW(b.cost,b.ccy); });
+  });
+  var meals=SC_MEALS[day.date];
+  if(meals){
+    Object.keys(meals).forEach(function(mt){
+      (meals[mt]||[]).forEach(function(b){ if(b.cost && b.pay!=='paid') total+=scToKRW(b.cost,b.ccy); });
+    });
+  }
+  return Math.round(total);
+}
+
 /* ── 전체 예산(사용자 입력) 저장/불러오기 ── */
 const SC_BUDGET_KEY='sc_total_budget';
 function scGetTotalBudget(){
@@ -2998,6 +3048,10 @@ function renderScFullView(){
             html+='<div style="display:flex;flex-wrap:wrap;gap:2px;justify-content:center;margin-top:3px">';
             (wd.d.pills||[]).forEach(function(p){html+=scPill(p.t,p.l);});
             html+='</div>';
+          }
+          var localDue=scDayLocalDue(wd.d);
+          if(localDue>0){
+            html+='<div title="이 날짜의 미결제 비용 합계(현지에서 결제 예정)" style="font-size:10px;font-weight:700;color:#C2410C;background:#FFF7ED;border:1px solid #FED7AA;border-radius:6px;padding:1px 6px;margin-top:3px;display:inline-block">💵 현지 '+scFormatWon(localDue)+'</div>';
           }
           html+='<div style="display:flex;gap:3px;justify-content:center;flex-wrap:wrap;margin-top:4px">';
           html+='<button onclick="event.stopPropagation();scOpenAddForm('+wd.di+',0)" style="font-size:9px;color:'+th.text+';background:none;border:1px solid '+th.border+';border-radius:4px;cursor:pointer;padding:1px 5px;font-family:inherit">＋ 추가</button>';
@@ -4253,7 +4307,12 @@ function initDDay() {
   else el.textContent = 'D+' + Math.abs(diff);
 }
 initDDay();
-scLoadFromServer().then(function(){ renderScFullView(); initBookings(); });
+scLoadFromServer().then(function(){
+  var costsFilled = scFillKnownLocalCosts();
+  renderScFullView();
+  initBookings();
+  if(costsFilled) scSaveToServer(); // 새로 채운 현지 결제 비용을 서버에 즉시 반영
+});
 </script>
 
 <style>
