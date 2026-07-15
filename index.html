@@ -2022,6 +2022,7 @@
       <!-- 버튼 -->
       <div style="display:flex;gap:8px;margin-top:4px">
         <button onclick="scSaveBlock()" style="flex:1;padding:10px;background:#1A1A2E;color:#fff;border:none;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">저장</button>
+        <button id="sc-copy-btn" onclick="scCopyBlock()" title="이 내용을 유지한 채 다른 날짜/시간에 복사해서 추가" style="display:none;padding:10px 12px;background:#EFF6FF;color:#2563EB;border:1px solid #BFDBFE;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap">📋 복사</button>
         <button id="sc-del-btn" onclick="scDeleteBlock()" style="display:none;padding:10px 16px;background:#FEF2F2;color:#DC2626;border:1px solid #FECACA;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">삭제</button>
         <button onclick="scCloseModal()" style="padding:10px 16px;background:#F3F4F6;color:#374151;border:none;border-radius:9px;font-size:13px;cursor:pointer;font-family:inherit">취소</button>
       </div>
@@ -2519,6 +2520,34 @@ function scFillKnownLocalCosts(){
   }
   return changed;
 }
+
+/* 아직 비용이 없는 점심·저녁에 일관된 기본 예상 비용을 채워 넣음(미결제 상태).
+   이미 확정/제공된 식사(예: 8/10 기내식, done:true)나 이미 비용이 입력된 식사는 건드리지 않음 */
+const SC_DEFAULT_MEAL_COST={ '점심':70000, '저녁':100000 };
+function scFillEmptyMealCosts(){
+  var changed=false;
+  SC_DAYS.forEach(function(day){
+    var date=day.date;
+    if(!SC_MEALS[date]) SC_MEALS[date]={};
+    ['점심','저녁'].forEach(function(mealType){
+      var arr=SC_MEALS[date][mealType];
+      if(!arr || arr.length===0){
+        SC_MEALS[date][mealType]=[{ l:(mealType==='점심'?'🍽 점심 식사':'🍽 저녁 식사'), t:'meal', cost:SC_DEFAULT_MEAL_COST[mealType], ccy:'KRW', pay:'unpaid' }];
+        changed=true;
+        return;
+      }
+      arr.forEach(function(b){
+        if(b.cost || b.done) return; // 이미 비용이 있거나 이미 확정/제공된 식사(기내식 등)는 제외
+        b.cost=SC_DEFAULT_MEAL_COST[mealType];
+        b.ccy='KRW';
+        b.pay='unpaid';
+        changed=true;
+      });
+    });
+  });
+  return changed;
+}
+
 /* 특정 날짜의 '미결제(현지 결제 예정)' 비용 합계를 원화로 반환 */
 function scDayLocalDue(day){
   var total=0;
@@ -2856,6 +2885,7 @@ function scOpenMealForm(di,mealType,bi){
   document.getElementById('sc-f-cost').value=b&&b.cost?Number(b.cost).toLocaleString('en-US',{maximumFractionDigits:2}):'';
   scUpdateCostHint();
   document.getElementById('sc-del-btn').style.display=isEdit?'block':'none';
+  document.getElementById('sc-copy-btn').style.display=isEdit?'block':'none';
   /* 슬롯 컬럼 → 식사구분 표시로 전환 */
   document.getElementById('sc-slot-label-div').style.display='none';
   document.getElementById('sc-f-slot').style.display='none';
@@ -3019,6 +3049,10 @@ function renderScFullView(){
 
     if(isExp){
       html+='<div style="overflow-x:auto"><div style="min-width:888px">';
+      /* 요일마다 슬롯 개수/시간 구간이 달라(예: 8/21은 09–14로 합쳐져 있어 다른 날과 인덱스가 밀림)
+         같은 식사(아침/점심/저녁)가 서로 다른 인덱스에서 중복으로 뜰 수 있어, 주(week) 단위로 한 번 표시된
+         식사는 다시 표시하지 않도록 추적 */
+      var scUsedMealTypes={};
 
       /* ── 국가/도시 행 (검은 헤더 바로 아래) ── */
       html+='<div style="display:grid;grid-template-columns:48px repeat(7,minmax(120px,1fr));border-top:1px solid #2D2D4E">';
@@ -3098,15 +3132,17 @@ function renderScFullView(){
 
         /* ── 식사 행 삽입 (해당 시간대 다음) ──
            요일마다 시간 구간 표기가 달라(예: 8/17은 16–18, 8/19는 14–18) 첫 요일만 보면
-           점심/저녁 행이 빠질 수 있어, 이 인덱스의 모든 요일을 확인해 하나라도 매칭되면 표시 */
+           점심/저녁 행이 빠질 수 있어, 이 인덱스의 모든 요일을 확인해 하나라도 매칭되면 표시.
+           단, 같은 식사가 이미 이 주에 표시됐다면 다시 표시하지 않음(중복 방지) */
         var mealLabel='';
         for(var mj=0;mj<7;mj++){
           if(weekGrid[mj]&&weekGrid[mj].d.slots[si]){
             var mLbl=MEAL_AFTER_H[weekGrid[mj].d.slots[si].h];
-            if(mLbl){ mealLabel=mLbl; break; }
+            if(mLbl && !scUsedMealTypes[mLbl]){ mealLabel=mLbl; break; }
           }
         }
         if(mealLabel){
+          scUsedMealTypes[mealLabel]=true;
           var mc=MEAL_COLOR[mealLabel];
           html+='<div style="display:grid;grid-template-columns:48px repeat(7,minmax(120px,1fr));border-top:2px dashed '+mc.border+';min-height:34px;background:'+mc.row+'">';
           html+='<div style="padding:5px 2px;text-align:center;border-right:1px solid #E5E7EB;background:'+mc.row+';display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px">';
@@ -3325,6 +3361,7 @@ function scOpenAddForm(di,si){
   document.getElementById('sc-f-cost').value='';
   document.getElementById('sc-f-cost-hint').textContent='';
   document.getElementById('sc-del-btn').style.display='none';
+  document.getElementById('sc-copy-btn').style.display='none';
   scResetMealMode();
   scFillSelects(d,s);
   scSetType('tour');
@@ -3345,6 +3382,7 @@ function scOpenEditForm(di,si,bi){
   document.getElementById('sc-f-cost').value=b.cost?Number(b.cost).toLocaleString('en-US',{maximumFractionDigits:2}):'';
   scUpdateCostHint();
   document.getElementById('sc-del-btn').style.display='block';
+  document.getElementById('sc-copy-btn').style.display='block';
   scResetMealMode();
   scFillSelects(di,si);
   scSetType(b.t||'tour');
@@ -3395,6 +3433,17 @@ function scSaveBlock(){
   renderScFullView();
   scShowToast('일정이 저장됐어요 ✅');
   scSaveToServer();
+}
+
+/* ── 복사 (현재 입력값은 그대로 두고 '수정 대상'만 지워서, 저장 시 새 항목으로 추가되게 함) ── */
+function scCopyBlock(){
+  document.getElementById('sc-edit-day').value='';
+  document.getElementById('sc-edit-slot').value='';
+  document.getElementById('sc-edit-block').value='';
+  document.getElementById('sc-del-btn').style.display='none';
+  document.getElementById('sc-copy-btn').style.display='none';
+  document.getElementById('sc-modal-title').textContent='📋 복사 — 날짜/시간을 바꾸고 저장하세요';
+  scShowToast('내용은 그대로예요. 날짜(또는 시간)만 바꾸고 저장하면 복사돼요 📋');
 }
 
 /* ── 삭제 ── */
@@ -4309,9 +4358,10 @@ function initDDay() {
 initDDay();
 scLoadFromServer().then(function(){
   var costsFilled = scFillKnownLocalCosts();
+  var mealsFilled = scFillEmptyMealCosts();
   renderScFullView();
   initBookings();
-  if(costsFilled) scSaveToServer(); // 새로 채운 현지 결제 비용을 서버에 즉시 반영
+  if(costsFilled || mealsFilled) scSaveToServer(); // 새로 채운 현지 결제/식사 비용을 서버에 즉시 반영
 });
 </script>
 
