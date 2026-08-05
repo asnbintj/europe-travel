@@ -1091,6 +1091,7 @@
         <div style="display:flex;gap:6px">
           <button onclick="scOpenAddForm()" style="display:flex;align-items:center;gap:5px;padding:6px 14px;background:#1A1A2E;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">＋ 일정 추가</button>
           <button onclick="scExportHTML()" style="display:flex;align-items:center;gap:5px;padding:6px 14px;background:#F0FDF4;color:#166534;border:1px solid #BBF7D0;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">⬇ HTML 내보내기</button>
+          <button onclick="scExportMapsCSV()" style="display:flex;align-items:center;gap:5px;padding:6px 14px;background:#EFF6FF;color:#1D4ED8;border:1px solid #BFDBFE;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">🗺 구글 마이맵스 CSV</button>
         </div>
       </div>
       <div id="sc-timetable" style="border:1px solid #E5E7EB;border-radius:12px;overflow:hidden;margin-bottom:12px"></div>
@@ -3463,6 +3464,59 @@ function scDeleteBlock(){
   renderScFullView();
   scShowToast('일정이 삭제됐어요 🗑');
   scSaveToServer();
+}
+
+/* ── 구글 마이맵스용 CSV 내보내기 ──
+   확실히 아는 위치(호텔 주소, 유명 랜드마크)만 사용 · 불확실한 장소는 도시 단위로 대체 */
+const SC_MAP_QUERIES={
+  '8/10':'Hotel Casa Amsterdam, Amsterdam, Netherlands',
+  '8/11':'Amsterdam, Netherlands',
+  '8/12':'Amsterdam, Netherlands',
+  '8/13':'Amsterdam, Netherlands',
+  '8/14':'Amsterdam, Netherlands',
+  '8/15':'Amsterdam, Netherlands',
+  '8/16':'Amsterdam, Netherlands',
+  '8/17':'36 Rue Pierre Demours, 75017 Paris, France',
+  '8/18':'Paris, France',
+  '8/19':'Louvre Museum, Paris, France',
+  '8/20':'Eiffel Tower, Paris, France',
+  '8/21':'Mont Saint-Michel, France',
+  '8/22':'Grindelwald, Switzerland',
+  '8/23':'Grindelwald, Switzerland',
+  '8/24':'Jungfraujoch, Switzerland',
+  '8/25':'Interlaken, Switzerland',
+  '8/26':'85 Via Benedetto Marcello, 20124 Milano, Italy',
+  '8/27':'Ponte Vecchio, Firenze, Italy',
+  '8/28':['Pisa, Italy','Cinque Terre, Italy'],
+  '8/29':['Uffizi Gallery, Firenze, Italy','Via Giovanni Amendola, 77, 00185 Roma, Italy'],
+  '8/30':'Trevi Fountain, Roma, Italy',
+  '8/31':'Vatican Museums, Roma, Italy',
+  '9/1':'Colosseo, Roma, Italy',
+  '9/2':'Roma, Italy',
+  '9/3':'Aeroporto di Fiumicino, Roma, Italy'
+};
+function scExportMapsCSV(){
+  const rows=[['Name','Address','Description']];
+  SC_DAYS.forEach(function(day){
+    var q=SC_MAP_QUERIES[day.date];
+    if(!q) return;
+    var queries=Array.isArray(q)?q:[q];
+    var pillText=(day.pills||[]).map(function(p){ return p.l; }).join(' · ');
+    queries.forEach(function(query,i){
+      var name=day.date+'('+day.dow+') '+(day.country||'')+(queries.length>1?' #'+(i+1):'');
+      rows.push([name, query, pillText]);
+    });
+  });
+  var csv=rows.map(function(r){
+    return r.map(function(v){ return '"'+String(v).replace(/"/g,'""')+'"'; }).join(',');
+  }).join('\r\n');
+  var blob=new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='europe_trip_map.csv';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  scShowToast('CSV 다운로드 완료! 구글 마이맵스(mymaps.google.com) → 가져오기로 열어보세요 🗺');
 }
 
 /* ── HTML 내보내기 ── */
