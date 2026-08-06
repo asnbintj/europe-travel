@@ -342,6 +342,9 @@
           <span>🚄</span><span style="font-weight:600">TGV Lyria 파리 → 바젤 SBB (8/22)</span><span style="margin-left:auto;color:#16A34A;font-weight:700;font-size:11px">LKL82J · 327/324</span>
         </div>
         <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#F0FDF4;border-radius:8px;font-size:12px">
+          <span>🏰</span><span style="font-weight:600">베르사유 궁전 (8/19 10:30)</span><span style="margin-left:auto;color:#16A34A;font-weight:700;font-size:11px">무료입장</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#F0FDF4;border-radius:8px;font-size:12px">
           <span>🏛</span><span style="font-weight:600">루브르 바이블 투어 (8/19 14:00)</span><span style="margin-left:auto;color:#16A34A;font-weight:700;font-size:11px">확정</span>
         </div>
         <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#F0FDF4;border-radius:8px;font-size:12px">
@@ -580,6 +583,19 @@
       <!-- 8/19 루브르 바이블 투어 (기존 카드 유지 — 아래에 위치) -->
 
       <!-- 8/20 파리 시내 투어 -->
+
+      <!-- 베르사유 궁전 확정 일정 -->
+      <div class="tl-item">
+        <div class="tl-date" style="color:var(--france);font-weight:800">8/19<br>수 오전</div>
+        <div class="tl-card" style="border-left-color:var(--france)">
+          <h3>🏰 베르사유 궁전</h3>
+          <p>Billet Passeport (정원 미포함) · <b>10:30 입장</b>, 뒤푸르관 <b>Porte A</b> 집결 → 선택 시간대 시작 후 30분 이내 입장.</p>
+          <div class="tl-meta">
+            <span class="badge ok">✅ 무료입장권 확정 (거래번호 199741115)</span>
+            <span class="badge" style="background:#FEF3C7;color:#92400E">⚠ 14시 루브르 일정과 이동시간 촉박 — 왕복 이동시간 감안 필요</span>
+          </div>
+        </div>
+      </div>
 
       <!-- 루브르 박물관 확정 일정 -->
       <div class="tl-item">
@@ -1083,7 +1099,7 @@
   <div id="timetable" class="section active">
       <div class="section-header" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px"><h2>시간대별 일정표</h2><span id="sc-save-status" style="font-size:11px;font-weight:600;opacity:0;transition:opacity .5s"></span></div>
       <div id="sc-budget-summary" style="margin-bottom:14px"></div>
-      <p style="font-size:12px;color:#6B7280;margin-bottom:14px">주별 카드의 ▼ 펼치기를 누르면 시간대별 가로 일정표가 열려요 · 블록 클릭 → 수정/삭제 · ＋ → 일정 추가 · 비용/결제상태도 함께 입력할 수 있어요. 완성 후 HTML 내보내기로 저장하세요.</p>
+      <p style="font-size:12px;color:#6B7280;margin-bottom:14px">주별 카드의 ▼ 펼치기를 누르면 시간대별 가로 일정표가 열려요 · 블록 클릭 → 수정/삭제 · ＋ → 일정 추가 · 비용/결제상태와 🎫 티켓·입장권 이미지도 함께 첨부할 수 있어요(블록의 작은 썸네일 클릭 시 확대). 완성 후 HTML 내보내기로 저장하세요.</p>
       <div id="sc-week-tabs" style="display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap"></div>
       <div id="sc-week-cal" style="border:1px solid #E5E7EB;border-radius:12px;overflow:hidden;margin-bottom:14px"></div>
       <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px">
@@ -1513,7 +1529,7 @@
             { id: 'cinque',  icon: '🚂', iconBg: '#EA580C', label: '피사+친퀘테레 당일투어 (8/28)', sub: '트래블마레 · 주문번호 267202570548 · ₩160,000(2인)', defaultUrl: '', status: 'done' },
             { id: 'louvre',  icon: '🏛', iconBg: '#704214', label: '루브르 박물관', sub: 'ticketlouvre.fr · 8/19 14:00', defaultUrl: 'https://www.ticketlouvre.fr', status: 'done' },
             { id: 'vatican', icon: '⛪', iconBg: '#FFD700', label: '바티칸 박물관', sub: 'museivaticani.va · 로마', defaultUrl: 'https://www.museivaticani.va', status: 'warn' },
-            { id: 'versail', icon: '🏰', iconBg: '#C9A84C', label: '베르사유 궁전', sub: 'chateauversailles.fr · 파리', defaultUrl: 'https://www.chateauversailles.fr', status: 'warn' },
+            { id: 'versail', icon: '🏰', iconBg: '#C9A84C', label: '베르사유 궁전 (8/19)', sub: 'châteauversailles.fr · 10:30 입장 · Porte A(뒤푸르관) · 무료입장권 · 거래번호 199741115', defaultUrl: 'https://www.chateauversailles.fr', status: 'done' },
             { id: 'colos',   icon: '🏟', iconBg: '#8B6914', label: '콜로세움 + 로마 포럼', sub: 'colosseo.it · 로마', defaultUrl: 'https://www.colosseo.it', status: 'normal' },
             { id: 'uffizi',  icon: '🖼', iconBg: '#8B0000', label: '우피치 미술관 (8/29)', sub: 'uffizi.it · 피렌체', defaultUrl: 'https://www.uffizi.it', status: 'normal' },
             { id: 'jung',    icon: '🏔', iconBg: '#4A90D9', label: '융프라우요흐', sub: 'jungfrau.ch · 스위스 · CHF 210~', defaultUrl: 'https://www.jungfrau.ch', status: 'normal' }
@@ -1710,8 +1726,8 @@
           <span class="priority p-low" style="background:#DCFCE7;color:#16A34A">✅ 8/19 확정</span>
         </div>
         <div class="check-item">
-          <input type="checkbox" id="c8"><label for="c8">파리 베르사유 궁전 — châteauversailles.fr</label>
-          <span class="priority p-med">2달 전</span>
+          <input type="checkbox" id="c8" checked><label for="c8" style="text-decoration:line-through;color:#9CA3AF">파리 베르사유 궁전 — châteauversailles.fr</label>
+          <span class="priority p-low" style="background:#DCFCE7;color:#16A34A">✅ 8/19 10:30 확정</span>
         </div>
         <div class="check-item">
           <input type="checkbox" id="c9" checked><label for="c9" style="text-decoration:line-through;color:#9CA3AF">파리 → 바젤 SBB TGV Lyria (8/22)</label>
@@ -1993,6 +2009,17 @@
           onfocus="this.style.borderColor='#0F3460'" onblur="this.style.borderColor='#E5E7EB'">
       </div>
 
+      <!-- 티켓/입장권 이미지 -->
+      <div>
+        <div style="font-size:11px;font-weight:600;color:#374151;margin-bottom:5px">🎫 티켓·입장권 이미지 <span style="font-weight:400;color:#9CA3AF">(선택)</span></div>
+        <div id="sc-f-img-preview" style="display:none;position:relative;width:84px;margin-bottom:6px">
+          <img id="sc-f-img-thumb" src="" style="width:84px;height:84px;object-fit:cover;border-radius:8px;border:1px solid #E5E7EB;display:block;cursor:zoom-in" onclick="scViewTicketImage(document.getElementById('sc-f-img-data').value)">
+          <button type="button" onclick="scRemoveBlockImage()" title="이미지 삭제" style="position:absolute;top:-6px;right:-6px;width:20px;height:20px;border-radius:50%;border:none;background:#DC2626;color:#fff;font-size:11px;cursor:pointer;line-height:20px;padding:0">✕</button>
+        </div>
+        <input id="sc-f-img-file" type="file" accept="image/*" onchange="scHandleBlockImage(this)" style="font-size:11px;width:100%">
+        <input type="hidden" id="sc-f-img-data">
+      </div>
+
       <!-- 비용 & 결제상태 -->
       <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:10px">
         <div>
@@ -2055,278 +2082,1734 @@
    시간표 데이터 & 렌더링
 ══════════════════════════════════════ */
 const SC_DAYS = [
-  { date:'8/10', dow:'월', country:'🇰🇷→🇳🇱 이동',
-    pills:[{t:'move',l:'✈ 인천→암스테르담'},{t:'confirmed',l:'🎫 뮤지엄패스·eSIM 수령'}],
-    slots:[
-      {h:'07–09',blocks:[]},
-      {h:'09–12',blocks:[{t:'confirmed',l:'🎫 인천공항 수령 (오전 10시)',n:'파리 뮤지엄 패스(2일권 ×2) + 유럽 eSIM(36개국 ×2) · https://www.myrealtrip.com/promotions/Museumpass_airport',cost:340000,ccy:'KRW',pay:'paid'},{t:'move',l:'✈ 인천공항 출국 수속',n:'12:20 ICN 출발 예정'}]},
-      {h:'12–14',blocks:[{t:'move',l:'✈ LH713 ICN 12:20 출발',n:'A350-900 · FRA행'}]},
-      {h:'14–18',blocks:[{t:'move',l:'✈ FRA 18:40 도착',n:'환승 대기 2시간 20분'}]},
-      {h:'18–21',blocks:[{t:'move',l:'✈ LH1002 FRA 21:00 출발',n:'A320 · AMS행'}]},
-      {h:'21–24',blocks:[{t:'confirmed',l:'🏨 AMS 22:10 도착 · 호텔 체크인',n:'Hotel Casa Amsterdam'}]},
+  {
+    "date": "8/10",
+    "dow": "월",
+    "country": "🇰🇷→🇳🇱 이동",
+    "pills": [
+      {
+        "l": "E심 구입 완료",
+        "t": "tour"
+      },
+      {
+        "l": "✈ 인천공항 출국 수속",
+        "t": "move"
+      },
+      {
+        "l": "✈ LH713 ICN 12:20 출발",
+        "t": "move"
+      },
+      {
+        "l": "✈ FRA 18:40 도착",
+        "t": "move"
+      }
+    ],
+    "slots": [
+      {
+        "h": "07–09",
+        "blocks": [
+          {
+            "l": "E심 구입 완료",
+            "t": "tour",
+            "pay": "paid",
+            "cost": 15000,
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "09–12",
+        "blocks": [
+          {
+            "l": "✈ 인천공항 출국 수속",
+            "n": "12:20 ICN 출발 예정",
+            "t": "move",
+            "pay": "paid",
+            "cost": 2549000,
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "12–14",
+        "blocks": [
+          {
+            "l": "✈ LH713 ICN 12:20 출발",
+            "n": "A350-900 · FRA행",
+            "t": "move",
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "14–18",
+        "blocks": [
+          {
+            "l": "✈ FRA 18:40 도착",
+            "n": "환승 대기 2시간 20분",
+            "t": "move",
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "18–21",
+        "blocks": [
+          {
+            "l": "✈ LH1002 FRA 21:00 출발",
+            "n": "A320 · AMS행",
+            "t": "move",
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "21–24",
+        "blocks": [
+          {
+            "l": "🏨 AMS 22:10 도착 · 호텔 체크인",
+            "n": "Hotel Casa Amsterdam",
+            "t": "confirmed",
+            "ccy": "KRW",
+            "pay": "paid",
+            "cost": 2255702
+          }
+        ]
+      }
     ]
   },
-  { date:'8/11', dow:'화', country:'🇳🇱 네덜란드',
-    pills:[{t:'confirmed',l:'🚶 야외 봉사'}],
-    slots:[
-      {h:'07–09',blocks:[]},
-      {h:'09–12',blocks:[{t:'confirmed',l:'🚶 야외 봉사',n:'08:15~ 시작'}]},
-      {h:'12–14',blocks:[]},
-      {h:'14–18',blocks:[{t:'confirmed',l:'🚶 야외 봉사 (계속)',n:'~17:15 종료'}]},
-      {h:'18–21',blocks:[]},
-      {h:'21–24',blocks:[]},
+  {
+    "date": "8/11",
+    "dow": "화",
+    "country": "🇳🇱 네덜란드",
+    "pills": [
+      {
+        "l": "🚶 야외 봉사",
+        "t": "confirmed"
+      },
+      {
+        "l": "🚶 야외 봉사 (계속)",
+        "t": "confirmed"
+      }
+    ],
+    "slots": [
+      {
+        "h": "07–09",
+        "blocks": []
+      },
+      {
+        "h": "09–12",
+        "blocks": [
+          {
+            "l": "🚶 야외 봉사",
+            "n": "08:15~ 시작",
+            "t": "confirmed",
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "12–14",
+        "blocks": []
+      },
+      {
+        "h": "14–18",
+        "blocks": [
+          {
+            "l": "🚶 야외 봉사 (계속)",
+            "n": "~17:15 종료",
+            "t": "confirmed",
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "18–21",
+        "blocks": []
+      },
+      {
+        "h": "21–24",
+        "blocks": []
+      }
     ]
   },
-  { date:'8/12', dow:'수', country:'🇳🇱 네덜란드',
-    pills:[{t:'confirmed',l:'🏢 베델 방문'}],
-    slots:[
-      {h:'07–09',blocks:[]},
-      {h:'09–12',blocks:[{t:'confirmed',l:'🏢 베델 방문',n:'10:00~ 시작'}]},
-      {h:'12–14',blocks:[]},
-      {h:'14–18',blocks:[{t:'confirmed',l:'🏢 베델 방문 (계속)',n:'~18:00 종료'}]},
-      {h:'18–21',blocks:[]},
-      {h:'21–24',blocks:[]},
+  {
+    "date": "8/12",
+    "dow": "수",
+    "country": "🇳🇱 네덜란드",
+    "pills": [
+      {
+        "l": "🏢 베델 방문",
+        "t": "confirmed"
+      },
+      {
+        "l": "🏢 베델 방문 (계속)",
+        "t": "confirmed"
+      }
+    ],
+    "slots": [
+      {
+        "h": "07–09",
+        "blocks": []
+      },
+      {
+        "h": "09–12",
+        "blocks": [
+          {
+            "l": "🏢 베델 방문",
+            "n": "10:00~ 시작",
+            "t": "confirmed",
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "12–14",
+        "blocks": []
+      },
+      {
+        "h": "14–18",
+        "blocks": [
+          {
+            "l": "🏢 베델 방문 (계속)",
+            "n": "~18:00 종료",
+            "t": "confirmed",
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "18–21",
+        "blocks": []
+      },
+      {
+        "h": "21–24",
+        "blocks": []
+      }
     ]
   },
-  { date:'8/13', dow:'목', country:'🇳🇱 네덜란드',
-    pills:[{t:'confirmed',l:'🤝 개더링'}],
-    slots:[
-      {h:'07–09',blocks:[]},
-      {h:'09–12',blocks:[]},
-      {h:'12–14',blocks:[{t:'confirmed',l:'🤝 개더링 시작',n:'12:15~'}]},
-      {h:'14–18',blocks:[{t:'confirmed',l:'🤝 개더링 (계속)'}]},
-      {h:'18–21',blocks:[{t:'confirmed',l:'🤝 개더링 종료',n:'~19:15'}]},
-      {h:'21–24',blocks:[]},
+  {
+    "date": "8/13",
+    "dow": "목",
+    "country": "🇳🇱 네덜란드",
+    "pills": [
+      {
+        "l": "🤝 개더링 시작",
+        "t": "confirmed"
+      },
+      {
+        "l": "🤝 개더링 종료",
+        "t": "confirmed"
+      }
+    ],
+    "slots": [
+      {
+        "h": "07–09",
+        "blocks": []
+      },
+      {
+        "h": "09–12",
+        "blocks": []
+      },
+      {
+        "h": "12–14",
+        "blocks": [
+          {
+            "l": "🤝 개더링 시작",
+            "n": "12:15~",
+            "t": "confirmed",
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "14–18",
+        "blocks": []
+      },
+      {
+        "h": "18–21",
+        "blocks": [
+          {
+            "l": "🤝 개더링 종료",
+            "n": "~19:15",
+            "t": "confirmed",
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "21–24",
+        "blocks": []
+      }
     ]
   },
-  { date:'8/14', dow:'금', country:'🏛 국제대회',
-    pills:[{t:'confirmed',l:'🏛 국제 대회'}],
-    slots:[
-      {h:'07–09',blocks:[{t:'confirmed',l:'🏛 국제 대회 개회',n:'07:15~'}]},
-      {h:'09–12',blocks:[{t:'confirmed',l:'🏛 국제 대회 (오전 세션)'}]},
-      {h:'12–14',blocks:[]},
-      {h:'14–18',blocks:[{t:'confirmed',l:'🏛 국제 대회 (오후 세션)',n:'~17:15 종료'}]},
-      {h:'18–21',blocks:[]},
-      {h:'21–24',blocks:[]},
+  {
+    "date": "8/14",
+    "dow": "금",
+    "country": "🏛 국제대회",
+    "pills": [
+      {
+        "l": "🏛 국제 대회 개회",
+        "t": "confirmed"
+      },
+      {
+        "l": "🏛 국제 대회 (오전 세션)",
+        "t": "confirmed"
+      },
+      {
+        "l": "🏛 국제 대회 (오후 세션)",
+        "t": "confirmed"
+      }
+    ],
+    "slots": [
+      {
+        "h": "07–09",
+        "blocks": [
+          {
+            "l": "🏛 국제 대회 개회",
+            "n": "07:15~",
+            "t": "confirmed"
+          }
+        ]
+      },
+      {
+        "h": "09–12",
+        "blocks": [
+          {
+            "l": "🏛 국제 대회 (오전 세션)",
+            "t": "confirmed",
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "12–14",
+        "blocks": []
+      },
+      {
+        "h": "14–18",
+        "blocks": [
+          {
+            "l": "🏛 국제 대회 (오후 세션)",
+            "n": "~17:15 종료",
+            "t": "confirmed",
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "18–21",
+        "blocks": []
+      },
+      {
+        "h": "21–24",
+        "blocks": []
+      }
     ]
   },
-  { date:'8/15', dow:'토', country:'🏛 국제대회',
-    pills:[{t:'confirmed',l:'🏛 국제 대회'}],
-    slots:[
-      {h:'07–09',blocks:[{t:'confirmed',l:'🏛 국제 대회 개회',n:'07:15~'}]},
-      {h:'09–12',blocks:[{t:'confirmed',l:'🏛 국제 대회 (오전 세션)'}]},
-      {h:'12–14',blocks:[]},
-      {h:'14–18',blocks:[{t:'confirmed',l:'🏛 국제 대회 (오후 세션)',n:'~17:15 종료'}]},
-      {h:'18–21',blocks:[]},
-      {h:'21–24',blocks:[]},
+  {
+    "date": "8/15",
+    "dow": "토",
+    "country": "🏛 국제대회",
+    "pills": [
+      {
+        "l": "🏛 국제 대회 개회",
+        "t": "confirmed"
+      },
+      {
+        "l": "🏛 국제 대회 (오전 세션)",
+        "t": "confirmed"
+      },
+      {
+        "l": "🏛 국제 대회 (오후 세션)",
+        "t": "confirmed"
+      }
+    ],
+    "slots": [
+      {
+        "h": "07–09",
+        "blocks": [
+          {
+            "l": "🏛 국제 대회 개회",
+            "n": "07:15~",
+            "t": "confirmed"
+          }
+        ]
+      },
+      {
+        "h": "09–12",
+        "blocks": [
+          {
+            "l": "🏛 국제 대회 (오전 세션)",
+            "t": "confirmed",
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "12–14",
+        "blocks": []
+      },
+      {
+        "h": "14–18",
+        "blocks": [
+          {
+            "l": "🏛 국제 대회 (오후 세션)",
+            "n": "~17:15 종료",
+            "t": "confirmed",
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "18–21",
+        "blocks": []
+      },
+      {
+        "h": "21–24",
+        "blocks": []
+      }
     ]
   },
-  { date:'8/16', dow:'일', country:'🏛 국제대회',
-    pills:[{t:'confirmed',l:'🏛 국제 대회'}],
-    slots:[
-      {h:'07–09',blocks:[{t:'confirmed',l:'🏛 국제 대회 개회',n:'07:15~'}]},
-      {h:'09–12',blocks:[{t:'confirmed',l:'🏛 국제 대회 (오전 세션)'}]},
-      {h:'12–14',blocks:[]},
-      {h:'14–18',blocks:[{t:'confirmed',l:'🏛 국제 대회 (오후 세션)',n:'~17:15 종료'}]},
-      {h:'18–21',blocks:[]},
-      {h:'21–24',blocks:[]},
+  {
+    "date": "8/16",
+    "dow": "일",
+    "country": "🏛 국제대회",
+    "pills": [
+      {
+        "l": "🏛 국제 대회 개회",
+        "t": "confirmed"
+      },
+      {
+        "l": "🏛 국제 대회 (오전 세션)",
+        "t": "confirmed"
+      },
+      {
+        "l": "🏛 국제 대회 (오후 세션)",
+        "t": "confirmed"
+      }
+    ],
+    "slots": [
+      {
+        "h": "07–09",
+        "blocks": [
+          {
+            "l": "🏛 국제 대회 개회",
+            "n": "07:15~",
+            "t": "confirmed"
+          }
+        ]
+      },
+      {
+        "h": "09–12",
+        "blocks": [
+          {
+            "l": "🏛 국제 대회 (오전 세션)",
+            "t": "confirmed",
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "12–14",
+        "blocks": []
+      },
+      {
+        "h": "14–18",
+        "blocks": [
+          {
+            "l": "🏛 국제 대회 (오후 세션)",
+            "n": "~17:15 종료",
+            "t": "confirmed",
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "18–21",
+        "blocks": []
+      },
+      {
+        "h": "21–24",
+        "blocks": []
+      }
     ]
   },
-  { date:'8/17', dow:'월', country:'🇫🇷 파리',
-    pills:[{t:'move',l:'🚄 파리 도착'},{t:'snap',l:'📷 오후 스냅'}],
-    slots:[
-      {h:'07–09',blocks:[]},
-      {h:'09–12',blocks:[]},
-      {h:'12–16',blocks:[{t:'move',l:'🚄 유로스타 도착 16:02',n:'암스테르담 출발 11:40 · Coach 16'}]},
-      {h:'16–18',blocks:[{t:'move',l:'🏨 호텔 체크인',n:'Westside Arc de Triomphe Hotel · 15:00 이후'},{t:'snap',l:'📷 오후 스냅 촬영'}]},
-      {h:'18–21',blocks:[]},
-      {h:'21–24',blocks:[]},
+  {
+    "date": "8/17",
+    "dow": "월",
+    "country": "🇫🇷 파리",
+    "pills": [
+      {
+        "l": "암스테르담 출발",
+        "t": "move"
+      },
+      {
+        "l": "11:40 암스테르담 출발",
+        "t": "move"
+      },
+      {
+        "l": "🚄 파리 도착 16:02",
+        "t": "move"
+      },
+      {
+        "l": "🏨 Westside Arc de Triomphe Hotel 체크인",
+        "t": "move"
+      }
+    ],
+    "slots": [
+      {
+        "h": "07–09",
+        "blocks": []
+      },
+      {
+        "h": "09–12",
+        "blocks": [
+          {
+            "l": "암스테르담 출발",
+            "t": "move",
+            "done": true
+          },
+          {
+            "l": "11:40 암스테르담 출발",
+            "n": "유로스타 · Coach 16",
+            "t": "move",
+            "pay": "paid",
+            "cost": 230000,
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "12–16",
+        "blocks": [
+          {
+            "l": "🚄 파리 도착 16:02",
+            "n": "유로스타",
+            "t": "move",
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "16–18",
+        "blocks": [
+          {
+            "l": "🏨 Westside Arc de Triomphe Hotel 체크인",
+            "n": "개선문 인근(파리 17구) · 15:00 이후 · 아고다 예약 확정(예약번호 1745952596)",
+            "t": "move",
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "18–21",
+        "blocks": [
+          {
+            "l": "📷 저녁 스냅 촬영",
+            "n": "일몰 9시 전후로 진행",
+            "t": "snap",
+            "pay": "paid",
+            "cost": 300000,
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "21–24",
+        "blocks": []
+      }
     ]
   },
-  { date:'8/18', dow:'화', country:'🇫🇷 파리',
-    pills:[{t:'snap',l:'📷 오전 스냅'},{t:'free',l:'🛍 자유 오후'}],
-    slots:[
-      {h:'07–09',blocks:[]},
-      {h:'09–12',blocks:[{t:'snap',l:'📷 오전 스냅 촬영',n:'파리 명소 스냅'}]},
-      {h:'12–14',blocks:[]},
-      {h:'14–18',blocks:[{t:'free',l:'🛍 약국 쇼핑',n:'Pharmacie 체인 추천'},{t:'free',l:'☕ 카페 · 휴식'}]},
-      {h:'18–21',blocks:[]},
-      {h:'21–24',blocks:[]},
+  {
+    "date": "8/18",
+    "dow": "화",
+    "country": "🇫🇷 파리",
+    "pills": [
+      {
+        "l": "파리 뮤지엄패스",
+        "t": "tour"
+      },
+      {
+        "l": "📷 오전 스냅 촬영",
+        "t": "snap"
+      },
+      {
+        "l": "🛍 약국 쇼핑",
+        "t": "free"
+      },
+      {
+        "l": "☕ 카페 · 휴식",
+        "t": "free"
+      }
+    ],
+    "slots": [
+      {
+        "h": "07–09",
+        "blocks": [
+          {
+            "l": "파리 뮤지엄패스",
+            "n": "2일권",
+            "t": "tour",
+            "pay": "paid",
+            "cost": 340000,
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "09–12",
+        "blocks": [
+          {
+            "l": "📷 오전 스냅 촬영",
+            "n": "파리 명소 스냅",
+            "t": "snap",
+            "pay": "unpaid",
+            "cost": 300000,
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "12–14",
+        "blocks": [
+          {
+            "l": "🛍 약국 쇼핑",
+            "n": "Pharmacie 체인 추천",
+            "t": "free"
+          },
+          {
+            "l": "☕ 카페 · 휴식",
+            "t": "free"
+          }
+        ]
+      },
+      {
+        "h": "14–18",
+        "blocks": [
+          {
+            "l": "🎨 오르세 미술관",
+            "n": "€16",
+            "t": "tour",
+            "ccy": "EUR",
+            "pay": "unpaid",
+            "cost": 16
+          }
+        ]
+      },
+      {
+        "h": "18–21",
+        "blocks": []
+      },
+      {
+        "h": "21–24",
+        "blocks": []
+      }
     ]
   },
-  { date:'8/19', dow:'수', country:'🇫🇷 파리',
-    pills:[{t:'confirmed',l:'🏛 루브르 14:00'}],
-    slots:[
-      {h:'07–09',blocks:[]},
-      {h:'09–12',blocks:[]},
-      {h:'12–14',blocks:[]},
-      {h:'14–18',blocks:[{t:'confirmed',l:'🏛 루브르 바이블 투어',n:'14:00~18:00 · €22 · ✅ 예약완료'}]},
-      {h:'18–21',blocks:[]},
-      {h:'21–24',blocks:[]},
+  {
+    "date": "8/19",
+    "dow": "수",
+    "country": "🇫🇷 파리",
+    "pills": [
+      {
+        "l": "🏰 베르사유 궁전",
+        "t": "confirmed"
+      },
+      {
+        "l": "🏛 루브르 바이블 투어",
+        "t": "confirmed"
+      }
+    ],
+    "slots": [
+      {
+        "h": "07–09",
+        "blocks": []
+      },
+      {
+        "h": "09–12",
+        "blocks": [
+          {
+            "l": "🏰 베르사유 궁전",
+            "n": "10:30 입장 · Porte A(뒤푸르관) · 무료입장권(정원 미포함) · 거래번호 199741115",
+            "t": "confirmed",
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "12–14",
+        "blocks": []
+      },
+      {
+        "h": "14–18",
+        "blocks": [
+          {
+            "l": "🏛 루브르 바이블 투어",
+            "n": "14:00~18:00 · €22 · ✅ 예약완료",
+            "t": "confirmed",
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "18–21",
+        "blocks": []
+      },
+      {
+        "h": "21–24",
+        "blocks": []
+      }
     ]
   },
-  { date:'8/20', dow:'목', country:'🇫🇷 파리',
-    pills:[{t:'tour',l:'🗼 파리 시내 투어'}],
-    slots:[
-      {h:'07–09',blocks:[]},
-      {h:'09–12',blocks:[{t:'tour',l:'🗼 에펠탑 · 샹젤리제',n:'에펠탑 정상 사전 예약 권장'}]},
-      {h:'12–14',blocks:[]},
-      {h:'14–18',blocks:[{t:'tour',l:'🎨 오르세 미술관',n:'€16'}]},
-      {h:'18–21',blocks:[{t:'tour',l:'⛪ 몽마르트르 · 사크레쾨르',n:'무료 · 석양 뷰 추천'}]},
-      {h:'21–24',blocks:[]},
+  {
+    "date": "8/20",
+    "dow": "목",
+    "country": "🇫🇷 파리",
+    "pills": [
+      {
+        "l": "파리 시내투어",
+        "t": "tour"
+      },
+      {
+        "l": "🗼 에펠탑 관광",
+        "t": "tour"
+      },
+      {
+        "l": "몽마르트",
+        "t": "tour"
+      },
+      {
+        "l": "몽마르트 떠남",
+        "t": "tour"
+      }
+    ],
+    "slots": [
+      {
+        "h": "07–09",
+        "blocks": [
+          {
+            "l": "파리 시내투어",
+            "t": "tour",
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "09–12",
+        "blocks": [
+          {
+            "l": "파리 시내투어",
+            "n": "버스비 35유로(약 60,000원)",
+            "t": "tour",
+            "pay": "unpaid",
+            "cost": 60000,
+            "done": true
+          },
+          {
+            "l": "🗼 에펠탑 관광",
+            "n": "에펠탑 정상 사전 예약 권장09:30 에펠탑 관광 10:00 개선문 관광 10:30 알렉산더 3세 다리 11:00 콩코드 광장 11:30 점심 식사 장소 이동",
+            "t": "tour",
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "12–14",
+        "blocks": [
+          {
+            "l": "몽마르트",
+            "n": "13:30 시테섬 & 노트르담 대성당 14:30 출발 15:30 몽마르트 언덕 관광",
+            "t": "tour",
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "14–18",
+        "blocks": [
+          {
+            "l": "몽마르트 떠남",
+            "n": "17:00 출발 18:00 저녁 식사",
+            "t": "tour",
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "18–21",
+        "blocks": [
+          {
+            "l": "호텔 도착",
+            "n": "19:00 도착 예정",
+            "t": "tour",
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "21–24",
+        "blocks": []
+      }
     ]
   },
-  { date:'8/21', dow:'금', country:'🇫🇷 파리',
-    pills:[{t:'tour',l:'🏰 몽생미셸 (종일)'}],
-    slots:[
-      {h:'07–09',blocks:[{t:'confirmed',l:'🚌 파리 출발 (파파윤투어 픽업)',n:'트로카데로 에펠탑 앞 06:30 미팅 · 예약번호 EXP-20260702-00011990'}]},
-      {h:'09–14',blocks:[{t:'tour',l:'🏰 몽생미셸 이동 · 도착',n:'약 4시간 · 수도원 입장료 €13 별도 · 총 결제 ₩418,000(2인)',cost:418000,ccy:'KRW',pay:'paid'}]},
-      {h:'14–18',blocks:[{t:'tour',l:'🏰 몽생미셸 관람 · 산책'}]},
-      {h:'18–21',blocks:[{t:'move',l:'🚌 파리 귀환'}]},
-      {h:'21–24',blocks:[]},
+  {
+    "date": "8/21",
+    "dow": "금",
+    "country": "🇫🇷 파리",
+    "pills": [
+      {
+        "l": "🚌 파리 출발",
+        "t": "move"
+      },
+      {
+        "l": "🏰 몽생미셸 이동 · 도착",
+        "t": "tour"
+      },
+      {
+        "l": "⛪ 몽생미셸 수도원 입장료",
+        "t": "tour"
+      },
+      {
+        "l": "🏰 몽생미셸 관람 · 산책",
+        "t": "tour"
+      }
+    ],
+    "slots": [
+      {
+        "h": "07–09",
+        "blocks": [
+          {
+            "l": "🚌 파리 출발",
+            "t": "move",
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "09–14",
+        "blocks": [
+          {
+            "l": "🏰 몽생미셸 이동 · 도착",
+            "n": "약 4시간 · 수도원 €13",
+            "t": "tour",
+            "pay": "unpaid",
+            "cost": 23000,
+            "done": true
+          },
+          {
+            "l": "⛪ 몽생미셸 수도원 입장료",
+            "n": "현장 결제",
+            "t": "tour",
+            "ccy": "EUR",
+            "pay": "unpaid",
+            "cost": 13
+          }
+        ]
+      },
+      {
+        "h": "14–18",
+        "blocks": [
+          {
+            "l": "🏰 몽생미셸 관람 · 산책",
+            "t": "tour",
+            "ccy": "KRW",
+            "pay": "paid",
+            "cost": 418000,
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "18–21",
+        "blocks": [
+          {
+            "l": "🚌 파리 귀환",
+            "t": "move",
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "21–24",
+        "blocks": []
+      }
     ]
   },
-  { date:'8/22', dow:'토', country:'🇨🇭 스위스 이동',
-    pills:[{t:'move',l:'🚄 스위스 이동'}],
-    slots:[
-      {h:'07–09',blocks:[]},
-      {h:'09–12',blocks:[{t:'move',l:'🏨 호텔 조기 체크아웃',n:'정식 마감 낮 12:00이지만 열차 시간 맞춰 오전 중 출발'},{t:'confirmed',l:'🚄 TGV Lyria 10:22 출발',n:'파리 리옹역 → 바젤 SBB · LKL82J · Coach 13 · 327/324석'}]},
-      {h:'12–16',blocks:[{t:'confirmed',l:'🚄 바젤 SBB 13:26 도착'},{t:'move',l:'🚄 바젤→인터라켄→그린델발트',n:'SBB 연결편 · 약 2h 30m'}]},
-      {h:'16–18',blocks:[{t:'confirmed',l:'🏨 그린델발트 체크인',n:'아파트 · 호스트 Elisabeth · 15:00~'}]},
-      {h:'18–21',blocks:[]},
-      {h:'21–24',blocks:[]},
+  {
+    "date": "8/22",
+    "dow": "토",
+    "country": "🇨🇭 스위스 이동",
+    "pills": [
+      {
+        "l": "🏨 Westside Arc de Triomphe Hotel 체크아웃",
+        "t": "move"
+      },
+      {
+        "l": "🚄 TGV Lyria 10:22 출발",
+        "t": "confirmed"
+      },
+      {
+        "l": "🚄 바젤 SBB 13:26 도착",
+        "t": "confirmed"
+      },
+      {
+        "l": "🚄 바젤→인터라켄→그린델발트",
+        "t": "move"
+      }
+    ],
+    "slots": [
+      {
+        "h": "07–09",
+        "blocks": []
+      },
+      {
+        "h": "09–12",
+        "blocks": [
+          {
+            "l": "🏨 Westside Arc de Triomphe Hotel 체크아웃",
+            "n": "정식 마감 낮 12:00, 열차 10:22 출발 맞춰 오전 중 조기 출발",
+            "t": "move",
+            "done": true
+          },
+          {
+            "l": "🚄 TGV Lyria 10:22 출발",
+            "n": "파리 리옹역 → 바젤 SBB · LKL82J · Coach 13 · 327/324석",
+            "t": "confirmed",
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "12–16",
+        "blocks": [
+          {
+            "l": "🚄 바젤 SBB 13:26 도착",
+            "t": "confirmed",
+            "done": true
+          },
+          {
+            "l": "🚄 바젤→인터라켄→그린델발트",
+            "n": "SBB 연결편 · 약 2h 30m",
+            "t": "move"
+          }
+        ]
+      },
+      {
+        "h": "16–18",
+        "blocks": [
+          {
+            "l": "🏨 그린델발트 체크인",
+            "n": "아파트 · 호스트 Elisabeth · 15:00~",
+            "t": "confirmed",
+            "pay": "paid",
+            "cost": 898905,
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "18–21",
+        "blocks": []
+      },
+      {
+        "h": "21–24",
+        "blocks": []
+      }
     ]
   },
-  { date:'8/23', dow:'일', country:'🇨🇭 그린델발트',
-    pills:[{t:'free',l:'🏔 자유 탐방'}],
-    slots:[
-      {h:'07–09',blocks:[]},
-      {h:'09–12',blocks:[{t:'free',l:'🏔 그린델발트 마을 산책'}]},
-      {h:'12–14',blocks:[]},
-      {h:'14–18',blocks:[{t:'free',l:'🏔 아이거 트레일 하이킹'}]},
-      {h:'18–21',blocks:[]},
-      {h:'21–24',blocks:[]},
+  {
+    "date": "8/23",
+    "dow": "일",
+    "country": "🇨🇭 그린델발트",
+    "pills": [
+      {
+        "l": "🏔 그린델발트 마을 산책",
+        "t": "free"
+      },
+      {
+        "l": "🏔 아이거 트레일 하이킹",
+        "t": "free"
+      }
+    ],
+    "slots": [
+      {
+        "h": "07–09",
+        "blocks": []
+      },
+      {
+        "h": "09–12",
+        "blocks": [
+          {
+            "l": "🏔 그린델발트 마을 산책",
+            "t": "free"
+          }
+        ]
+      },
+      {
+        "h": "12–14",
+        "blocks": []
+      },
+      {
+        "h": "14–18",
+        "blocks": [
+          {
+            "l": "🏔 아이거 트레일 하이킹",
+            "t": "free"
+          }
+        ]
+      },
+      {
+        "h": "18–21",
+        "blocks": []
+      },
+      {
+        "h": "21–24",
+        "blocks": []
+      }
     ]
   },
-  { date:'8/24', dow:'월', country:'🇨🇭 그린델발트',
-    pills:[{t:'tour',l:'🏔 융프라우요흐'}],
-    slots:[
-      {h:'07–09',blocks:[{t:'move',l:'🚞 융프라우 열차 출발',n:'그린델발트 역 출발'}]},
-      {h:'09–14',blocks:[{t:'tour',l:'🏔 융프라우요흐 관람',n:'Top of Europe · CHF 210~'}]},
-      {h:'14–18',blocks:[{t:'move',l:'🚞 하산 · 그린델발트 귀환'}]},
-      {h:'18–21',blocks:[]},
-      {h:'21–24',blocks:[]},
+  {
+    "date": "8/24",
+    "dow": "월",
+    "country": "🇨🇭 그린델발트",
+    "pills": [
+      {
+        "l": "🚞 융프라우 열차 출발",
+        "t": "move"
+      },
+      {
+        "l": "🏔 융프라우요흐 관람",
+        "t": "tour"
+      },
+      {
+        "l": "🚞 하산 · 그린델발트 귀환",
+        "t": "move"
+      }
+    ],
+    "slots": [
+      {
+        "h": "07–09",
+        "blocks": [
+          {
+            "l": "🚞 융프라우 열차 출발",
+            "n": "그린델발트 역 출발",
+            "t": "move"
+          }
+        ]
+      },
+      {
+        "h": "09–14",
+        "blocks": [
+          {
+            "l": "🏔 융프라우요흐 관람",
+            "n": "Top of Europe · CHF 210~",
+            "t": "tour"
+          }
+        ]
+      },
+      {
+        "h": "14–18",
+        "blocks": [
+          {
+            "l": "🚞 하산 · 그린델발트 귀환",
+            "t": "move"
+          }
+        ]
+      },
+      {
+        "h": "18–21",
+        "blocks": []
+      },
+      {
+        "h": "21–24",
+        "blocks": []
+      }
     ]
   },
-  { date:'8/25', dow:'화', country:'🇨🇭 그린델발트',
-    pills:[{t:'free',l:'인터라켄 · 파라글라이딩'}],
-    slots:[
-      {h:'07–09',blocks:[]},
-      {h:'09–12',blocks:[{t:'free',l:'🏙 인터라켄 당일치기'}]},
-      {h:'12–14',blocks:[]},
-      {h:'14–18',blocks:[{t:'free',l:'🏄 파라글라이딩',n:'CHF 170~ · 권장'}]},
-      {h:'18–21',blocks:[]},
-      {h:'21–24',blocks:[]},
+  {
+    "date": "8/25",
+    "dow": "화",
+    "country": "🇨🇭 그린델발트",
+    "pills": [],
+    "slots": [
+      {
+        "h": "07–09",
+        "blocks": []
+      },
+      {
+        "h": "09–12",
+        "blocks": []
+      },
+      {
+        "h": "12–14",
+        "blocks": []
+      },
+      {
+        "h": "14–18",
+        "blocks": []
+      },
+      {
+        "h": "18–21",
+        "blocks": []
+      },
+      {
+        "h": "21–24",
+        "blocks": []
+      }
     ]
   },
-  { date:'8/26', dow:'수', country:'🇨🇭→🇮🇹 이동',
-    pills:[{t:'move',l:'🚄 밀라노 이동'},{t:'confirmed',l:'🏨 체크인'}],
-    slots:[
-      {h:'07–09',blocks:[{t:'move',l:'🏨 그린델발트 체크아웃'}]},
-      {h:'09–12',blocks:[{t:'move',l:'🚄 그린델발트→취리히→밀라노',n:'SBB 연결편 · 약 3.5시간'}]},
-      {h:'12–14',blocks:[{t:'confirmed',l:'🏨 밀라노 체크인',n:'예약번호 1742338358 · 호텔 파라디소'}]},
-      {h:'14–18',blocks:[{t:'tour',l:'⛪ 두오모 · 옥상 테라스',n:'€8~20'}]},
-      {h:'18–21',blocks:[{t:'tour',l:'🎨 브레라 미술관 or 갤러리아 비토리오'}]},
-      {h:'21–24',blocks:[{t:'free',l:'🛍 나빌리 운하 · 아페리티보',n:'밀라노식 해피아워 (시간 되면)'}]},
+  {
+    "date": "8/26",
+    "dow": "수",
+    "country": "🇨🇭→🇮🇹 이동",
+    "pills": [
+      {
+        "l": "🏨 그린델발트 체크아웃",
+        "t": "move"
+      },
+      {
+        "l": "🚄 그린델발트→취리히→밀라노",
+        "t": "move"
+      },
+      {
+        "l": "🏨 밀라노 체크인",
+        "t": "confirmed"
+      },
+      {
+        "l": "⛪ 두오모 · 옥상 테라스",
+        "t": "tour"
+      }
+    ],
+    "slots": [
+      {
+        "h": "07–09",
+        "blocks": [
+          {
+            "l": "🏨 그린델발트 체크아웃",
+            "t": "move",
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "09–12",
+        "blocks": [
+          {
+            "l": "🚄 그린델발트→취리히→밀라노",
+            "n": "SBB 연결편 · 약 3.5시간",
+            "t": "move"
+          }
+        ]
+      },
+      {
+        "h": "12–14",
+        "blocks": [
+          {
+            "l": "🏨 밀라노 체크인",
+            "n": "예약번호 1742338358",
+            "t": "confirmed",
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "14–18",
+        "blocks": [
+          {
+            "l": "⛪ 두오모 · 옥상 테라스",
+            "n": "€8~20",
+            "t": "tour"
+          }
+        ]
+      },
+      {
+        "h": "18–21",
+        "blocks": [
+          {
+            "l": "🖼 레오나르도 다빈치 박물관",
+            "n": "€3 · 최후의 만찬 예약 별도",
+            "t": "free"
+          }
+        ]
+      },
+      {
+        "h": "21–24",
+        "blocks": []
+      }
     ]
   },
-  { date:'8/27', dow:'목', country:'🇮🇹 피렌체',
-    pills:[{t:'move',l:'🚄 피렌체 이동'},{t:'tour',l:'🌉 폰테 베키오'}],
-    slots:[
-      {h:'07–09',blocks:[{t:'move',l:'🏨 밀라노 체크아웃'}]},
-      {h:'09–12',blocks:[{t:'move',l:'🚄 밀라노→피렌체',n:'고속열차 약 2시간'}]},
-      {h:'12–14',blocks:[{t:'move',l:'🏨 피렌체 숙소 체크인',n:'Designer Apartments · 산타 마리아 노벨라역 근처'}]},
-      {h:'14–18',blocks:[{t:'tour',l:'🌉 폰테 베키오 · 구시가지',n:'아르노강 산책'}]},
-      {h:'18–21',blocks:[{t:'free',l:'🌅 피아잘레 미켈란젤로 일몰',n:'무료 · 뷰 최고'}]},
-      {h:'21–24',blocks:[]},
+  {
+    "date": "8/27",
+    "dow": "목",
+    "country": "🇮🇹 피렌체",
+    "pills": [
+      {
+        "l": "🏨 밀라노 체크아웃",
+        "t": "move"
+      },
+      {
+        "l": "🚄 밀라노→피렌체",
+        "t": "move"
+      },
+      {
+        "l": "🏨 피렌체 숙소 체크인",
+        "t": "move"
+      },
+      {
+        "l": "🏰 스포르체스코 성 · 셈피오네 공원",
+        "t": "free"
+      }
+    ],
+    "slots": [
+      {
+        "h": "07–09",
+        "blocks": [
+          {
+            "l": "🏨 밀라노 체크아웃",
+            "t": "move",
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "09–12",
+        "blocks": [
+          {
+            "l": "🚄 밀라노→피렌체",
+            "n": "고속열차 약 2시간",
+            "t": "move"
+          }
+        ]
+      },
+      {
+        "h": "12–14",
+        "blocks": [
+          {
+            "l": "🏨 피렌체 숙소 체크인",
+            "n": "산타 마리아 노벨라역 근처",
+            "t": "move"
+          }
+        ]
+      },
+      {
+        "h": "14–18",
+        "blocks": [
+          {
+            "l": "🏰 스포르체스코 성 · 셈피오네 공원",
+            "t": "free"
+          }
+        ]
+      },
+      {
+        "h": "18–21",
+        "blocks": [
+          {
+            "l": "🛍 나빌리 운하 · 아페리티보",
+            "n": "밀라노식 해피아워",
+            "t": "free"
+          }
+        ]
+      },
+      {
+        "h": "21–24",
+        "blocks": []
+      }
     ]
   },
-  { date:'8/28', dow:'금', country:'🇮🇹 피렌체',
-    pills:[{t:'confirmed',l:'🚂 피사·친퀘테레 당일투어'}],
-    slots:[
-      {h:'07–09',blocks:[{t:'confirmed',l:'🚄 피렌체 출발 · 피사·친퀘테레 투어',n:'트래블마레 · 예약번호 267202570548',cost:160000,ccy:'KRW',pay:'paid'}]},
-      {h:'09–12',blocks:[{t:'tour',l:'🗼 피사의 사탑 방문'}]},
-      {h:'12–14',blocks:[{t:'move',l:'🚄 피사 → 친퀘테레 이동'}]},
-      {h:'14–18',blocks:[{t:'tour',l:'🌊 친퀘테레 5개 마을 탐방'}]},
-      {h:'18–21',blocks:[{t:'move',l:'🚄 피렌체 귀환'}]},
-      {h:'21–24',blocks:[]},
+  {
+    "date": "8/28",
+    "dow": "금",
+    "country": "🇮🇹 피렌체",
+    "pills": [
+      {
+        "l": "🌉 폰테 베키오 · 구시가지",
+        "t": "tour"
+      },
+      {
+        "l": "🌅 피아잘레 미켈란젤로 일몰",
+        "t": "free"
+      }
+    ],
+    "slots": [
+      {
+        "h": "07–09",
+        "blocks": []
+      },
+      {
+        "h": "09–12",
+        "blocks": []
+      },
+      {
+        "h": "12–14",
+        "blocks": []
+      },
+      {
+        "h": "14–18",
+        "blocks": [
+          {
+            "l": "🌉 폰테 베키오 · 구시가지",
+            "n": "아르노강 산책",
+            "t": "tour"
+          }
+        ]
+      },
+      {
+        "h": "18–21",
+        "blocks": [
+          {
+            "l": "🌅 피아잘레 미켈란젤로 일몰",
+            "n": "무료 · 뷰 최고",
+            "t": "free"
+          }
+        ]
+      },
+      {
+        "h": "21–24",
+        "blocks": []
+      }
     ]
   },
-  { date:'8/29', dow:'토', country:'🇮🇹 피렌체→로마 이동',
-    pills:[{t:'tour',l:'🎨 우피치'},{t:'tour',l:'⛪ 두오모 쿠폴라'},{t:'confirmed',l:'🏨 로마 체크인'}],
-    slots:[
-      {h:'07–09',blocks:[{t:'move',l:'🏨 피렌체 체크아웃'}]},
-      {h:'09–12',blocks:[{t:'tour',l:'🎨 우피치 미술관',n:'€20 · 사전예약 필수 · 짐 보관 후 이동(역 근처 짐 보관소)'}]},
-      {h:'12–14',blocks:[]},
-      {h:'14–18',blocks:[{t:'tour',l:'⛪ 두오모 쿠폴라 클라이밍',n:'€30(패스) · 사전예약 필수'}]},
-      {h:'18–21',blocks:[{t:'move',l:'🚄 피렌체 → 로마 이동',n:'프레차로사 약 1.5시간'},{t:'confirmed',l:'🏨 로마 체크인',n:'예약번호 1747146622 · Room Santa Maria Maggiore'}]},
-      {h:'21–24',blocks:[{t:'free',l:'🍝 로마 도착 첫 저녁'}]},
+  {
+    "date": "8/29",
+    "dow": "토",
+    "country": "🇮🇹 피렌체→로마 이동",
+    "pills": [
+      {
+        "l": "⛪ 두오모 쿠폴라 클라이밍",
+        "t": "tour"
+      },
+      {
+        "l": "🎨 우피치 미술관",
+        "t": "tour"
+      },
+      {
+        "l": "🥩 비스테카 알라 피오렌티나",
+        "t": "free"
+      }
+    ],
+    "slots": [
+      {
+        "h": "07–09",
+        "blocks": []
+      },
+      {
+        "h": "09–12",
+        "blocks": [
+          {
+            "l": "⛪ 두오모 쿠폴라 클라이밍",
+            "n": "€30(패스) · 사전예약 필수",
+            "t": "tour",
+            "ccy": "EUR",
+            "pay": "unpaid",
+            "cost": 30
+          }
+        ]
+      },
+      {
+        "h": "12–14",
+        "blocks": []
+      },
+      {
+        "h": "14–18",
+        "blocks": [
+          {
+            "l": "🎨 우피치 미술관",
+            "n": "€20 · 사전예약 필수",
+            "t": "tour",
+            "ccy": "EUR",
+            "pay": "unpaid",
+            "cost": 20
+          }
+        ]
+      },
+      {
+        "h": "18–21",
+        "blocks": [
+          {
+            "l": "🥩 비스테카 알라 피오렌티나",
+            "n": "피렌체 명물 T본 스테이크",
+            "t": "free"
+          }
+        ]
+      },
+      {
+        "h": "21–24",
+        "blocks": []
+      }
     ]
   },
-  { date:'8/30', dow:'일', country:'🇮🇹 로마',
-    pills:[{t:'tour',l:'🏛 로마 시내 관광'}],
-    slots:[
-      {h:'07–09',blocks:[]},
-      {h:'09–12',blocks:[{t:'tour',l:'🏛 판테온 · 나보나 광장',n:'판테온 €5'}]},
-      {h:'12–14',blocks:[]},
-      {h:'14–18',blocks:[{t:'tour',l:'⛲ 트레비 분수',n:'€2 · 야간 뷰 추천'}]},
-      {h:'18–21',blocks:[]},
-      {h:'21–24',blocks:[]},
+  {
+    "date": "8/30",
+    "dow": "일",
+    "country": "🇮🇹 로마",
+    "pills": [
+      {
+        "l": "🏨 피렌체 체크아웃",
+        "t": "move"
+      },
+      {
+        "l": "🚄 피렌체→로마",
+        "t": "move"
+      },
+      {
+        "l": "🏨 로마 체크인",
+        "t": "confirmed"
+      },
+      {
+        "l": "🏛 판테온 · 나보나 광장",
+        "t": "tour"
+      }
+    ],
+    "slots": [
+      {
+        "h": "07–09",
+        "blocks": [
+          {
+            "l": "🏨 피렌체 체크아웃",
+            "t": "move"
+          }
+        ]
+      },
+      {
+        "h": "09–12",
+        "blocks": [
+          {
+            "l": "🚄 피렌체→로마",
+            "n": "프레차로사 약 1.5시간",
+            "t": "move"
+          }
+        ]
+      },
+      {
+        "h": "12–14",
+        "blocks": [
+          {
+            "l": "🏨 로마 체크인",
+            "n": "예약번호 1742335909",
+            "t": "confirmed",
+            "done": true
+          }
+        ]
+      },
+      {
+        "h": "14–18",
+        "blocks": [
+          {
+            "l": "🏛 판테온 · 나보나 광장",
+            "n": "판테온 €5",
+            "t": "tour",
+            "ccy": "EUR",
+            "pay": "unpaid",
+            "cost": 5
+          }
+        ]
+      },
+      {
+        "h": "18–21",
+        "blocks": [
+          {
+            "l": "⛲ 트레비 분수",
+            "n": "€2 · 야간 뷰 추천",
+            "t": "tour",
+            "ccy": "EUR",
+            "pay": "unpaid",
+            "cost": 2
+          }
+        ]
+      },
+      {
+        "h": "21–24",
+        "blocks": []
+      }
     ]
   },
-  { date:'8/31', dow:'월', country:'🇮🇹 로마',
-    pills:[{t:'tour',l:'⛪ 바티칸'}],
-    slots:[
-      {h:'07–09',blocks:[{t:'move',l:'🌅 이른 아침 출발',n:'바티칸 혼잡 피하기'}]},
-      {h:'09–12',blocks:[{t:'tour',l:'⛪ 바티칸 박물관 · 시스티나',n:'€20 · 사전예약 필수'}]},
-      {h:'12–14',blocks:[{t:'tour',l:'⛪ 성 베드로 대성당',n:'무료'}]},
-      {h:'14–18',blocks:[]},
-      {h:'18–21',blocks:[{t:'free',l:'🍝 카르보나라',n:'Roscioli 추천'}]},
-      {h:'21–24',blocks:[]},
+  {
+    "date": "8/31",
+    "dow": "월",
+    "country": "🇮🇹 로마",
+    "pills": [
+      {
+        "l": "🌅 이른 아침 출발",
+        "t": "move"
+      },
+      {
+        "l": "⛪ 바티칸 박물관 · 시스티나",
+        "t": "tour"
+      },
+      {
+        "l": "⛪ 성 베드로 대성당",
+        "t": "tour"
+      },
+      {
+        "l": "🍝 카르보나라",
+        "t": "free"
+      }
+    ],
+    "slots": [
+      {
+        "h": "07–09",
+        "blocks": [
+          {
+            "l": "🌅 이른 아침 출발",
+            "n": "바티칸 혼잡 피하기",
+            "t": "move"
+          }
+        ]
+      },
+      {
+        "h": "09–12",
+        "blocks": [
+          {
+            "l": "⛪ 바티칸 박물관 · 시스티나",
+            "n": "€20 · 사전예약 필수",
+            "t": "tour",
+            "ccy": "EUR",
+            "pay": "unpaid",
+            "cost": 20
+          }
+        ]
+      },
+      {
+        "h": "12–14",
+        "blocks": [
+          {
+            "l": "⛪ 성 베드로 대성당",
+            "n": "무료",
+            "t": "tour"
+          }
+        ]
+      },
+      {
+        "h": "14–18",
+        "blocks": []
+      },
+      {
+        "h": "18–21",
+        "blocks": [
+          {
+            "l": "🍝 카르보나라",
+            "n": "Roscioli 추천",
+            "t": "free"
+          }
+        ]
+      },
+      {
+        "h": "21–24",
+        "blocks": []
+      }
     ]
   },
-  { date:'9/1', dow:'화', country:'🇮🇹 로마',
-    pills:[{t:'tour',l:'🏟 콜로세움'}],
-    slots:[
-      {h:'07–09',blocks:[]},
-      {h:'09–12',blocks:[{t:'tour',l:'🏟 콜로세움 · 로마 포럼',n:'€18 · 사전예약 필수'}]},
-      {h:'12–14',blocks:[]},
-      {h:'14–18',blocks:[{t:'tour',l:'🏛 팔라티노 언덕',n:'콜로세움 통합권'}]},
-      {h:'18–21',blocks:[{t:'free',l:'🌆 트라스테베레 저녁 산책'}]},
-      {h:'21–24',blocks:[]},
+  {
+    "date": "9/1",
+    "dow": "화",
+    "country": "🇮🇹 로마",
+    "pills": [
+      {
+        "l": "🏟 콜로세움 · 로마 포럼",
+        "t": "tour"
+      },
+      {
+        "l": "🏛 팔라티노 언덕",
+        "t": "tour"
+      },
+      {
+        "l": "🌆 트라스테베레 저녁 산책",
+        "t": "free"
+      }
+    ],
+    "slots": [
+      {
+        "h": "07–09",
+        "blocks": []
+      },
+      {
+        "h": "09–12",
+        "blocks": [
+          {
+            "l": "🏟 콜로세움 · 로마 포럼",
+            "n": "€18 · 사전예약 필수",
+            "t": "tour",
+            "ccy": "EUR",
+            "pay": "unpaid",
+            "cost": 18
+          }
+        ]
+      },
+      {
+        "h": "12–14",
+        "blocks": []
+      },
+      {
+        "h": "14–18",
+        "blocks": [
+          {
+            "l": "🏛 팔라티노 언덕",
+            "n": "콜로세움 통합권",
+            "t": "tour"
+          }
+        ]
+      },
+      {
+        "h": "18–21",
+        "blocks": [
+          {
+            "l": "🌆 트라스테베레 저녁 산책",
+            "t": "free"
+          }
+        ]
+      },
+      {
+        "h": "21–24",
+        "blocks": []
+      }
     ]
   },
-  { date:'9/2', dow:'수', country:'🇮🇹 로마',
-    pills:[{t:'free',l:'🛍 자유일'}],
-    slots:[
-      {h:'07–09',blocks:[]},
-      {h:'09–12',blocks:[{t:'free',l:'🛍 쇼핑 · 기념품',n:'스페인 계단 · 포폴로 광장'}]},
-      {h:'12–14',blocks:[]},
-      {h:'14–18',blocks:[{t:'free',l:'☕ 카페 · 여유시간'}]},
-      {h:'18–21',blocks:[{t:'free',l:'🍝 마지막 로마 저녁'}]},
-      {h:'21–24',blocks:[{t:'move',l:'✈ 귀국 준비',n:'9/3 FCO 12:50 출발 대비'}]},
+  {
+    "date": "9/2",
+    "dow": "수",
+    "country": "🇮🇹 로마",
+    "pills": [
+      {
+        "l": "🛍 쇼핑 · 기념품",
+        "t": "free"
+      },
+      {
+        "l": "☕ 카페 · 여유시간",
+        "t": "free"
+      },
+      {
+        "l": "🍝 마지막 로마 저녁",
+        "t": "free"
+      },
+      {
+        "l": "✈ 귀국 준비",
+        "t": "move"
+      }
+    ],
+    "slots": [
+      {
+        "h": "07–09",
+        "blocks": []
+      },
+      {
+        "h": "09–12",
+        "blocks": [
+          {
+            "l": "🛍 쇼핑 · 기념품",
+            "n": "스페인 계단 · 포폴로 광장",
+            "t": "free"
+          }
+        ]
+      },
+      {
+        "h": "12–14",
+        "blocks": []
+      },
+      {
+        "h": "14–18",
+        "blocks": [
+          {
+            "l": "☕ 카페 · 여유시간",
+            "t": "free"
+          }
+        ]
+      },
+      {
+        "h": "18–21",
+        "blocks": [
+          {
+            "l": "🍝 마지막 로마 저녁",
+            "t": "free"
+          }
+        ]
+      },
+      {
+        "h": "21–24",
+        "blocks": [
+          {
+            "l": "✈ 귀국 준비",
+            "n": "9/3 FCO 12:50 출발 대비",
+            "t": "move"
+          }
+        ]
+      }
     ]
   },
-  { date:'9/3', dow:'목', country:'✈ 귀국',
-    pills:[{t:'move',l:'✈ 로마→인천'}],
-    slots:[
-      {h:'07–10',blocks:[{t:'move',l:'🚆 레오나르도 익스프레스',n:'테르미니→FCO 32분'}]},
-      {h:'10–13',blocks:[{t:'move',l:'✈ LH4171 FCO 12:50 출발',n:'FCO→MUC 1h 35m'}]},
-      {h:'13–16',blocks:[{t:'move',l:'🔄 뮌헨 MUC 환승 15:55',n:'T2 · 환승 1시간 30분'}]},
-      {h:'16–21',blocks:[{t:'move',l:'✈ LH718 MUC→ICN',n:'11시간 · 9/4 09:55 인천 도착'}]},
-      {h:'21–24',blocks:[{t:'move',l:'✈ 귀국 비행 중'}]},
+  {
+    "date": "9/3",
+    "dow": "목",
+    "country": "✈ 귀국",
+    "pills": [
+      {
+        "l": "🚆 레오나르도 익스프레스",
+        "t": "move"
+      },
+      {
+        "l": "✈ LH4171 FCO 12:50 출발",
+        "t": "move"
+      },
+      {
+        "l": "🔄 뮌헨 MUC 환승 15:55",
+        "t": "move"
+      },
+      {
+        "l": "✈ LH718 MUC→ICN",
+        "t": "move"
+      }
+    ],
+    "slots": [
+      {
+        "h": "07–10",
+        "blocks": [
+          {
+            "l": "🚆 레오나르도 익스프레스",
+            "n": "테르미니→FCO 32분",
+            "t": "move"
+          }
+        ]
+      },
+      {
+        "h": "10–13",
+        "blocks": [
+          {
+            "l": "✈ LH4171 FCO 12:50 출발",
+            "n": "FCO→MUC 1h 35m",
+            "t": "move"
+          }
+        ]
+      },
+      {
+        "h": "13–16",
+        "blocks": [
+          {
+            "l": "🔄 뮌헨 MUC 환승 15:55",
+            "n": "T2 · 환승 1시간 30분",
+            "t": "move"
+          }
+        ]
+      },
+      {
+        "h": "16–21",
+        "blocks": [
+          {
+            "l": "✈ LH718 MUC→ICN",
+            "n": "11시간 · 9/4 09:55 인천 도착",
+            "t": "move"
+          }
+        ]
+      },
+      {
+        "h": "21–24",
+        "blocks": [
+          {
+            "l": "✈ 귀국 비행 중",
+            "t": "move"
+          }
+        ]
+      }
     ]
-  },
+  }
 ];
 
 const SC_WEEKS = [
@@ -2359,13 +3842,595 @@ let sc_selected_pay='unpaid';
 /* SC_MEALS는 배열 인덱스가 아닌 '날짜 문자열'을 키로 사용합니다.
    (인덱스로 저장하면 앞에 새 날짜가 추가될 때마다 다른 날의 식사로 밀려버리는 문제가 있었음) */
 let SC_MEALS={
-  '8/10':{ '아침':[{l:'🏠 출국 전 집에서 아침',t:'meal'}], '점심':[{l:'🍽 기내식 (ICN→FRA)',t:'meal',done:true}], '저녁':[{l:'🥤 기내식 (FRA→AMS)',t:'meal',done:true}] },
-  '8/11':{ '아침':[{l:'🏨 호텔 까사 조식',t:'meal',done:true}], '점심':[{l:'🥪 봉사 중 도시락 · 근처 식당',t:'meal'}], '저녁':[{l:'🍽 숙소 근처 저녁 식사',t:'meal'}] },
-  '8/12':{ '아침':[{l:'🏨 호텔 까사 조식',t:'meal',done:true}], '점심':[{l:'🍽 베델 식당 (제공 여부 확인)',t:'meal'}], '저녁':[{l:'🍽 암스테르담 시내 저녁',t:'meal'}] },
-  '8/13':{ '아침':[{l:'🏨 호텔 까사 조식',t:'meal',done:true}], '점심':[{l:'🥪 개더링 전 간단 식사',t:'meal'}], '저녁':[{l:'🍽 개더링 후 저녁 식사',t:'meal'}] },
-  '8/14':{ '아침':[{l:'🏨 호텔 까사 조식',t:'meal',done:true}], '점심':[{l:'🥪 대회장 매점 · 도시락',t:'meal'}], '저녁':[{l:'🍽 숙소 근처 저녁 식사',t:'meal'}] },
-  '8/15':{ '아침':[{l:'🏨 호텔 까사 조식',t:'meal',done:true}], '점심':[{l:'🥪 대회장 매점 · 도시락',t:'meal'}], '저녁':[{l:'🍽 숙소 근처 저녁 식사',t:'meal'}] },
-  '8/16':{ '아침':[{l:'🏨 호텔 까사 조식',t:'meal',done:true}], '점심':[{l:'🥪 대회장 매점 · 도시락',t:'meal'}], '저녁':[{l:'🍽 숙소 근처 저녁 식사',t:'meal'}] },
+  "8/10": {
+    "아침": [
+      {
+        "l": "🏠 출국 전 집에서 아침",
+        "t": "meal"
+      }
+    ],
+    "저녁": [
+      {
+        "l": "🥤 기내식 (FRA→AMS)",
+        "t": "meal",
+        "done": true
+      }
+    ],
+    "점심": [
+      {
+        "l": "🍽 기내식 (ICN→FRA)",
+        "t": "meal",
+        "done": true
+      }
+    ]
+  },
+  "8/11": {
+    "아침": [
+      {
+        "l": "🏨 호텔 까사 조식",
+        "t": "meal",
+        "done": true
+      }
+    ],
+    "저녁": [
+      {
+        "l": "🍽 숙소 근처 저녁 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 100000
+      }
+    ],
+    "점심": [
+      {
+        "l": "🥪 봉사 중 도시락 · 근처 식당",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 70000
+      }
+    ]
+  },
+  "8/12": {
+    "아침": [
+      {
+        "l": "🏨 호텔 까사 조식",
+        "t": "meal",
+        "done": true
+      }
+    ],
+    "저녁": [
+      {
+        "l": "🍽 암스테르담 시내 저녁",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 100000
+      }
+    ],
+    "점심": [
+      {
+        "l": "🍽 베델 식당 (제공 여부 확인)",
+        "t": "meal",
+        "done": true
+      }
+    ]
+  },
+  "8/13": {
+    "아침": [
+      {
+        "l": "🏨 호텔 까사 조식",
+        "t": "meal",
+        "done": true
+      }
+    ],
+    "저녁": [
+      {
+        "l": "🍽 개더링 후 저녁 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 100000
+      }
+    ],
+    "점심": [
+      {
+        "l": "🥪 개더링 전 간단 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 70000,
+        "done": false
+      }
+    ]
+  },
+  "8/14": {
+    "아침": [
+      {
+        "l": "🏨6:30 호텔 조식",
+        "t": "meal",
+        "done": true
+      }
+    ],
+    "저녁": [
+      {
+        "l": "🍽 숙소 근처 저녁 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 100000
+      }
+    ],
+    "점심": [
+      {
+        "l": "🥪 대회장 · 도시락",
+        "t": "meal",
+        "done": true
+      }
+    ]
+  },
+  "8/15": {
+    "아침": [
+      {
+        "l": "🏨6:30 호텔 조식",
+        "t": "meal",
+        "done": true
+      }
+    ],
+    "저녁": [
+      {
+        "l": "🍽 숙소 근처 저녁 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 100000
+      }
+    ],
+    "점심": [
+      {
+        "l": "🥪 대회장 · 도시락",
+        "t": "meal",
+        "done": true
+      }
+    ]
+  },
+  "8/16": {
+    "아침": [
+      {
+        "l": "🏨6:30 호텔 조식",
+        "t": "meal",
+        "done": true
+      }
+    ],
+    "저녁": [
+      {
+        "l": "🍽 숙소 근처 저녁 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 100000
+      }
+    ],
+    "점심": [
+      {
+        "l": "🥪 대회장 · 도시락",
+        "t": "meal",
+        "done": true
+      }
+    ]
+  },
+  "9/1": {
+    "저녁": [
+      {
+        "l": "🍽 저녁 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 100000
+      }
+    ],
+    "점심": [
+      {
+        "l": "🍽 점심 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 70000
+      }
+    ]
+  },
+  "9/2": {
+    "저녁": [
+      {
+        "l": "🍽 저녁 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 100000
+      }
+    ],
+    "점심": [
+      {
+        "l": "🍽 점심 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 70000
+      }
+    ]
+  },
+  "9/3": {
+    "저녁": [
+      {
+        "l": "🍽 저녁 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 100000
+      }
+    ],
+    "점심": [
+      {
+        "l": "🍽 점심 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 70000
+      }
+    ]
+  },
+  "8/17": {
+    "아침": [
+      {
+        "l": "호텔 까사 조식",
+        "t": "meal",
+        "done": true
+      }
+    ],
+    "저녁": [
+      {
+        "l": "🍽 저녁 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 100000
+      }
+    ],
+    "점심": [
+      {
+        "l": "점심 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 70000
+      }
+    ]
+  },
+  "8/18": {
+    "아침": [
+      {
+        "l": "🏨 호텔 조식",
+        "t": "meal",
+        "done": true
+      }
+    ],
+    "저녁": [
+      {
+        "l": "🍽 저녁 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 100000
+      }
+    ],
+    "점심": [
+      {
+        "l": "점심 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 70000
+      }
+    ]
+  },
+  "8/19": {
+    "아침": [
+      {
+        "l": "숙소 조식",
+        "t": "meal",
+        "done": true
+      }
+    ],
+    "저녁": [
+      {
+        "l": "🍽 저녁 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 100000
+      }
+    ],
+    "점심": [
+      {
+        "l": "🍽 점심 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 70000
+      }
+    ]
+  },
+  "8/20": {
+    "아침": [
+      {
+        "l": "숙소 조식",
+        "t": "meal",
+        "done": true
+      }
+    ],
+    "저녁": [
+      {
+        "l": "🍽 저녁 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 100000
+      }
+    ],
+    "점심": [
+      {
+        "l": "🍽 점심 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 70000
+      }
+    ]
+  },
+  "8/21": {
+    "아침": [
+      {
+        "l": "숙소 조식 확인 필요",
+        "t": "meal"
+      }
+    ],
+    "저녁": [
+      {
+        "l": "🍽 저녁 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 100000
+      }
+    ],
+    "점심": [
+      {
+        "l": "🍽 점심 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 70000
+      }
+    ]
+  },
+  "8/22": {
+    "아침": [
+      {
+        "l": "점심 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 100000
+      }
+    ],
+    "저녁": [
+      {
+        "l": "🍽 저녁 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 100000
+      }
+    ],
+    "점심": [
+      {
+        "l": "🍽 점심 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 70000
+      }
+    ]
+  },
+  "8/23": {
+    "아침": [
+      {
+        "l": "점심 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 100000
+      }
+    ],
+    "저녁": [
+      {
+        "l": "🍽 저녁 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 100000
+      }
+    ],
+    "점심": [
+      {
+        "l": "🍽 점심 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 70000
+      }
+    ]
+  },
+  "8/24": {
+    "저녁": [
+      {
+        "l": "🍽 저녁 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 100000
+      }
+    ],
+    "점심": [
+      {
+        "l": "🍽 점심 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 70000
+      }
+    ]
+  },
+  "8/25": {
+    "저녁": [
+      {
+        "l": "🍽 저녁 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 100000
+      }
+    ],
+    "점심": [
+      {
+        "l": "🍽 점심 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 70000
+      }
+    ]
+  },
+  "8/26": {
+    "저녁": [
+      {
+        "l": "🍽 저녁 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 100000
+      }
+    ],
+    "점심": [
+      {
+        "l": "🍽 점심 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 70000
+      }
+    ]
+  },
+  "8/27": {
+    "저녁": [
+      {
+        "l": "🍽 저녁 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 100000
+      }
+    ],
+    "점심": [
+      {
+        "l": "🍽 점심 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 70000
+      }
+    ]
+  },
+  "8/28": {
+    "저녁": [
+      {
+        "l": "🍽 저녁 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 100000
+      }
+    ],
+    "점심": [
+      {
+        "l": "🍽 점심 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 70000
+      }
+    ]
+  },
+  "8/29": {
+    "저녁": [
+      {
+        "l": "🍽 저녁 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 100000
+      }
+    ],
+    "점심": [
+      {
+        "l": "🍽 점심 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 70000
+      }
+    ]
+  },
+  "8/30": {
+    "저녁": [
+      {
+        "l": "🍽 저녁 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 100000
+      }
+    ],
+    "점심": [
+      {
+        "l": "🍽 점심 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 70000
+      }
+    ]
+  },
+  "8/31": {
+    "저녁": [
+      {
+        "l": "🍽 저녁 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 100000
+      }
+    ],
+    "점심": [
+      {
+        "l": "🍽 점심 식사",
+        "t": "meal",
+        "ccy": "KRW",
+        "pay": "unpaid",
+        "cost": 70000
+      }
+    ]
+  }
 };
 function scMealKey(di){ return (SC_DAYS[di]&&SC_DAYS[di].date)!=null ? SC_DAYS[di].date : di; }
 
@@ -2807,7 +4872,8 @@ function scBlock(t,l,n,di,si,bi){
   const edit=di!==undefined?`onclick="scOpenEditForm(${di},${si},${bi})" title="클릭하여 수정 · 드래그하여 이동"`:'' ;
   const drag=di!==undefined?`draggable="true" ondragstart="scDragStart(event,${di},${si},${bi})" ondragend="scDragEnd(event)"`:'';
   const cb=di!==undefined?`<input type="checkbox" ${isDone?'checked':''} onclick="event.stopPropagation();scToggleDone(${di},${si},${bi})" style="margin-right:5px;margin-top:2px;cursor:pointer;accent-color:#16A34A;flex-shrink:0;width:13px;height:13px">`:'';
-  return `<div ${idAttr} ${edit} ${drag} style="border-radius:6px;padding:6px 10px;font-size:12px;font-weight:500;background:${bg};color:${clr};border-left:3px solid ${bdr};transition:all .15s;display:flex;align-items:flex-start;gap:4px;cursor:grab" onmouseover="this.style.opacity='.75'" onmouseout="this.style.opacity='1'">${cb}<div style="flex:1;word-break:keep-all">${l}${n?`<div style="font-size:10px;color:#6B7280;margin-top:2px;word-break:keep-all">${linkifyText(n)}</div>`:''}${scCostBadge(blk)}</div></div>`;
+  const imgThumb=(blk&&blk.img&&di!==undefined)?`<img src="${blk.img}" onclick="event.stopPropagation();scViewTicketImageAt(${di},${si},${bi})" title="🎫 티켓 이미지 보기" style="width:22px;height:22px;object-fit:cover;border-radius:4px;flex-shrink:0;cursor:zoom-in;border:1px solid rgba(0,0,0,0.15);margin-top:1px">`:'';
+  return `<div ${idAttr} ${edit} ${drag} style="border-radius:6px;padding:6px 10px;font-size:12px;font-weight:500;background:${bg};color:${clr};border-left:3px solid ${bdr};transition:all .15s;display:flex;align-items:flex-start;gap:4px;cursor:grab" onmouseover="this.style.opacity='.75'" onmouseout="this.style.opacity='1'">${cb}${imgThumb}<div style="flex:1;word-break:keep-all">${l}${n?`<div style="font-size:10px;color:#6B7280;margin-top:2px;word-break:keep-all">${linkifyText(n)}</div>`:''}${scCostBadge(blk)}</div></div>`;
 }
 
 /* ── 드래그 & 드롭 (일반 일정 블록 이동) ── */
@@ -3342,6 +5408,58 @@ function scSetPay(p){
   });
 }
 
+/* ── 티켓 이미지 첨부 ── */
+function scReadImageFile(file,cb){
+  const reader=new FileReader();
+  reader.onload=function(e){
+    const img=new Image();
+    img.onload=function(){
+      const maxW=900;
+      const scale=Math.min(1,maxW/img.width);
+      const w=Math.round(img.width*scale), h=Math.round(img.height*scale);
+      const canvas=document.createElement('canvas');
+      canvas.width=w; canvas.height=h;
+      canvas.getContext('2d').drawImage(img,0,0,w,h);
+      cb(canvas.toDataURL('image/jpeg',0.75));
+    };
+    img.src=e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+function scHandleBlockImage(input){
+  const file=input.files&&input.files[0];
+  if(!file) return;
+  scReadImageFile(file,function(dataUrl){
+    document.getElementById('sc-f-img-data').value=dataUrl;
+    document.getElementById('sc-f-img-thumb').src=dataUrl;
+    document.getElementById('sc-f-img-preview').style.display='block';
+  });
+}
+function scRemoveBlockImage(){
+  document.getElementById('sc-f-img-data').value='';
+  document.getElementById('sc-f-img-thumb').src='';
+  document.getElementById('sc-f-img-preview').style.display='none';
+  document.getElementById('sc-f-img-file').value='';
+}
+function scViewTicketImage(src){
+  if(!src) return;
+  let ov=document.getElementById('sc-img-lightbox');
+  if(!ov){
+    ov=document.createElement('div');
+    ov.id='sc-img-lightbox';
+    ov.onclick=function(){ ov.style.display='none'; };
+    ov.style.cssText='display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:3000;align-items:center;justify-content:center;padding:24px;cursor:zoom-out';
+    ov.innerHTML='<img id="sc-img-lightbox-img" style="max-width:100%;max-height:100%;border-radius:8px;box-shadow:0 10px 40px rgba(0,0,0,0.5)">';
+    document.body.appendChild(ov);
+  }
+  document.getElementById('sc-img-lightbox-img').src=src;
+  ov.style.display='flex';
+}
+function scViewTicketImageAt(di,si,bi){
+  const b=SC_DAYS[di]&&SC_DAYS[di].slots[si]&&SC_DAYS[di].slots[si].blocks[bi];
+  if(b&&b.img) scViewTicketImage(b.img);
+}
+
 /* ── 추가 폼 열기 ── */
 function scResetMealMode(){
   document.getElementById('sc-edit-meal-type').value='';
@@ -3361,6 +5479,7 @@ function scOpenAddForm(di,si){
   document.getElementById('sc-f-ccy').value='KRW';
   document.getElementById('sc-f-cost').value='';
   document.getElementById('sc-f-cost-hint').textContent='';
+  scRemoveBlockImage();
   document.getElementById('sc-del-btn').style.display='none';
   document.getElementById('sc-copy-btn').style.display='none';
   scResetMealMode();
@@ -3382,6 +5501,13 @@ function scOpenEditForm(di,si,bi){
   document.getElementById('sc-f-ccy').value=b.ccy||'KRW';
   document.getElementById('sc-f-cost').value=b.cost?Number(b.cost).toLocaleString('en-US',{maximumFractionDigits:2}):'';
   scUpdateCostHint();
+  if(b.img){
+    document.getElementById('sc-f-img-data').value=b.img;
+    document.getElementById('sc-f-img-thumb').src=b.img;
+    document.getElementById('sc-f-img-preview').style.display='block';
+  } else {
+    scRemoveBlockImage();
+  }
   document.getElementById('sc-del-btn').style.display='block';
   document.getElementById('sc-copy-btn').style.display='block';
   scResetMealMode();
@@ -3402,7 +5528,8 @@ function scSaveBlock(){
   const mealType=document.getElementById('sc-edit-meal-type').value;
   const editDay=document.getElementById('sc-edit-day').value;
   const editBlock=document.getElementById('sc-edit-block').value;
-  const newBlock={t:sc_selected_type,l:label,n:note||undefined,cost:cost||undefined,ccy:cost>0?ccy:undefined,pay:cost>0?sc_selected_pay:undefined};
+  const img=document.getElementById('sc-f-img-data').value||undefined;
+  const newBlock={t:sc_selected_type,l:label,n:note||undefined,cost:cost||undefined,ccy:cost>0?ccy:undefined,pay:cost>0?sc_selected_pay:undefined,img:img};
 
   if(mealType){
     /* 식사 블록 저장 */
