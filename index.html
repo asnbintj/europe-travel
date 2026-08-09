@@ -318,14 +318,14 @@
     <div style="background:#fff;border-radius:14px;padding:16px 18px;box-shadow:0 2px 12px rgba(0,0,0,0.07);margin-bottom:16px">
       <div style="font-size:13px;font-weight:700;color:#1A1A2E;margin-bottom:12px">📊 예약 진행 현황</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
-        <span style="background:#DCFCE7;color:#16A34A;padding:4px 12px;border-radius:8px;font-size:12px;font-weight:700">✅ 완료 13건</span>
+        <span style="background:#DCFCE7;color:#16A34A;padding:4px 12px;border-radius:8px;font-size:12px;font-weight:700">✅ 완료 14건</span>
         <span style="background:#FEF3C7;color:#D97706;padding:4px 12px;border-radius:8px;font-size:12px;font-weight:700">⚡ 2달 전 1건</span>
         <span style="background:#F3F4F6;color:#374151;padding:4px 12px;border-radius:8px;font-size:12px;font-weight:700">📋 1달 전 5건</span>
       </div>
       <div style="height:10px;background:#E5E7EB;border-radius:5px;overflow:hidden;margin-bottom:6px">
-        <div style="height:100%;width:68%;background:linear-gradient(90deg,#16A34A,#22C55E);border-radius:5px"></div>
+        <div style="height:100%;width:70%;background:linear-gradient(90deg,#16A34A,#22C55E);border-radius:5px"></div>
       </div>
-      <div style="font-size:11px;color:#9CA3AF;text-align:right">전체 19건 중 13건 완료 (68%)</div>
+      <div style="font-size:11px;color:#9CA3AF;text-align:right">전체 20건 중 14건 완료 (70%)</div>
     </div>
 
     <!-- 확정 예약 요약 -->
@@ -355,6 +355,9 @@
         </div>
         <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#F0FDF4;border-radius:8px;font-size:12px">
           <span>🚂</span><span style="font-weight:600">피사+친퀘테레 당일투어 (8/28) — 트래블마레</span><span style="margin-left:auto;color:#16A34A;font-weight:700;font-size:11px">₩160,000</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:#F0FDF4;border-radius:8px;font-size:12px">
+          <span>📜</span><span style="font-weight:600">로마 인문학 지식투어 (8/30 08:30~) — 마이리얼트립</span><span style="margin-left:auto;color:#16A34A;font-weight:700;font-size:11px">EXP-20260809-00010373</span>
         </div>
         <div id="dash-hotel-list" style="display:contents"></div>
       </div>
@@ -993,11 +996,12 @@
         <div class="tl-date">8/29–9/2</div>
         <div class="tl-card" style="border-left-color:var(--italy-north)">
           <h3>🇮🇹 로마 (5박) — Room Santa Maria Maggiore</h3>
-          <p>피렌체 → 로마 기차 (약 1.5시간, 8/29 저녁 이동·체크인). 콜로세움, 바티칸, 트레비 분수, 판테온. 9/3 아침 공항 이동.</p>
+          <p>피렌체 → 로마 기차 (약 1.5시간, 8/29 저녁 이동·체크인). 8/30 08:30~15:30 로마 인문학 지식투어(콜로세움·개선문·포로 로마노·캄피돌리오·베네치아 광장·판테온·이냐시오 성당·트레비 분수·스페인 광장). 8/31 바티칸. 9/1 콜로세움 내부 입장. 9/3 아침 공항 이동.</p>
           <div class="tl-meta">
             <span class="badge ok">✅ 숙소 예약완료 (아고다 · 1747146622)</span>
+            <span class="badge ok">✅ 인문학 지식투어 예약완료 (8/30 · EXP-20260809-00010373)</span>
             <span class="badge urgent">바티칸 박물관 사전 예약</span>
-            <span class="badge urgent">콜로세움 사전 예약</span>
+            <span class="badge urgent">콜로세움 내부 입장 사전 예약 (9/1)</span>
           </div>
         </div>
       </div>
@@ -1509,7 +1513,7 @@
             { id: 'tgv',     icon: '🚄', iconBg: '#9B59B6', label: 'TGV Lyria PAR→바젤 SBB', sub: '8/22 · 10:22→13:26 · LKL82J · Coach 13', defaultUrl: 'https://www.sncf-connect.com', status: 'done' },
             { id: 'sbb',     icon: '🚄', iconBg: '#EB0000', label: 'SBB 취리히→밀라노', sub: '8/26 · 루가노 경유', defaultUrl: 'https://www.sbb.ch/en', status: 'need' },
             { id: 'tre-mfl', icon: '🚄', iconBg: '#009246', label: 'Trenitalia 밀라노→피렌체', sub: '8/27 · 고속열차', defaultUrl: 'https://www.trenitalia.com', status: 'need' },
-            { id: 'tre-fro', icon: '🚄', iconBg: '#009246', label: 'Trenitalia 피렌체→로마', sub: '8/30 · 프레차로사', defaultUrl: 'https://www.trenitalia.com', status: 'need' }
+            { id: 'tre-fro', icon: '🚄', iconBg: '#009246', label: 'Trenitalia 피렌체→로마', sub: '8/29 · 프레차로사', defaultUrl: 'https://www.trenitalia.com', status: 'need' }
           ]
         },
         {
@@ -1527,6 +1531,7 @@
             { id: 'mpass',   icon: '🎫', iconBg: '#0D9488', label: '파리 뮤지엄 패스 (2일권 ×2)', sub: '인천공항 수령 8/10 10:00 · ₩340,000', defaultUrl: 'https://www.myrealtrip.com/promotions/Museumpass_airport', status: 'done' },
             { id: 'esim',    icon: '📶', iconBg: '#0EA5E9', label: '유럽 eSIM (36개국, 로컬망 30일 2GB/일 ×2)', sub: '예약확정', defaultUrl: '', status: 'done' },
             { id: 'cinque',  icon: '🚂', iconBg: '#EA580C', label: '피사+친퀘테레 당일투어 (8/28)', sub: '트래블마레 · 주문번호 267202570548 · ₩160,000(2인)', defaultUrl: '', status: 'done' },
+            { id: 'humanities', icon: '📜', iconBg: '#B45309', label: '로마 인문학 지식투어 (8/30)', sub: '마이리얼트립 · EXP-20260809-00010373 · 08:30 로마 테르미니(LUSH) · 7시간 · 한국어', defaultUrl: 'https://www.myrealtrip.com/', status: 'done' },
             { id: 'louvre',  icon: '🏛', iconBg: '#704214', label: '루브르 박물관', sub: 'ticketlouvre.fr · 8/19 14:00', defaultUrl: 'https://www.ticketlouvre.fr', status: 'done' },
             { id: 'vatican', icon: '⛪', iconBg: '#FFD700', label: '바티칸 박물관', sub: 'museivaticani.va · 로마', defaultUrl: 'https://www.museivaticani.va', status: 'warn' },
             { id: 'versail', icon: '🏰', iconBg: '#C9A84C', label: '베르사유 궁전 (8/19)', sub: 'châteauversailles.fr · 10:30 입장 · Porte A(뒤푸르관) · 무료입장권 · 거래번호 199741115', defaultUrl: 'https://www.chateauversailles.fr', status: 'done' },
@@ -1666,15 +1671,15 @@
       <div style="margin-top:16px;background:#fff;border-radius:12px;padding:14px 18px;box-shadow:0 2px 8px rgba(0,0,0,0.06);display:flex;align-items:center;gap:16px;flex-wrap:wrap">
         <div style="font-size:12px;font-weight:700;color:#1A1A2E">📊 예약 진행 현황</div>
         <div style="display:flex;gap:10px;flex-wrap:wrap">
-          <span style="display:flex;align-items:center;gap:5px;font-size:12px"><span style="background:#DCFCE7;color:#16A34A;padding:2px 8px;border-radius:6px;font-weight:700">✅ 완료 8건</span></span>
+          <span style="display:flex;align-items:center;gap:5px;font-size:12px"><span style="background:#DCFCE7;color:#16A34A;padding:2px 8px;border-radius:6px;font-weight:700">✅ 완료 9건</span></span>
           <span style="display:flex;align-items:center;gap:5px;font-size:12px"><span style="background:#FEF3C7;color:#D97706;padding:2px 8px;border-radius:6px;font-weight:700">⚡ 2달 전 2건</span></span>
           <span style="display:flex;align-items:center;gap:5px;font-size:12px"><span style="background:#F3F4F6;color:#374151;padding:2px 8px;border-radius:6px;font-weight:700">📋 1달 전 5건</span></span>
         </div>
         <div style="margin-left:auto">
           <div style="height:8px;width:180px;background:#E5E7EB;border-radius:4px;overflow:hidden">
-            <div style="height:100%;width:53%;background:linear-gradient(90deg,#16A34A,#22C55E);border-radius:4px"></div>
+            <div style="height:100%;width:56%;background:linear-gradient(90deg,#16A34A,#22C55E);border-radius:4px"></div>
           </div>
-          <div style="font-size:10px;color:#9CA3AF;margin-top:3px;text-align:right">전체 15건 중 8건 완료 (53%)</div>
+          <div style="font-size:10px;color:#9CA3AF;margin-top:3px;text-align:right">전체 16건 중 9건 완료 (56%)</div>
         </div>
       </div>
     </div>
@@ -1700,6 +1705,10 @@
         <div class="check-item">
           <input type="checkbox" id="c-cinque" checked><label for="c-cinque" style="text-decoration:line-through;color:#9CA3AF">피사+친퀘테레 당일투어 예약 (8/28) — 트래블마레</label>
           <span class="priority p-low" style="background:#DCFCE7;color:#16A34A">✅ ₩160,000</span>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="c-humanities" checked><label for="c-humanities" style="text-decoration:line-through;color:#9CA3AF">로마 인문학 지식투어 예약 (8/30, 08:30~) — 마이리얼트립</label>
+          <span class="priority p-low" style="background:#DCFCE7;color:#16A34A">✅ EXP-20260809-00010373</span>
         </div>
         <div class="check-item">
           <input type="checkbox" id="c4" checked><label for="c4" style="text-decoration:line-through;color:#9CA3AF">밀라노 숙소 (8/26~27, 1박) — 아고다</label>
@@ -1880,7 +1889,7 @@
           <tr><td rowspan="4"><b>🇮🇹 로마</b></td><td>콜로세움 + 로마 포럼</td><td>유적</td><td>3~4h</td><td>€18</td><td><span class="badge urgent">사전 예약</span></td></tr>
           <tr><td>바티칸 박물관 + 시스티나</td><td>미술관</td><td>3~4h</td><td>€20</td><td><span class="badge urgent">사전 예약</span></td></tr>
           <tr><td>트레비 분수</td><td>랜드마크</td><td>30분</td><td>€2 (입장)</td><td>—</td></tr>
-          <tr><td>판테온</td><td>유적</td><td>1h</td><td>€5</td><td><span class="badge ok">현장 가능</span></td></tr>
+          <tr><td>판테온</td><td>유적</td><td>1h</td><td>€7 (2026.7~ 인상)</td><td><span class="badge ok">현장 가능</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -3422,6 +3431,10 @@ const SC_DAYS = [
     "country": "🇮🇹 피렌체→로마 이동",
     "pills": [
       {
+        "l": "🏨 피렌체 체크아웃",
+        "t": "move"
+      },
+      {
         "l": "⛪ 두오모 쿠폴라 클라이밍",
         "t": "tour"
       },
@@ -3430,14 +3443,21 @@ const SC_DAYS = [
         "t": "tour"
       },
       {
-        "l": "🥩 비스테카 알라 피오렌티나",
-        "t": "free"
+        "l": "🏨 로마 체크인",
+        "t": "confirmed"
       }
     ],
     "slots": [
       {
         "h": "07–09",
-        "blocks": []
+        "blocks": [
+          {
+            "l": "🏨 피렌체 체크아웃",
+            "n": "짐 보관 후 관광 (체크아웃일)",
+            "t": "move",
+            "loc": "Designer Apartments in Florence, Firenze, Italy"
+          }
+        ]
       },
       {
         "h": "09–12",
@@ -3475,15 +3495,28 @@ const SC_DAYS = [
         "h": "18–21",
         "blocks": [
           {
-            "l": "🥩 비스테카 알라 피오렌티나",
-            "n": "피렌체 명물 T본 스테이크",
-            "t": "free"
+            "l": "🚄 피렌체→로마",
+            "n": "프레차로사 약 1.5시간 · 저녁 이동",
+            "t": "move"
+          },
+          {
+            "l": "🏨 로마 체크인",
+            "n": "예약번호 1747146622 · 룸 산타 마리아 마조레 · 아고다",
+            "t": "confirmed",
+            "loc": "Via Giovanni Amendola, 77, 00185 Roma, Italy",
+            "done": true
           }
         ]
       },
       {
         "h": "21–24",
-        "blocks": []
+        "blocks": [
+          {
+            "l": "🍽 로마 첫 저녁 · 자유시간",
+            "n": "내일 08:30 인문학 투어 대비 일찍 휴식",
+            "t": "free"
+          }
+        ]
       }
     ]
   },
@@ -3493,19 +3526,19 @@ const SC_DAYS = [
     "country": "🇮🇹 로마",
     "pills": [
       {
-        "l": "🏨 피렌체 체크아웃",
-        "t": "move"
+        "l": "🚶 로마 인문학 지식투어",
+        "t": "tour"
       },
       {
-        "l": "🚄 피렌체→로마",
-        "t": "move"
+        "l": "🏟 콜로세움 · 포로 로마노",
+        "t": "tour"
       },
       {
-        "l": "🏨 로마 체크인",
-        "t": "confirmed"
+        "l": "🏛 판테온",
+        "t": "tour"
       },
       {
-        "l": "🏛 판테온 · 나보나 광장",
+        "l": "⛲ 트레비 · 스페인 광장",
         "t": "tour"
       }
     ],
@@ -3514,9 +3547,11 @@ const SC_DAYS = [
         "h": "07–09",
         "blocks": [
           {
-            "l": "🏨 피렌체 체크아웃",
-            "t": "move",
-            "loc": "Designer Apartments in Florence, Firenze, Italy"
+            "l": "🚶 인문학 지식투어 만남",
+            "n": "08:30 · LUSH Cosmetics Roma Termini(24번 플랫폼 앞) · 마이리얼트립 EXP-20260809-00010373 · 한국어 가이드 · 최소 1인 · 7시간 소요",
+            "t": "confirmed",
+            "loc": "Roma Termini, Rome, Italy",
+            "done": true
           }
         ]
       },
@@ -3524,9 +3559,28 @@ const SC_DAYS = [
         "h": "09–12",
         "blocks": [
           {
-            "l": "🚄 피렌체→로마",
-            "n": "프레차로사 약 1.5시간",
-            "t": "move"
+            "l": "🏟 콜로세움 (외관)",
+            "n": "60분 · 검투사 경기장, 로마제국이 이 건물을 지은 이유",
+            "t": "tour",
+            "loc": "Colosseum, Rome, Italy"
+          },
+          {
+            "l": "🏛 콘스탄티누스 개선문",
+            "n": "20분 · 가톨릭 공인 뒤에 숨은 정치적 배경",
+            "t": "tour",
+            "loc": "Arch of Constantine, Rome, Italy"
+          },
+          {
+            "l": "🏛 무솔리니의 제국로 · 포로 로마노",
+            "n": "30분 · 로마의 심장부와 무솔리니의 현대사",
+            "t": "tour",
+            "loc": "Roman Forum, Rome, Italy"
+          },
+          {
+            "l": "🏛 캄피돌리오 광장",
+            "n": "30분 · 미켈란젤로가 설계한 로마의 '머리'",
+            "t": "tour",
+            "loc": "Piazza del Campidoglio, Rome, Italy"
           }
         ]
       },
@@ -3534,11 +3588,19 @@ const SC_DAYS = [
         "h": "12–14",
         "blocks": [
           {
-            "l": "🏨 로마 체크인",
-            "n": "예약번호 1742335909",
-            "t": "confirmed",
-            "loc": "Via Giovanni Amendola, 77, 00185 Roma, Italy",
-            "done": true
+            "l": "🏛 베네치아 광장",
+            "n": "30분 · 이탈리아 통일과 무솔리니 현대사",
+            "t": "tour",
+            "loc": "Piazza Venezia, Rome, Italy"
+          },
+          {
+            "l": "🏛 판테온",
+            "n": "90분 · 고대 로마의 종교의 자유 · 성인 €7 입장료 불포함(2026.7~ 인상, 미성년자 무료)",
+            "t": "tour",
+            "ccy": "EUR",
+            "loc": "Pantheon, Rome, Italy",
+            "pay": "unpaid",
+            "cost": 7
           }
         ]
       },
@@ -3546,13 +3608,22 @@ const SC_DAYS = [
         "h": "14–18",
         "blocks": [
           {
-            "l": "🏛 판테온 · 나보나 광장",
-            "n": "판테온 €5",
+            "l": "⛪ 이냐시오 성당",
+            "n": "30분 · 압도적인 내부와 천장화, 무료입장",
             "t": "tour",
-            "ccy": "EUR",
-            "loc": "Pantheon, Rome, Italy",
-            "pay": "unpaid",
-            "cost": 5
+            "loc": "Chiesa di Sant'Ignazio di Loyola, Rome, Italy"
+          },
+          {
+            "l": "⛲ 트레비 분수",
+            "n": "30분 · 르네상스~바로크 조각의 정수, 동전 던지기 전설",
+            "t": "tour",
+            "loc": "Trevi Fountain, Rome, Italy"
+          },
+          {
+            "l": "🏛 스페인 광장",
+            "n": "30분 · 투어 종료 지점 (약 15:00~15:30 종료 예상)",
+            "t": "tour",
+            "loc": "Spanish Steps, Rome, Italy"
           }
         ]
       },
@@ -3560,13 +3631,9 @@ const SC_DAYS = [
         "h": "18–21",
         "blocks": [
           {
-            "l": "⛲ 트레비 분수",
-            "n": "€2 · 야간 뷰 추천",
-            "t": "tour",
-            "ccy": "EUR",
-            "loc": "Trevi Fountain, Rome, Italy",
-            "pay": "unpaid",
-            "cost": 2
+            "l": "🍽 자유 저녁 · 쇼핑",
+            "n": "점심 식사비(1인 €15~20)·대중교통비(€1.5×2회)·여행자보험은 투어 불포함, 개인 부담",
+            "t": "free"
           }
         ]
       },
@@ -4632,10 +4699,9 @@ const LOCAL_COST_FILLINS=[
   {match:'오르세 미술관', cost:16, ccy:'EUR'},
   {match:'우피치 미술관', cost:20, ccy:'EUR'},
   {match:'두오모 쿠폴라 클라이밍', cost:30, ccy:'EUR'},
-  {match:'판테온', cost:5, ccy:'EUR'},
-  {match:'트레비 분수', cost:2, ccy:'EUR'},
+  {match:'판테온', cost:7, ccy:'EUR'},
   {match:'바티칸 박물관', cost:20, ccy:'EUR'},
-  {match:'콜로세움', cost:18, ccy:'EUR'},
+  {match:'콜로세움 · 로마 포럼', cost:18, ccy:'EUR'},
 ];
 function scFillKnownLocalCosts(){
   var changed=false;
@@ -5694,7 +5760,7 @@ const SC_MAP_QUERIES={
   '8/27':'Ponte Vecchio, Firenze, Italy',
   '8/28':['Pisa, Italy','Cinque Terre, Italy'],
   '8/29':['Uffizi Gallery, Firenze, Italy','Via Giovanni Amendola, 77, 00185 Roma, Italy'],
-  '8/30':'Trevi Fountain, Roma, Italy',
+  '8/30':['Colosseum, Rome, Italy','Pantheon, Rome, Italy','Trevi Fountain, Roma, Italy','Spanish Steps, Rome, Italy'],
   '8/31':'Vatican Museums, Roma, Italy',
   '9/1':'Colosseo, Roma, Italy',
   '9/2':'Roma, Italy',
